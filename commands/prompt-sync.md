@@ -54,7 +54,7 @@ echo "[prompt-sync] v5.1.0 ROOT=$ROOT LIVE_VAULT=${LIVE_VAULT:-<none>}"
 
 # 1) 전체 미러 — 전용 prompt-engineering-skills 디렉터리만 --delete (부모 존재 가드)
 MIRRORS=("$ROOT/AI_Second_Brain/050-Prompt-Engineering/prompt-engineering-skills/")
-[ -n "${LIVE_VAULT:-}" ] && MIRRORS+=("$LIVE_VAULT/AI_Second_Brain/050-Prompt-Engineering/prompt-engineering-skills/")
+[ -n "${LIVE_VAULT:-}" ] && MIRRORS+=("$LIVE_VAULT/050-Prompt-Engineering/prompt-engineering-skills/")   # vault 루트 상대 (AI_Second_Brain prefix ❌ — 2026-06-10 중첩미러 fix)
 [ ${#EXTRA_MIRRORS[@]} -gt 0 ] && MIRRORS+=("${EXTRA_MIRRORS[@]}")
 for T in "${MIRRORS[@]}"; do
   if [ -d "$(dirname "$T")" ]; then

@@ -1,9 +1,10 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.7.1 | **Updated**: 2026-05-02
+> **Version**: 2.8.0 | **Updated**: 2026-06-10
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
-> **Opus 4.7 / 4.6 공식 소스**: [platform.claude.com/docs — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) — **Opus 4.7과 4.6 모두 first-class 지원** (사용자 명시 시 4.6 코드 패턴 적용)
+> **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
+> **Opus 4.7 / 4.6 공식 소스 (구세대 first-class)**: [platform.claude.com/docs — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) — 사용자 명시 시 4.7/4.6 코드 패턴 적용
 > **GPT-5.5 공식 가이드**: 2026-04 발표 — [GPT-5.5 prompt guide](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) (outcome-first markdown 6섹션). GPT-5.4의 XML 12블록 stack과 **다른 패턴**이라 모델별 라우팅 적용.
 
 AI 모델별로 최적화된 프롬프트를 생성합니다.
@@ -72,7 +73,7 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
 | 위치 | 값 예시 | 설명 |
 |------|--------|------|
 | `--batch` | (필수 플래그) | 인터랙티브 우회 신호 |
-| 1번째 토큰 | `Claude` / `GPT-5.2` / `GPT-5.4` / `GPT-5.5` / `Gemini` / `gpt-image` / `Gemini-Image` / `Seedream` | 타겟 모델 (모델별 최적화 블록 결정). `Claude`는 Opus 4.7 기본(adaptive thinking + effort=xhigh), `GPT-5.5`는 GPT-5.4 파라미터 계승 (API 미공개, Codex/ChatGPT 전용). 이미지 모델(`gpt-image`/`Gemini-Image`/`Seedream`) 지정 시 Step 5의 텍스트 모델 블록은 스킵하고 `prompt-engineering-guide.md`의 JSON 구조만 생성 |
+| 1번째 토큰 | `Claude` / `GPT-5.2` / `GPT-5.4` / `GPT-5.5` / `Gemini` / `gpt-image` / `Gemini-Image` / `Seedream` | 타겟 모델 (모델별 최적화 블록 결정). `Claude`는 **Opus 4.8 기본**(adaptive thinking + effort=xhigh; 4.7/4.6/Fable 5는 명시 시), `GPT-5.5`는 GPT-5.4 파라미터 계승 (API 미공개, Codex/ChatGPT 전용). 이미지 모델(`gpt-image`/`Gemini-Image`/`Seedream`) 지정 시 Step 5의 텍스트 모델 블록은 스킵하고 `prompt-engineering-guide.md`의 JSON 구조만 생성 |
 | 2번째 토큰 | `간결` / `보통` / `상세` | 프롬프트 상세도 |
 | 나머지 | 자유 텍스트 | 워커가 수행할 핵심 지시문 (목적 자동 감지) |
 
@@ -183,12 +184,12 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
-| **코딩/개발** | **Claude Opus 4.7** (2026-04-16, `xhigh` effort) | GPT-5.5 Codex (2026-04-23) | GPT-5.2 / Gemini 3 Pro / **Opus 4.6** (안정성·기존 코드) |
-| **수학/논리** | GPT-5.2 | Gemini 3 Flash | Claude Opus 4.7 / 4.6 |
-| **글쓰기/창작** | Gemini 3 Pro | Gemini 3 Flash | Claude Opus 4.7 / 4.6 |
-| **종합/분석** | Gemini 3 Pro | Grok 4.1 | Claude Opus 4.7 / 4.6 |
-| **Hard Prompts** | **Claude Opus 4.7** | Gemini 3 Pro | Grok 4.1 / **Opus 4.6** (회귀 위험 낮음) |
-| **에이전틱 (1M context)** | **Claude Opus 4.7** (adaptive thinking + `task_budget`) | GPT-5.5 Codex (Browser Use) | GPT-5.4 / **Opus 4.6** (200K로 충분 시) |
+| **코딩/개발** | **Claude Opus 4.8** (2026-05, `xhigh` effort) | GPT-5.5 Codex (2026-04-23) | **Fable 5** (최고난도·장기 자율) / Opus 4.7 (안정성·기존 코드) |
+| **수학/논리** | GPT-5.2 | Gemini 3 Flash | Claude Opus 4.8 / 4.7 |
+| **글쓰기/창작** | Gemini 3 Pro | Gemini 3 Flash | Claude Opus 4.8 / 4.7 |
+| **종합/분석** | Gemini 3 Pro | Grok 4.1 | Claude Opus 4.8 / 4.7 |
+| **Hard Prompts** | **Claude Opus 4.8** | **Claude Fable 5** (가장 어려운 미해결 문제) | Gemini 3 Pro / Grok 4.1 |
+| **에이전틱 (1M context)** | **Claude Opus 4.8** (1M 기본, adaptive thinking) | **Fable 5** (며칠 단위 자율 run·병렬 서브에이전트) | GPT-5.5 Codex (Browser Use) |
 | **비전/멀티모달** | Gemini 3 Pro | Gemini 3 Flash | GPT-5.1 |
 | **이미지 생성** | **gpt-image-2** (OpenAI, 2026-04) [⭐ NEW] | Gemini 3.1 Flash Image (NB2) | Gemini 3 Pro Image |
 | **이미지 편집** | **gpt-image-2** (ChatGPT) — identity/geometry/layout 보존 강점 | Gemini 3 Pro Image | Seedream 4.5 |
@@ -282,20 +283,24 @@ no blemishes, no oily skin, no watermark, no text
 
 ---
 
-## 🧠 Claude Opus 4.7 / 4.6 핵심 원칙 (v2.7.0 — 2026-04-30)
+## 🧠 Claude Opus 4.8 / Fable 5 / 4.7 / 4.6 핵심 원칙 (v2.8.0 — 2026-06-10)
 
-> **출처**: [platform.claude.com — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) (2026-04-16 공식)
-> **적용**: Claude 타겟 감지 시 자동으로 아래 블록을 프롬프트에 반영. **Opus 4.7과 4.6 모두 first-class** — 사용자가 4.6 명시하면 4.6 코드 패턴 사용 (4.7 마이그레이션 강요 금지).
+> **출처 (신)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
+> **출처 (구)**: [Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4)
+> **적용**: Claude 타겟 감지 시 자동으로 아래 블록을 프롬프트에 반영. **디폴트 = Opus 4.8**. 구세대(4.7/4.6) first-class 유지 — 사용자 명시 시 해당 코드 패턴 사용 (마이그레이션 강요 금지).
 
-### 🔀 Opus 4.7 vs 4.6 라우팅 (디폴트: 4.7, 명시 시 4.6)
+### 🔀 Claude 모델 라우팅 (디폴트: Opus 4.8)
 
 | 사용자 표현 | 적용 모델 | 코드 패턴 |
 |------------|----------|----------|
-| "Opus 4.7", "최신 Opus", "claude-opus-4-7" | **Opus 4.7** | adaptive thinking + xhigh + task_budget |
-| "Opus 4.6", "이전 Opus", "기존 Opus", "claude-opus-4-6" | **Opus 4.6** | budget_tokens 사용 가능, temperature/top_p OK, prefill OK |
-| "비용 절감 Opus", "안정성 우선 Opus" | **Opus 4.6** | 회귀 위험 낮음, 200K context |
-| Opus 모델 미지정 + 일반 작업 | **Opus 4.7** (디폴트) | 신규 effort + task_budget |
-| 기존 4.6 프롬프트 마이그레이션 의뢰 | **Opus 4.6 유지** + 4.7 회귀 매트릭스 안내 | 사용자 결정 후 전환 |
+| Claude 모델 미지정 + 일반 작업 | **Opus 4.8** (디폴트) | adaptive thinking + effort(xhigh 코딩 기본) + **1M context 기본** |
+| "Fable 5", "최신 Claude", "claude-fable-5" | **Fable 5** | adaptive thinking 전용·summarized-only·extended thinking budget ❌ — 최고난도·장기 자율 run·병렬 서브에이전트. `skills/claude-fable-5-prompt-strategies.md` |
+| "Opus 4.8", "claude-opus-4-8" | **Opus 4.8** | 위 디폴트 동일. literal 해석·effort 엄수·코드리뷰 coverage 프롬프트 |
+| "Opus 4.7", "claude-opus-4-7" | **Opus 4.7** | adaptive thinking + xhigh + task_budget |
+| "Opus 4.6", "이전 Opus", "claude-opus-4-6" | **Opus 4.6** | budget_tokens 사용 가능, temperature/top_p OK, prefill OK |
+| 기존 4.6/4.7 프롬프트 마이그레이션 의뢰 | **현 모델 유지** + 회귀 매트릭스 안내 | 사용자 결정 후 전환 |
+
+**Opus 4.8 핵심 차이 (4.7 대비)**: 1M context 기본(MS Foundry 200k) · verbosity 자동 조정 · 더 literal한 해석 · 도구 사용 보수적(effort↑로 보정) · 서브에이전트 스폰 보수적(명시 가이드) · 진행 보고 자체 개선("N tool call마다 요약" 스캐폴딩 제거) · 코드리뷰 recall 함정(coverage/filter 분리 프롬프트). **Fable 5 추가 차이**: 지시 따르기 강화 → **장문 열거 프롬프트 다이어트**, reasoning 재출력 지시 = refusal 위험.
 
 **4.6 → 4.7 전환 전 필수 회귀 체크**: `prompt-engineering-guide.md` Part 0.5 회귀 매트릭스 10개 항목 통과 후에만 전환.
 
@@ -323,7 +328,7 @@ no blemishes, no oily skin, no watermark, no text
 **코드 예시 (공식)**:
 ```python
 client.messages.create(
-    model="claude-opus-4-7",
+    model="claude-opus-4-8",   # 디폴트 (4.7 명시 시 claude-opus-4-7)
     max_tokens=64000,
     thinking={"type": "adaptive"},
     output_config={"effort": "xhigh"},
@@ -694,9 +699,9 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
     "header": "AI 모델",
     "multiSelect": false,
     "options": [
-      {"label": "Claude Opus 4.7 (Recommended)", "description": "코딩 1위 (2026-04-16), Adaptive Thinking + effort=xhigh, 1M context, 128K output"},
+      {"label": "Claude Opus 4.8 (Recommended)", "description": "디폴트 (2026-06-10~), Adaptive Thinking + effort=xhigh, 1M context 기본"},
+      {"label": "Claude Fable 5", "description": "최고난도·장기 자율 run·병렬 서브에이전트 — 프롬프트 다이어트 원칙"},
       {"label": "GPT-5.5 (Codex/ChatGPT)", "description": "2026-04-23 출시, Browser Use + Auto-approval, API 미공개"},
-      {"label": "GPT-5.4", "description": "API 사용 가능 최고 — reasoning.effort + verbosity + Phase"},
       {"label": "Gemini 3 Pro", "description": "멀티모달 + Grounding Search 강점"}
     ]
   },
@@ -1329,6 +1334,8 @@ Style Rules:
 |------|-----------------|
 | **GPT-5.5** (공식 outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `prompt-engineering-guide.md` |
 | GPT-5.2/5.4 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. **상세**: `prompt-engineering-guide.md` 하단 Legacy 섹션 |
+| **Claude Opus 4.8 (디폴트)** | 4.7 블록 동일 + literal 해석 범위 명시("every section") + 코드리뷰는 coverage/filter 분리 프롬프트 + 디자인은 구체 스펙 또는 "4방향 제안" 패턴. `thinking: {type: "adaptive"}` + `effort: "xhigh"`(코딩) |
+| **Claude Fable 5** | **장문 열거 ❌ — 짧은 지시 1개씩** (brevity·체크포인트·grounding·경계 스니펫은 `skills/claude-fable-5-prompt-strategies.md`). reasoning 재출력 지시 금지(refusal). adaptive thinking 전용 |
 | Claude Opus 4.7 | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<default_to_action>`, `<explicit_scope>` (리터럴 해석 대응), `thinking: {type: "adaptive"}` + `output_config: {effort: "xhigh"}` |
 | Claude Opus 4.6 (레거시) | `<default_to_action>` (Adaptive Thinking 자동) |
 | Gemini 3 | Constraints 최상단 |
@@ -1764,7 +1771,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 → $ARGUMENTS 분석 후 즉시 프롬프트 생성 + 개선 옵션 제시
 
 /prompt Claude로 블로그 글 작성용 프롬프트 만들어줘
-→ Claude Opus 4.7 + 글쓰기 목적으로 즉시 생성 + 개선 옵션 제시
+→ Claude Opus 4.8 (디폴트) + 글쓰기 목적으로 즉시 생성 + 개선 옵션 제시
 
 /prompt 코딩용 프롬프트 만들어줘
 → LMArena 순위 기반 최적 모델로 즉시 생성 + 개선 옵션 제시
@@ -1774,8 +1781,12 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.6.0
-- **Updated**: 2026-04-30
+- **Version**: 2.8.0
+- **Updated**: 2026-06-10
+- **Changes v2.8.0** (2026-06-10):
+  - **[MAJOR] Claude 디폴트 = Opus 4.8 격상**: 라우팅 디폴트 4.7 → **4.8** (1M context 기본). Fable 5 명시 라우팅 신설. 공식 가이드 2종([Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8)·[Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5)) 반영
+  - **[MAJOR] `skills/claude-fable-5-prompt-strategies.md` 신규**: Fable 5·Opus 4.8 전략 (프롬프트 다이어트 원칙·grounding 스니펫·reasoning 재출력 금지·코드리뷰 coverage/filter 분리)
+  - **[MEDIUM] 추천 모델 표·AskUserQuestion 옵션·모델별 필수 블록에 4.8/Fable 5 반영** (4.7/4.6 first-class 유지)
 - **Changes v2.6.0** (2026-04-30):
   - **[MAJOR] GPT-5.5 공식 outcome-first 가이드 반영**: [GPT-5.5 Prompt Guidance](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) 2026-04 발표. XML 12블록 stack → Markdown 6섹션 (Role / Personality / Goal / Success Criteria / Constraints / Output / Stop Rules) 전환
   - **[MAJOR] prompt-engineering-guide.md 신규 스킬 추가** (v1.0.0): 6개 핵심 블록 정의(outcome_first_structure, personality_and_collaboration, constraints_block, output_contract, stop_rules, validation_rules) + Migration 매핑 + Anti-patterns

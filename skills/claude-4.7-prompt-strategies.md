@@ -1,5 +1,6 @@
 # Claude 프롬프트 전략
 
+> **⚠️ 최신 모델 (Opus 4.8 · Fable 5) = `claude-fable-5-prompt-strategies.md` 참조** — 2026-06-10부터 Claude 디폴트는 Opus 4.8. 본 파일은 4.7 이하 구세대 first-class 지원용으로 유지.
 > **Version**: 3.2.0 | **Updated**: 2026-04-30
 > **Source**: Anthropic 공식 문서 ([platform.claude.com — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Migration](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) + [Adaptive Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Extended Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking))
 > **Covers**: **Opus 4.7** (2026-04-16 신규), **Opus 4.6** (first-class 유지), **Sonnet 4.6** (4.5 대비 effort 기본값 변경), Opus 4.5, Sonnet 4.5, Haiku 4.5
