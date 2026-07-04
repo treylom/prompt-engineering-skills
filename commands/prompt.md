@@ -1,6 +1,6 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.8.0 | **Updated**: 2026-06-10
+> **Version**: 2.9.0 | **Updated**: 2026-07-05 — ①템플릿 로드 게이트 전역 승격(사용자 피드백 반영("리서치/팩트체크 템플릿 미로드" 회귀 수정)) ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조(strategies v1.2.0 — delta 3건 반영, 나머지 정합 확인)
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
 > **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
@@ -55,6 +55,18 @@ $ARGUMENTS
 ### 실행 트리거 (ONLY THESE)
 - "1번" 또는 "바로 실행" → 작업 실행
 - "이 프롬프트로 만들어줘" → 작업 실행
+
+### 🚨 템플릿 로드 게이트 (v2.9.0 — 2026-07-05 사용자 피드백 반영 · 인터랙티브·batch 공통, 기존 batch 전용 지시의 전역 승격)
+
+**리서치/팩트체크/이미지 목적 감지 = 프롬프트 생성 전 첫 행동이 `prompt-engineering-guide.md` 해당 섹션 Read다.** 게이트를 건너뛰고 일반 XML로 자체 생성 = 형식 격하(회귀: batch 절에만 지시가 있어 인터랙티브 흐름에서 반복 스킵).
+
+| 목적 | 로드할 섹션 (⚠️ 전체 통독 ❌ — 파일 257KB) | 방법 |
+|------|------|------|
+| 팩트체크 | IFCN 베이스 템플릿(LoopFactChecker / QuickFactCheck) | `grep -n` 으로 위치 확인 → 해당 offset 부분 Read |
+| 리서치/조사 | StructuredResearch_v1.0 템플릿 | 동일 (grep → 부분 Read) |
+| 이미지 | JSON 구조(purpose/hero/context/evidence/constraints)+Visual Re-description | 동일 |
+
+**자가진단(산출 직전)**: 생성한 프롬프트에 베이스 템플릿 구조(IFCN 단계 / StructuredResearch 섹션 / 이미지 JSON 골격)가 실제로 들어있나? 없으면 게이트 스킵 → 로드 후 재생성. 로드 증거(Read 라인 범위)를 skill_provenance에 1줄 명기.
 
 ---
 
@@ -283,7 +295,7 @@ no blemishes, no oily skin, no watermark, no text
 
 ---
 
-## 🧠 Claude Opus 4.8 / Fable 5 / 4.7 / 4.6 핵심 원칙 (v2.8.0 — 2026-06-10)
+## 🧠 Claude Opus 4.8 / Fable 5 / 4.7 / 4.6 핵심 원칙 (v2.9.0 — 2026-07-05 공식 문서 재검증)
 
 > **출처 (신)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
 > **출처 (구)**: [Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4)
@@ -550,7 +562,9 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 
 ### Step 1.5: 🎯 AskUserQuestion으로 옵션 수집 (Claude Code 전용)
 
-**CRITICAL: Claude Code에서는 반드시 `AskUserQuestion` 도구를 사용하여 사용자에게 옵션을 물어봅니다.**
+**CRITICAL: Claude Code *터미널* 세션에서는 `AskUserQuestion` 도구를 사용하여 사용자에게 옵션을 물어봅니다.**
+
+**🚨 Discord/외부 채널 세션 분기 (v2.9.0 — 외부 채널 UI 제약 대응)**: 봇이 Discord 등 외부 채널에서 본 스킬을 실행 중이면 `AskUserQuestion` ❌(외부 채널에는 터미널 UI가 도달하지 않음) → **같은 옵션 구성을 reply 도구의 평문 텍스트 선택지**(①②③… 번호)로 제시하고 사용자 회신으로 진행한다. 옵션 수집 자체를 생략하는 것은 ❌ — 도구만 바뀐다.
 
 목적이 감지되면, 해당 목적에 맞는 옵션을 `AskUserQuestion` 도구로 질문합니다.
 
@@ -1781,7 +1795,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.8.0
+- **Version**: 2.9.0
 - **Updated**: 2026-06-10
 - **Changes v2.8.0** (2026-06-10):
   - **[MAJOR] Claude 디폴트 = Opus 4.8 격상**: 라우팅 디폴트 4.7 → **4.8** (1M context 기본). Fable 5 명시 라우팅 신설. 공식 가이드 2종([Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8)·[Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5)) 반영

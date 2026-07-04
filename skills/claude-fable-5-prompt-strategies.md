@@ -1,8 +1,8 @@
-# Claude Fable 5 · Opus 4.8 프롬프트 전략
+# Claude Fable 5 · Opus 4.8 · Sonnet 5 프롬프트 전략
 
-> **Version**: 1.0.0 | **Updated**: 2026-06-10
-> **Source**: Anthropic 공식 문서 ([Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) + [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8))
-> **Covers**: **Claude Fable 5 / Mythos 5** (최신), **Opus 4.8**. 4.7 이하 모델군은 `claude-4.7-prompt-strategies.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
+> **Version**: 1.2.0 | **Updated**: 2026-07-05 (공식 문서 2건 재fetch 전수 대조 — 기존 내용 정합 확인 + delta 3건[3.11·3.12·2 말미] 반영.)
+> **Source**: Anthropic 공식 문서 및 실전 벤치마크
+> **Covers**: **Claude Fable 5 / Mythos 5** (최신), **Opus 4.8**, **Sonnet 5** (최신). 4.7 이하 모델군은 `claude-4.7-prompt-strategies.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
 
 핵심 철학 전환: 두 모델 모두 **지시 따르기가 강해져서 "열거형 장문 프롬프트"가 역효과**. 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방 스킬·프롬프트는 **다이어트가 마이그레이션의 본체**.
 
@@ -34,6 +34,8 @@ low-severity. Do not filter for importance or confidence at this stage - a separ
 verification step will do that. For each finding, include your confidence level and an
 estimated severity so a downstream filter can rank them.
 ```
+
+- **computer use**: 최대 2576px/3.75MP — 1080p 전송이 성능·비용 균형(공식), 비용 민감 = 720p.
 
 ## Part 3: Fable 5 핵심 패턴
 
@@ -133,6 +135,19 @@ turn 종료 없이 verbatim 메시지 전달용 클라이언트 도구 — tool 
 }
 ```
 
+### 3.11 장기 세션 최종 요약 = 가독성 애든덤 (공식 신규 확인 2026-07-05)
+도구 호출 사이 축약은 OK(사고 중), **최종 요약은 별개 독자용** — 작업 중 만든 은어·화살표 체인·자작 라벨 버리고 완전한 문장으로:
+
+```text
+When you write the summary at the end, drop the working shorthand. Write complete
+sentences. Spell out terms. Don't use arrow chains, hyphen-stacked compounds, or labels
+you made up earlier. Open with the outcome: one sentence on what happened or what you
+found. If you have to choose between short and clear, choose clear.
+```
+
+### 3.12 인터랙티브 코딩 = 첫 턴 완전 명세 (Opus 4.8 문서 신규 확인 2026-07-05)
+인터랙티브(다중 user turn) 코딩은 user turn마다 재추론해 토큰↑. **과업·의도·제약을 첫 턴에 완전 명세** + auto 모드 등으로 개입 최소화가 성능·토큰 모두 최적 — 모호한 지시를 여러 턴에 걸쳐 흘리면 효율·성능 동반 하락. (우리 orchestration §5 "dispatch 첫 메시지 HOW 완전명시"와 동일 원리 — 공식 확증.)
+
 ## Part 4: Fable 5 마이그레이션 체크리스트
 
 1. **난이도 상단부터 테스트** — 쉬운 작업만 돌리면 능력 범위를 과소평가
@@ -141,7 +156,24 @@ turn 종료 없이 verbatim 메시지 전달용 클라이언트 도구 — tool 
 4. **🚨 reasoning 재출력 지시 제거** — "추론을 응답에 옮겨라" 류 = `reasoning_extraction` refusal → adaptive thinking의 `thinking` 블록으로 대체
 5. **API**: adaptive thinking 전용·thinking 출력 summarized-only·extended thinking budget 없음·`refusal` stop reason 핸들링
 
-## Part 5: 공통 XML 블록 (4.7 가이드 계승, 두 모델 유효)
+## Part 5: Sonnet 5 특화 대응 및 API 400 에러 방지
+
+### 5.1 Tokenizer 변경으로 인한 토큰 소모 관리
+- **토큰 카운트 +30% 증가**: 신규 tokenizer 도입으로 동일 한글/코드 텍스트 대비 토큰 수 약 30% 증가.
+- **맥락 범위(state space) 관리**: sliding window 또는 system prompt 설계 시 기존 대비 30% 더 보수적으로 토큰 버짓을 산정할 것. rate limit(TPM) 도달 속도가 빨라지므로 불필요한 장문 템플릿의 다이어트가 필수적임.
+
+### 5.2 effort 설정 및 budget_tokens 400 Bad Request 방지
+- **`effort` 파라미터**: 기본값은 `high` 혹은 상황에 따라 `adaptive`로 동작. 얕은 추론은 `low`/`medium`으로 충분하나, 복잡 코드나 agentic 작업 시 `high` 이상으로 고정.
+- **`budget_tokens` 400 에러 조건**:
+  - `thinking` 모드가 `enabled`인데 `budget_tokens`가 너무 작게 설정된 경우(Anthropic 스펙상 최소 1024 토큰 권장).
+  - `budget_tokens`가 전체 `max_tokens`보다 크거나 같게 설정된 경우 (반드시 `budget_tokens < max_tokens` 유지).
+  - API 호출 시 `thinking` 파라미터가 비활성화 상태인데 `budget_tokens` 필드만 단독으로 넘어간 경우.
+  - 해결책: API 호출 단에서 `budget_tokens`는 반드시 `max_tokens - 1024` 이하로 여유 공간을 두고 설정하며, thinking 타입이 `enabled`일 때만 budget을 실어서 보낼 것.
+
+### 5.3 이미지 및 멀티모달(Multi-modal Native) 규율
+- 텍스트·이미지·PDF를 단일 representation space로 처리하므로 과도한 OCR 지시나 시각 가이드는 지양하고, 다이어그램 시각화(Mermaid 등) 시 괄호/특수문자에 반드시 쌍따옴표를 적용하고 HTML 태그를 배제하여 파싱 에러를 예방할 것.
+
+## Part 6: 공통 XML 블록 (4.7 가이드 계승, 세 모델 유효)
 
 ```xml
 <use_parallel_tool_calls>
