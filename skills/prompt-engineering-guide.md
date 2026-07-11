@@ -18,7 +18,7 @@ updated: 2026-05-12
 
 | 영역 | 이 파일에서 볼 위치 |
 |------|-------------------|
-| GPT 5.x | 모델별 프롬프트 전략 → GPT-5.5 / GPT-5.2 / legacy XML |
+| GPT 5.x (**5.6 Sol = 기본**) | 모델별 프롬프트 전략 → GPT-5.6 / 5.5 / 5.2 / legacy XML |
 | Claude 4.x | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
 | Gemini / Veo / 이미지 | Gemini, Nano Banana, 이미지/동영상 통합 부록 |
 | 리서치 / 팩트체크 | 목적별 추가 블록, 글쓰기/리서치 개요, 리서치 통합 부록 |
@@ -553,6 +553,8 @@ Fonts: San Serif, Inter, Geist, Mona Sans, IBM Plex Sans, Manrope
 ---
 
 ### GPT-5.5 (Outcome-First Markdown — 2026-04 공식)
+
+> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07). 최신 프롬프팅 규칙(lean·7블록·PTC·xhigh/max effort) = `skills/gpt-5.6-prompt-enhancement.md`. 아래 GPT-5.5 내용은 계보 보존.
 
 GPT-5.5는 **outcome-first markdown 6섹션** 구조를 권장합니다. GPT-5.4의 process-heavy XML 12블록 stack과 다른 패턴이며, 모델이 이미 효율적인 추론·도구 사용·검증을 내장하고 있어 짧은 destination + success criteria 만으로 충분합니다.
 
