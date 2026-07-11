@@ -11,7 +11,7 @@
 | 항목 | GPT-5.5 | GPT-5.6 Sol |
 |------|---------|-------------|
 | 기본 간결성 | plain paragraph 디폴트 | **더 간결** — "간결하게/짧게" 광범위 지시가 역효과일 수 있음 |
-| 프롬프트 철학 | outcome-first | **lean 우선** — 군더더기 제거만으로 eval +10~15%, 토큰 41~66%↓, 비용 33~67%↓ |
+| 프롬프트 철학 | outcome-first | **lean 우선** — 군더더기 제거만으로 (내부 테스트 기준) eval ~10~15%↑, 토큰 41~66%↓, 비용 33~67%↓ |
 | Reasoning effort | low/medium 우선 | `low/medium/high/`**`xhigh/max`** — baseline 보존 + 한 단계 낮춰 비교, effort↑ 전 프롬프트 강화 먼저 |
 | 도구 | 병렬/persistence | **PTC(프로그래매틱 도구 호출)** 경계 추가 |
 | 자율성 | eagerness control | **승인 레벨(authorization) 3단** 명시 |
@@ -55,7 +55,7 @@ Role:
 [섹션·길이·형식·톤. text.verbosity와 호흡.]
 
 # Stop Rules
-- [재시도·폴백·기권·질문·정지. "fewest useful tool loops, but correctness first"]
+- [재시도·폴백·기권·질문·정지 규칙 — 루프 최소화하되 정확성·증거·계산·인용이 우선(요약)]
 ```
 
 > **5.5 대비 변화**: `# Tools` 블록 분리(도구 라우팅·PTC 명시), `# Stop Rules` 강조. 나머지 6섹션은 5.5 outcome-first 계승.
@@ -94,7 +94,7 @@ Deliver a usable final artifact that directly satisfies the user's request.
 
 ```markdown
 # Personality
-Steady, direct, and concise. GPT-5.6 is already brief by default — avoid broad "be concise" directives.
+Steady and direct. GPT-5.6 is already brief by default — set the default detail level via text.verbosity rather than broad "be concise" directives.
 
 # Collaboration Style
 State what you are doing before multi-step tool work. Ask only for the smallest missing input when blocked.
@@ -119,8 +119,8 @@ On empty/partial/suspiciously narrow results, attempt one or two meaningful fall
 Parallelize independent reads; keep sequential when one result determines the next; synthesize after parallel retrieval.
 
 # PTC (Programmatic Tool Calling) vs Direct
-Use PTC for: filtering, joining, sorting, ranking, dedup, aggregation, batch validation, large results reducible to compact schemas.
-Prefer direct calls when: one call suffices; each result changes the next decision; action needs approval; citations/native artifacts must be preserved; semantic judgment is needed between calls.
+Use PTC for: filtering, joining, sorting, ranking, dedup, aggregation, batching across many similar records, repeated deterministic validation, large results reducible to compact schemas.
+Prefer direct calls when: one call suffices; intermediate outputs are already small; each result changes the next decision; action needs approval; citations/native artifacts must be preserved; semantic judgment is needed between calls.
 For PTC, state the bounded stage, eligible tools, output schema, retry limit, stop condition, and handoff back to direct judgment.
 ```
 
@@ -161,7 +161,7 @@ Before tool calls for a multi-step task, send a one- or two-sentence user-visibl
 During the task, update only when a major phase begins or findings change the plan. Each update = one concrete outcome + next step. Do not narrate routine tool calls.
 ```
 
-도구 1-2회 단순 작업엔 생략. Codex CLI엔 preamble 요구 금지(조기 종료 유발).
+도구 1-2회 단순 작업엔 생략. (⚠️ *5.5 가이드 계승 — 5.6 공식문서 미기재*: Codex CLI엔 preamble 요구 금지, 조기 종료 유발.)
 
 ---
 
