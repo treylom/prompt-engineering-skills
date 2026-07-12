@@ -325,8 +325,30 @@ warm ambient lighting, handheld documentary style
 
 ---
 
+## 9. gpt-image-2 — 공냥 프롬프트 킷 연동 (외부 킷 통합)
+
+gpt-image-2(Codex `$imagegen`) 계열은 문서를 복제하지 않고 **원본 킷을 그대로 연동**하는 것을 권장합니다. 원본이 활발히 갱신되므로(카테고리 플레이북 C1~C12, 홍보물 그래픽 문법 P1~P8, 룩 프리셋, 타이포/글자배치, jsonl 스키마) 사본은 금방 뒤처집니다.
+
+- 원본: [kimsh-1/gongnyang-prompt-kit](https://github.com/kimsh-1/gongnyang-prompt-kit) (MIT, 공냥이 @specal1849) · 대량 스폰: [kimsh-1/codex-fleet](https://github.com/kimsh-1/codex-fleet) (MIT)
+
+### 설치 (자동 최신 유지 패턴 — 실운영 검증)
+
+```bash
+# clone 1회 + Claude Code 스킬 디렉토리에 symlink → 이후 git pull 만으로 전 세션 최신
+git clone https://github.com/kimsh-1/gongnyang-prompt-kit ~/vendor/gongnyang-prompt-kit
+ln -s ~/vendor/gongnyang-prompt-kit/skills/image-prompt ~/.claude/skills/image-prompt
+# 갱신: (clean 트리 확인 후) cd ~/vendor/gongnyang-prompt-kit && git pull --ff-only
+```
+
+### 운영 규칙 1개 + 강제 훅
+
+킷의 철칙 "생성 후 글자 후처리 금지"(텍스트는 프롬프트로 이미지 안에서 렌더, 틀리면 재생성)는 규칙만으론 지켜지지 않아 훅으로 강제하는 것을 권장합니다 — 이 저장소의 [`examples/hooks/block-text-overlay.sh`](hooks/block-text-overlay.sh)는 원본 훅에 2가지를 더한 판입니다: ① 정당한 결정적 오버레이(기술 이미지의 기계적 라벨)는 `ALLOW_TEXT_OVERLAY=1` 명시 선언 시 통과 ② git 명령 오탐 가드. PreToolUse(Bash) 훅으로 등록하면 됩니다.
+
+---
+
 ## 참고
 
 - 전체 이미지 가이드: `prompt-engineering-guide.md`
 - Veo 상세 문서: `prompt-engineering-guide.md` (Veo 섹션)
 - Context Engineering: `prompt-engineering-guide.md`
+- gpt-image-2 프롬프트 컴파일: 위 §9 공냥 프롬프트 킷 (원본 연동)

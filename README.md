@@ -88,7 +88,8 @@ prompt-engineering-skills/
 `-- examples/
     |-- claude-4.5-examples.md
     |-- gpt-5.4-examples.md
-    `-- image-generation-examples.md
+    |-- image-generation-examples.md
+    `-- hooks/block-text-overlay.sh   # 글자 후처리 차단 훅 (공냥 킷 연동, §9)
 ```
 
 ## 설치
