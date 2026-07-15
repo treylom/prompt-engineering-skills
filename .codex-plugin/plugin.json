@@ -1,14 +1,18 @@
 {
   "name": "prompt-engineering-skills",
-  "version": "2.9.0",
-  "description": "AI prompt generator: /prompt v2.9.0 with per-model strategy skills (Claude/GPT/Gemini/image).",
-  "author": { "name": "tofukyung" },
+  "version": "2.10.0",
+  "description": "AI prompt generator: /prompt v2.10.0 with per-model strategy skills (Claude/GPT/Gemini/image).",
+  "author": {
+    "name": "tofukyung"
+  },
   "skills": "./skills/",
   "interface": {
     "displayName": "prompt-engineering-skills",
     "shortDescription": "AI prompt generator",
     "developerName": "tofukyung",
     "category": "Developer Tools",
-    "capabilities": ["Interactive"]
+    "capabilities": [
+      "Interactive"
+    ]
   }
 }

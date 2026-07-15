@@ -1,6 +1,6 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.9.0 | **Updated**: 2026-07-05 — ①템플릿 로드 게이트 전역 승격(사용자 피드백 반영("리서치/팩트체크 템플릿 미로드" 회귀 수정)) ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조(strategies v1.2.0 — delta 3건 반영, 나머지 정합 확인)
+> **Version**: 2.10.0 | **Updated**: 2026-07-15 — 🔁 AUTO 모드 신설(봇 자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌ — 전 봇 적용). v2.9.0: ①템플릿 로드 게이트 전역 승격(사용자 피드백 반영("리서치/팩트체크 템플릿 미로드" 회귀 수정)) ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조(strategies v1.2.0 — delta 3건 반영, 나머지 정합 확인)
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
 > **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
@@ -55,6 +55,7 @@ $ARGUMENTS
 ### 실행 트리거 (ONLY THESE)
 - "1번" 또는 "바로 실행" → 작업 실행
 - "이 프롬프트로 만들어줘" → 작업 실행
+- **AUTO 모드**(아래 🔁 절) — 봇 자율 작업 흐름에서 hook-강제 호출된 경우: 1회 자동 개선 후 사용자 대기 없이 바로 실행 (Constraints #1·#6 의 유일한 구조적 예외)
 
 ### 🚨 템플릿 로드 게이트 (v2.9.0 — 2026-07-05 사용자 피드백 반영 · 인터랙티브·batch 공통, 기존 batch 전용 지시의 전역 승격)
 
@@ -67,6 +68,33 @@ $ARGUMENTS
 | 이미지 | JSON 구조(purpose/hero/context/evidence/constraints)+Visual Re-description | 동일 |
 
 **자가진단(산출 직전)**: 생성한 프롬프트에 베이스 템플릿 구조(IFCN 단계 / StructuredResearch 섹션 / 이미지 JSON 골격)가 실제로 들어있나? 없으면 게이트 스킵 → 로드 후 재생성. 로드 증거(Read 라인 범위)를 skill_provenance에 1줄 명기.
+
+---
+
+## 🔁 AUTO 모드 (봇 자율 흐름 hook-강제 호출 — v2.10.0)
+
+**트리거 (둘 중 하나)**:
+1. `$ARGUMENTS`가 `--auto`로 시작
+2. **봇 세션의 자율 작업 흐름**에서 hook 게이트(예: "기획·스펙 산출 = /prompt 선행"을 강제하는 훅/규칙)에 의해 호출된 경우 — 즉 사용자가 대화로 옵션을 고를 수 없거나 고르게 하는 것이 흐름 정체를 만드는 맥락
+
+**워크플로우 (원본 인터랙티브와 다름 — 1회 자동 개선 → 바로 실행)**:
+```
+1. 목적 감지 (Step 1 테이블 동일) + 템플릿 로드 게이트 동일 적용 (리서치/팩트체크/이미지 = guide 섹션 Read 먼저)
+2. 프롬프트 생성 (모델별 필수 블록·CE U자 배치 동일)
+3. 🔍 1회 자동 개선 (self-critique 1-pass — 정확히 1회, 반복 ❌):
+   a. 직교 축 누락 점검 — 목적별 확장 체크리스트 대비 빠진 축(시각 에셋·i18n·unlock·마이그레이션·검증 계약 등)
+   b. 모델 라우팅 정합 — 타겟 모델 필수 블록 존재 여부
+   c. 스코프 리터럴성 — explicit_scope가 열거형인가(암묵 일반화 의존 ❌)
+   → 발견 결함을 반영한 개선본 1개 확정
+4. 개선본으로 바로 실행 — 5옵션 제시 ❌·사용자 선택 대기 ❌. **실행 형태 = 규모로 판단**: 작업이 다축 분해 가능(클래스/섹션/차원 fan-out + 종합 + 검증)하면 **Workflow 다중 에이전트**(병렬 fan-out→synthesis→adversarial verify)가 기본, 단일 서브에이전트 스폰은 분해 불가능한 소규모만. Codex 봇 등가물 = codex-spawn fleet 병렬.
+5. 산출 기록: 생성 프롬프트를 작업 SoT(작업 로그 문서 등)에 저장 + "AUTO 모드 · 자동 개선 1회 적용" 1줄 명기
+```
+
+**경계**:
+- 사용자가 **직접** `/prompt`를 호출했거나 옵션 선택 의사를 밝힌 맥락 = 기존 인터랙티브(5옵션) 유지. AUTO는 봇 자율 흐름 전용.
+- 자동 개선은 **정확 1회** — 2회+ 반복 다듬기 = 자가수렴 오버런 ❌.
+- Constraints #0(프롬프트 먼저 출력/기록)은 AUTO에서도 유지 — 실행 전 프롬프트가 SoT에 존재해야 사후 추적 가능.
+- 워커/프로그래밍 호출은 기존 `--batch`가 우선(출력만 필요할 때). AUTO는 "생성 후 즉시 실행까지" 필요한 오케스트레이션 맥락용.
 
 ---
 
@@ -545,7 +573,7 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 
 | 키워드/패턴 | 자동 선택 목적 | 권장 출력 형식 | 필수 베이스 스킬 |
 |------------|---------------|---------------|----------------|
-| 이미지, 그림, 사진, 그려줘 | 이미지생성 | **JSON 구조 기본** | `prompt-engineering-guide.md` |
+| 이미지, 그림, 사진, 그려줘 | 이미지생성 | **JSON 구조 기본** | **`image-prompt` 스킬(공냥 프롬프트 킷) 1순위** + `prompt-engineering-guide.md` |
 | 영상, 동영상, 비디오, 클립 | 동영상생성 | **JSON 구조 기본** | `prompt-engineering-guide.md` |
 | 코드, 코딩, 개발, 프로그램 | 코딩/개발 | XML | 모델별 전략 가이드 |
 | 글, 작성, 블로그, 기사 | 글쓰기/창작 | Markdown + 자연어 | 모델별 전략 가이드 |
@@ -557,6 +585,8 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 | 슬라이드, PPT, 발표, 프레젠테이션 | 슬라이드생성 | Markdown + JSON | `prompt-engineering-guide.md` |
 
 > ⚠️ **CRITICAL**: 팩트체크 / 리서치 / 분석 목적이 감지되면 `prompt-engineering-guide.md`(SKILL.md + 01-factcheck-prompts.md + 02-general-research.md) Read 로드 후 IFCN 기반 베이스 템플릿을 사용해야 합니다. 일반 XML로 생성 금지. 상세 절차는 Step 2 「리서치/팩트체크 템플릿 자동 로드」 참조.
+
+> 🎨 **이미지생성 = 공냥 프롬프트 킷이 1순위 베이스 (통합·강력 표기)**: 이미지 목적이 감지되면 **`image-prompt` 스킬**(공냥 프롬프트 킷 VOL.2 — `~/.claude/skills/image-prompt/`, 카테고리 플레이북 C1~C12·룩 프리셋·타이포 아트)을 먼저 적용해 프롬프트를 컴파일하고, `prompt-engineering-guide.md`의 이미지 부록(Nano Banana·다중 이미지 JSON 등)은 보조 레이어로 쓴다. `image-prompt-guide.md`(이론·작법 969줄)도 같은 뿌리다. **출처: 이 이미지 계열의 기반은 공냥이(@specal1849)님의 「공냥 프롬프트 킷」 — https://github.com/kimsh-1/gongnyang-prompt-kit — 산출물에 킷 기반임을 표기할 것.**
 
 ---
 
@@ -1795,8 +1825,10 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.9.0
-- **Updated**: 2026-06-10
+- **Version**: 2.10.0
+- **Updated**: 2026-07-15
+- **Changes v2.10.0** (2026-07-15):
+  - **[MAJOR] 🔁 AUTO 모드 신설**: 봇 자율 작업 흐름의 hook-강제 호출 시 1회 자동 개선 → 바로 실행 (5옵션 사용자 대기 우회 — 유일한 구조적 예외)
 - **Changes v2.8.0** (2026-06-10):
   - **[MAJOR] Claude 디폴트 = Opus 4.8 격상**: 라우팅 디폴트 4.7 → **4.8** (1M context 기본). Fable 5 명시 라우팅 신설. 공식 가이드 2종([Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8)·[Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5)) 반영
   - **[MAJOR] `skills/claude-fable-5-prompt-strategies.md` 신규**: Fable 5·Opus 4.8 전략 (프롬프트 다이어트 원칙·grounding 스니펫·reasoning 재출력 금지·코드리뷰 coverage/filter 분리)

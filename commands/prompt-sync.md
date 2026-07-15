@@ -3,7 +3,7 @@
 프롬프트 생성기 시스템(`prompt-engineering-skills/`)을 **SRC 구조 그대로** 로컬·vault·배포 repo 에 동기화합니다.
 
 > **Version**: 5.1.0 | **Updated**: 2026-05-24
-> **부모 Repo**: `treylom/obsidian-ai-vault`
+> **부모 Repo**: `<your-vault-repo>`
 > **배포 Repo**: `treylom/prompt-engineering-skills`
 > **원칙 (v5.0.0~)**: ~~프롬프트 스킬은 하나만 유지~~ → **SRC 구조(분야별 분할 가이드 + SKILL.md 포함)를 그대로 미러**. 2026-05-20 공개 repo 가 "분야별 분할"로 발전 → "분할 유지" 채택, "분리 스킬 제거" 단계 폐기.
 > **v5.1.0 (public-safe paths)**: 개인 경로 리터럴(`/Users/<name>`·`/home/<name>`·Windows user) 제거 → **`$HOME` 상대 + glob 감지**로 일반화(공개 repo 노출 방지, Mac/WSL/일반 환경 모두 동작).
@@ -25,7 +25,7 @@ $ARGUMENTS
 `-- AI_Second_Brain/050-Prompt-Engineering/prompt-engineering-skills/
 ```
 
-- **ROOT 감지**: Mac → `$HOME/obsidian-ai-vault` · WSL → `$HOME/AI` · 일반 → git repo root.
+- **ROOT 감지**: Mac → `$HOME/<your-vault>` · WSL → `$HOME/AI` · 일반 → git repo root.
 - **LIVE_VAULT 감지**: Mac → `$HOME/Documents/Second_Brain/Second_Brain` · WSL → `/mnt/c/Users/*/Documents/Obsidian/Second_Brain`(glob, user 하드코딩 회피) · 일반 → 없음(skip).
 
 ## 1-Shot Bash (cross-platform · public-safe paths · 분할 유지 · 공유 dir 보호)
@@ -34,7 +34,7 @@ $ARGUMENTS
 set -uo pipefail
 # --- 환경 자동 감지 (개인 경로 리터럴 없음: $HOME + glob) ---
 if [[ "${OSTYPE:-}" == darwin* ]]; then
-  ROOT="$HOME/obsidian-ai-vault"
+  ROOT="$HOME/<your-vault>"
   LIVE_VAULT="$HOME/Documents/Second_Brain/Second_Brain"
   EXTRA_MIRRORS=()
 elif grep -qi microsoft /proc/version 2>/dev/null || [ -d /mnt/c ]; then   # WSL

@@ -46,7 +46,7 @@ $ARGUMENTS
 
 | 리포 | 브랜치 | 방식 |
 |------|--------|------|
-| `treylom/obsidian-ai-vault` | master | WSL 메인 리포에서 직접 push |
+| `<your-vault-repo>` | master | WSL 메인 리포에서 직접 push |
 | `treylom/prompt-engineering-skills` | master | Windows 클론(`/mnt/c/.../prompt-engineering-skills/`)에 파일 복사 → commit → push |
 
 ## 수정 대상 파일
