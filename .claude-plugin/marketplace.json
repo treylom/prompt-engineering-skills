@@ -1,0 +1,22 @@
+{
+    "name": "prompt-engineering-skills",
+    "description": "Prompt engineering skills 마켓플레이스 — /prompt 생성기 + 모델별 전략 가이드(Claude/GPT/Gemini/이미지)",
+    "owner": {
+        "name": "tofukyung",
+        "url": "https://github.com/treylom"
+    },
+    "plugins": [
+        {
+            "name": "prompt-engineering-skills",
+            "description": "아이디어를 실행 가능한 프롬프트로 정리해주는 도구 — /prompt v2.10.0 + 모델별 최적화 전략 스킬",
+            "source": ".",
+            "category": "productivity",
+            "tags": [
+                "prompt-engineering",
+                "claude",
+                "gpt",
+                "gemini"
+            ]
+        }
+    ]
+}
