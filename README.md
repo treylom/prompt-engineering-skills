@@ -11,6 +11,20 @@ Claude Code, ChatGPT GPTs, Gemini Gems에서 함께 쓰는 프롬프트 엔지�
 | ChatGPT GPTs | [두부경 종합 프롬프트 생성기](https://chatgpt.com/g/g-694feb6bf18481918acd876e3c3eed37-tofukyung-jonghab-peurompeuteu-saengseonggi) |
 | Gemini Gems | [프롬프트 생성기 Gem](https://gemini.google.com/gem/1ZV9S3vNOwExi4_yLHRJKFtpNpATPDI5d?usp=sharing) |
 
+### Claude Code / ChatGPT (Codex CLI) 플러그인 설치
+
+스킬이 [Agent Skills 오픈 표준](https://agentskills.io)을 따르므로 두 플랫폼에서 같은 저장소를 그대로 씁니다.
+
+```bash
+# Claude Code
+/plugin marketplace add https://github.com/treylom/tofukyung-plugins.git
+/plugin install prompt-engineering-skills
+
+# ChatGPT (Codex CLI)
+codex plugin marketplace add treylom/tofukyung-plugins
+codex plugin add prompt-engineering-skills@tofukyung-plugins
+```
+
 ## 커버리지
 
 | 영역 | 통합본 위치 | 분할본 파일 |

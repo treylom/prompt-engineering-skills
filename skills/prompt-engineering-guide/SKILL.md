@@ -2,11 +2,6 @@
 name: prompt-engineering-guide
 description: Use when needing AI 모델별 프롬프트 엔지니어링 가이드. /prompt 커맨드와 연동하여 최적화된 프롬프트 생성.
 disable-model-invocation: true
-references:
-  - context-engineering-collection
-  - ce-context-fundamentals
-  - ce-context-optimization
-  - gpt-5.5-prompt-enhancement
 ---
 
 # AI 프롬프트 엔지니어링 가이드

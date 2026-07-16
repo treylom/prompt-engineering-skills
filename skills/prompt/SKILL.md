@@ -1,6 +1,6 @@
 ---
 name: prompt
-description: AI 프롬프트 생성기 — 사용자의 아이디어를 모델별(Claude/GPT/Gemini/이미지) 최적화 프롬프트로 변환. "프롬프트 만들어/생성해/다듬어" 요청 시 사용. Codex 포트: Claude Code의 /prompt 명령과 동일 절차.
+description: "AI 프롬프트 생성기 — 사용자의 아이디어를 모델별(Claude/GPT/Gemini/이미지) 최적화 프롬프트로 변환. \"프롬프트 만들어/생성해/다듬어\" 요청 시 사용. Codex 포트: Claude Code의 /prompt 명령과 동일 절차."
 ---
 
 # /prompt — AI 프롬프트 생성기 (Codex port wrapper)
