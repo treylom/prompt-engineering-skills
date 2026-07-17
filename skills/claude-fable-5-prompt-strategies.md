@@ -1,6 +1,6 @@
 # Claude Fable 5 · Opus 4.8 · Sonnet 5 프롬프트 전략
 
-> **Version**: 1.2.0 | **Updated**: 2026-07-05 (공식 문서 2건 재fetch 전수 대조 — 기존 내용 정합 확인 + delta 3건[3.11·3.12·2 말미] 반영.)
+> **Version**: 1.2.1 | **Updated**: 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)
 > **Source**: Anthropic 공식 문서 및 실전 벤치마크
 > **Covers**: **Claude Fable 5 / Mythos 5** (최신), **Opus 4.8**, **Sonnet 5** (최신). 4.7 이하 모델군은 `claude-4.7-prompt-strategies.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
 
@@ -163,12 +163,20 @@ found. If you have to choose between short and clear, choose clear.
 - **맥락 범위(state space) 관리**: sliding window 또는 system prompt 설계 시 기존 대비 30% 더 보수적으로 토큰 버짓을 산정할 것. rate limit(TPM) 도달 속도가 빨라지므로 불필요한 장문 템플릿의 다이어트가 필수적임.
 
 ### 5.2 effort 설정 및 budget_tokens 400 Bad Request 방지
-- **`effort` 파라미터**: 기본값은 `high` 혹은 상황에 따라 `adaptive`로 동작. 얕은 추론은 `low`/`medium`으로 충분하나, 복잡 코드나 agentic 작업 시 `high` 이상으로 고정.
-- **`budget_tokens` 400 에러 조건**:
+- **`effort` 파라미터**: 기본값 `high`(미설정 시). `low`/`medium`/`high`/`xhigh`/`max` 지원 — 얕은 추론은 `low`/`medium`, 복잡 코드·agentic 작업은 `xhigh` 권장. ⚠️ `effort`(사고 깊이·출력량 제어)와 `thinking: {type: "adaptive"}`(사고 모드 on/off)는 **별개 축**이다 — "기본값이 adaptive"는 두 축을 혼동한 표현. Sonnet 5는 `thinking`을 생략하면 adaptive가 기본으로 켜지고, `effort` 기본값은 별개로 항상 `high`.
+> **🚨 경고 — Sonnet 5는 `budget_tokens`를 완전히 제거했다.**
+> `thinking: {type: "enabled", budget_tokens: N}`는 Sonnet 5 / Opus 4.7·4.8 / Fable 5에서 **그 자체로 400을 반환**한다.
+> 아래 "budget_tokens 400 에러 조건"과 그 해결책(budget < max_tokens, 최소 1024 등)은 **Sonnet 4.5 / Haiku 4.5 이하 전용** 규칙이며, Sonnet 5에 적용하면 회피는커녕 400을 유발한다.
+> Sonnet 5에서의 올바른 "400 방지"는 값 조정이 아니라 **`budget_tokens`를 아예 보내지 않는 것**이다.
+> (근거: Anthropic `claude-api` migration「Migrating to Claude Sonnet 5」— Sonnet 4.6 transitional escape hatch 제거됨.)
+
+- **✅ Sonnet 5+ 정답 규칙 (Sonnet 5 / Opus 4.7·4.8 / Fable 5)**: `budget_tokens` **금지**. 사고 깊이는 `thinking: {type: "adaptive"}` + `output_config: {effort: "low|medium|high|xhigh|max"}`로 제어. thinking을 끄려면 `{type: "disabled"}` — **단 Fable 5는 disabled도 400**이므로 `thinking` 파라미터 자체를 생략한다.
+
+- **[Sonnet 4.5 / Haiku 4.5 이하 전용] `budget_tokens` 400 에러 조건**:
   - `thinking` 모드가 `enabled`인데 `budget_tokens`가 너무 작게 설정된 경우(Anthropic 스펙상 최소 1024 토큰 권장).
   - `budget_tokens`가 전체 `max_tokens`보다 크거나 같게 설정된 경우 (반드시 `budget_tokens < max_tokens` 유지).
   - API 호출 시 `thinking` 파라미터가 비활성화 상태인데 `budget_tokens` 필드만 단독으로 넘어간 경우.
-  - 해결책: API 호출 단에서 `budget_tokens`는 반드시 `max_tokens - 1024` 이하로 여유 공간을 두고 설정하며, thinking 타입이 `enabled`일 때만 budget을 실어서 보낼 것.
+  - 해결책 (4.5/Haiku 이하 한정): API 호출 단에서 `budget_tokens`는 반드시 `max_tokens - 1024` 이하로 여유 공간을 두고 설정하며, thinking 타입이 `enabled`일 때만 budget을 실어서 보낼 것.
 
 ### 5.3 이미지 및 멀티모달(Multi-modal Native) 규율
 - 텍스트·이미지·PDF를 단일 representation space로 처리하므로 과도한 OCR 지시나 시각 가이드는 지양하고, 다이어그램 시각화(Mermaid 등) 시 괄호/특수문자에 반드시 쌍따옴표를 적용하고 HTML 태그를 배제하여 파싱 에러를 예방할 것.
