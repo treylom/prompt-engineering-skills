@@ -162,13 +162,10 @@ found. If you have to choose between short and clear, choose clear.
 - **토큰 카운트 +30% 증가**: 신규 tokenizer 도입으로 동일 한글/코드 텍스트 대비 토큰 수 약 30% 증가.
 - **맥락 범위(state space) 관리**: sliding window 또는 system prompt 설계 시 기존 대비 30% 더 보수적으로 토큰 버짓을 산정할 것. rate limit(TPM) 도달 속도가 빨라지므로 불필요한 장문 템플릿의 다이어트가 필수적임.
 
-### 5.2 effort 설정 및 budget_tokens 400 Bad Request 방지
-- **`effort` 파라미터**: 기본값은 `high` 혹은 상황에 따라 `adaptive`로 동작. 얕은 추론은 `low`/`medium`으로 충분하나, 복잡 코드나 agentic 작업 시 `high` 이상으로 고정.
-- **`budget_tokens` 400 에러 조건**:
-  - `thinking` 모드가 `enabled`인데 `budget_tokens`가 너무 작게 설정된 경우(Anthropic 스펙상 최소 1024 토큰 권장).
-  - `budget_tokens`가 전체 `max_tokens`보다 크거나 같게 설정된 경우 (반드시 `budget_tokens < max_tokens` 유지).
-  - API 호출 시 `thinking` 파라미터가 비활성화 상태인데 `budget_tokens` 필드만 단독으로 넘어간 경우.
-  - 해결책: API 호출 단에서 `budget_tokens`는 반드시 `max_tokens - 1024` 이하로 여유 공간을 두고 설정하며, thinking 타입이 `enabled`일 때만 budget을 실어서 보낼 것.
+### 5.2 effort 설정 및 `budget_tokens` 400 Bad Request 방지
+- **`effort` 파라미터**: 기본값 `high`. Sonnet 5는 `low`/`medium`/`high`/`xhigh`/`max` 전 레벨 지원(Sonnet 계열 최초로 `xhigh` 지원). 얕은 추론은 `low`/`medium`으로 충분하고, 복잡 코드·agentic 작업은 `high` 이상(가장 어려운 작업은 `xhigh`)으로 고정. thinking 깊이는 `effort`로 제어한다 — `adaptive`는 `effort`의 값이 아니라 `thinking`의 값이다.
+- **🚨 `budget_tokens`는 Sonnet 5에서 제거됨 — 어떤 형태로든 400**: `thinking: {"type": "enabled", "budget_tokens": N}`은 Sonnet 5(및 Fable 5 / Opus 4.8 / 4.7)에서 **무조건 400**. "값만 잘 맞추면 통과"가 아니라 파라미터 자체가 사라졌다. `budget_tokens < max_tokens`, `max_tokens - 1024` 이하 같은 옛 규칙은 **pre-4.6 모델(Sonnet 4.5 / Haiku 4.5 이하) 전용**이며, Sonnet 5에 적용하면 400을 막기는커녕 오히려 유발한다. (본 문서 Part 4-5 "extended thinking budget 없음"과 동일한 사실.)
+- **해결책**: `budget_tokens`를 전부 제거하고 `thinking: {"type": "adaptive"}` + `output_config: {"effort": ...}`로 대체. thinking 깊이는 오직 `effort`로만 제어한다.
 
 ### 5.3 이미지 및 멀티모달(Multi-modal Native) 규율
 - 텍스트·이미지·PDF를 단일 representation space로 처리하므로 과도한 OCR 지시나 시각 가이드는 지양하고, 다이어그램 시각화(Mermaid 등) 시 괄호/특수문자에 반드시 쌍따옴표를 적용하고 HTML 태그를 배제하여 파싱 에러를 예방할 것.
