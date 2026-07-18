@@ -1,6 +1,6 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.10.0 | **Updated**: 2026-07-15 — 🔁 AUTO 모드 신설(봇 자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌ — 전 봇 적용). v2.9.0: ①템플릿 로드 게이트 전역 승격(사용자 피드백 반영("리서치/팩트체크 템플릿 미로드" 회귀 수정)) ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조(strategies v1.2.0 — delta 3건 반영, 나머지 정합 확인)
+> **Version**: 2.10.1 | **Updated**: 2026-07-18 — 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설(실행 직전 프롬프트 코드블록 생성 여부·역할 직접 지명·SoT 저장 3항목 체크 — 하나라도 미충족이면 실행 금지). v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격(사용자 피드백 반영("리서치/팩트체크 템플릿 미로드" 회귀 수정)) ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조(strategies v1.2.0 — delta 3건 반영, 나머지 정합 확인)
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
 > **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
@@ -86,6 +86,11 @@ $ARGUMENTS
    b. 모델 라우팅 정합 — 타겟 모델 필수 블록 존재 여부
    c. 스코프 리터럴성 — explicit_scope가 열거형인가(암묵 일반화 의존 ❌)
    → 발견 결함을 반영한 개선본 1개 확정
+3.5 🚨 산출 자가진단 (실행 직전 — 하나라도 No면 실행 금지, 2로 복귀. 2026-07-18 — 단계 스킵 회귀 방지):
+   □ 프롬프트 코드블록이 실제로 생성됐나? (발주 지시문 그대로 ≠ 생성된 프롬프트)
+   □ `<role>`에 실존 전문가가 "당신은 [전문가명]입니다" 정규 패턴으로 지명됐나?
+   □ 프롬프트 전문이 작업 기록(SoT)에 저장됐나(요약 1줄 ❌)?
+   ※ 워크플로우 규격이 컨텍스트에 이미 있어도 단계를 건너뛰는 사례가 관측됨("알고 있음 ≠ 실행함") — 실행 직전 체크포인트로 못박는다. 하네스에 동등한 자동 검증(예: 커밋/턴 종료 훅)이 있다면 같은 3항목을 기계적으로 재확인하는 것이 이상적이다.
 4. 개선본으로 바로 실행 — 5옵션 제시 ❌·사용자 선택 대기 ❌. **실행 형태 = 규모로 판단**: 작업이 다축 분해 가능(클래스/섹션/차원 fan-out + 종합 + 검증)하면 **Workflow 다중 에이전트**(병렬 fan-out→synthesis→adversarial verify)가 기본, 단일 서브에이전트 스폰은 분해 불가능한 소규모만. Codex 봇 등가물 = codex-spawn fleet 병렬.
 5. 산출 기록: 생성 프롬프트를 작업 SoT(작업 로그 문서 등)에 저장 + "AUTO 모드 · 자동 개선 1회 적용" 1줄 명기
 ```
@@ -1825,10 +1830,12 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.10.0
-- **Updated**: 2026-07-15
+- **Version**: 2.10.1
+- **Updated**: 2026-07-18
+- **Changes v2.10.1** (2026-07-18):
+  - **[MEDIUM] AUTO 모드 "3.5 산출 자가진단" 게이트 신설**: 실행 직전 ①프롬프트 코드블록 실제 생성 여부 ②`<role>` 실존 전문가 직접 지명 여부 ③프롬프트 전문의 SoT 저장 여부 3항목 체크 — 하나라도 미충족이면 실행 대신 생성 단계(2)로 복귀. 워크플로우 규격이 컨텍스트에 있어도 단계를 건너뛰는 사례에 대한 방지책
 - **Changes v2.10.0** (2026-07-15):
-  - **[MAJOR] 🔁 AUTO 모드 신설**: 봇 자율 작업 흐름의 hook-강제 호출 시 1회 자동 개선 → 바로 실행 (5옵션 사용자 대기 우회 — 유일한 구조적 예외)
+  - **[MAJOR] 🔁 AUTO 모드 신설**: 자율 작업 흐름의 hook-강제 호출 시 1회 자동 개선 → 바로 실행 (5옵션 사용자 대기 우회 — 유일한 구조적 예외)
 - **Changes v2.8.0** (2026-06-10):
   - **[MAJOR] Claude 디폴트 = Opus 4.8 격상**: 라우팅 디폴트 4.7 → **4.8** (1M context 기본). Fable 5 명시 라우팅 신설. 공식 가이드 2종([Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8)·[Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5)) 반영
   - **[MAJOR] `skills/claude-fable-5-prompt-strategies.md` 신규**: Fable 5·Opus 4.8 전략 (프롬프트 다이어트 원칙·grounding 스니펫·reasoning 재출력 금지·코드리뷰 coverage/filter 분리)
