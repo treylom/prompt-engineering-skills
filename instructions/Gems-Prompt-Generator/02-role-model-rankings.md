@@ -19,7 +19,7 @@
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8, 최고난도 = Fable 5 / GPT 디폴트 = GPT-5.6 Sol)
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8, 최고난도 = Fable 5 / GPT 디폴트 = GPT-5.6 Sol)
 
 ### 텍스트/코드 모델
 

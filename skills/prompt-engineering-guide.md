@@ -1953,9 +1953,10 @@ operation = client.models.generate_videos(
 
 ### GPT-5.5 프롬프트 향상 스킬 (Outcome-First + Legacy XML)
 
+> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
 > **Version**: 1.1.0 | **Updated**: 2026-04-30
 > **Source**: [OpenAI GPT-5.5 Prompt Guidance (2026-04)](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5)
-> **Scope**: GPT 5.x 전 버전 통합 — outcome-first markdown(5.5 디폴트) + legacy XML stack(5.4/5.2 명시 시). GPTs/Gems 첨부파일 10개 한도 대응으로 단일 파일에 통합.
+> **Scope**: GPT 5.x 구세대 통합 — outcome-first markdown(5.5) + legacy XML stack(5.4/5.2 명시 시). GPTs/Gems 첨부파일 10개 한도 대응으로 단일 파일에 통합.
 
 ---
 

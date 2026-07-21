@@ -99,7 +99,7 @@
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 / GPT 디폴트 = GPT-5.6 Sol)
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 / GPT 디폴트 = GPT-5.6 Sol)
 
 ### 텍스트/코드 모델
 
@@ -417,7 +417,7 @@
 | **Gemini 3 Pro/Flash** | Constraints 최상단, 구조화된 출력 | ✅ |
 | **Veo 3.1** | 주제/동작/스타일, 오디오 프롬프트 | ✅ |
 | **Gemini Image** | 주제/스타일/분위기, 시그널 강화 | ✅ |
-| **GPT-5.6 Sol** (디폴트, lean outcome-first) | Markdown 간결 구조: `Role` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` — 열거 최소화, 짧고 정확한 지시. 상세: `prompt-engineering-guide.md` | |
+| **GPT-5.6 Sol** (디폴트, lean outcome-first) | Markdown 간결 구조 — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `gpt-5.6-prompt-enhancement.md` 참조). 상세: `prompt-engineering-guide.md` | |
 | GPT-5.5 (outcome-first legacy) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 | |
 | GPT-5.4 / 5.2 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. 상세: `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 | |
 | **Claude Opus 4.8** (디폴트) | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>` (리터럴 해석), `thinking: adaptive` + `effort=xhigh`. verbosity 자동 조정·도구 사용 보수적(effort↑로 보정). **Breaking**: budget_tokens/temperature/prefill 금지 | |

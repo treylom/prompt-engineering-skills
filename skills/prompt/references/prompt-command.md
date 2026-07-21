@@ -225,7 +225,7 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8 / GPT 디폴트 = GPT-5.6 Sol)
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8 / GPT 디폴트 = GPT-5.6 Sol)
 
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
@@ -1382,7 +1382,8 @@ Style Rules:
 
 | 모델 | 필수 블록 / 구조 |
 |------|-----------------|
-| **GPT-5.5** (공식 outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `prompt-engineering-guide.md` |
+| **GPT-5.6 Sol (디폴트)** | Markdown lean outcome-first — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `skills/gpt-5.6-prompt-enhancement.md` 참조) |
+| GPT-5.5 (legacy outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `prompt-engineering-guide.md` |
 | GPT-5.2/5.4 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. **상세**: `prompt-engineering-guide.md` 하단 Legacy 섹션 |
 | **Claude Opus 4.8 (디폴트)** | 4.7 블록 동일 + literal 해석 범위 명시("every section") + 코드리뷰는 coverage/filter 분리 프롬프트 + 디자인은 구체 스펙 또는 "4방향 제안" 패턴. `thinking: {type: "adaptive"}` + `effort: "xhigh"`(코딩) |
 | **Claude Fable 5** | **장문 열거 ❌ — 짧은 지시 1개씩** (brevity·체크포인트·grounding·경계 스니펫은 `skills/claude-fable-5-prompt-strategies.md`). reasoning 재출력 지시 금지(refusal). adaptive thinking 전용 |
@@ -1391,7 +1392,7 @@ Style Rules:
 | Gemini 3 | Constraints 최상단 |
 | 이미지/동영상 | 주제/스타일/분위기 |
 
-> **GPT 모델 라우팅**: 사용자가 `GPT-5.5` 명시 또는 일반 GPT 작업이면 outcome-first(5.5) 디폴트. `GPT-5.4 / 5.2 / legacy XML` 명시 시에만 XML stack 적용.
+> **GPT 모델 라우팅**: 미지정 GPT → **GPT-5.6 Sol lean outcome-first 디폴트**. `GPT-5.5` 명시 → 5.5 outcome-first(legacy). `GPT-5.4 / 5.2 / legacy XML` 명시 시에만 XML stack 적용.
 
 **📚 리서치/팩트체크 템플릿 자동 로드 (CRITICAL — /deep-research 통합 핵심)**
 

@@ -226,7 +226,7 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 
 | 모델 | 구조 | 참조 스킬 |
 |------|------|----------|
-| **GPT-5.6 Sol** (디폴트) | Markdown lean outcome-first (Role/Goal/Success Criteria/Constraints/Output — 열거 최소화) | `gpt-5.6-prompt-enhancement.md` |
+| **GPT-5.6 Sol** (디폴트) | Markdown lean outcome-first — 열거 최소화 (요약 — 전체 블록 구조는 참조 스킬) | `gpt-5.6-prompt-enhancement.md` |
 | GPT-5.5 (legacy) | Markdown 6섹션 (Role/Personality/Goal/Success Criteria/Constraints/Output/Stop Rules) | `gpt-5.6-prompt-enhancement.md` 하단 Legacy 섹션 |
 | GPT-5.4 / 5.2 (legacy XML) | XML 12블록 stack (output_verbosity_spec 등) | `gpt-5.6-prompt-enhancement.md` 하단 Legacy 섹션 |
 | **Claude Opus 4.8** (디폴트) | XML + `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>`. API: `thinking={"type":"adaptive"}` + `effort="xhigh"` | `claude-fable-5-prompt-strategies.md` Part 2 |
