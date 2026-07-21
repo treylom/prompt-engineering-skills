@@ -53,8 +53,8 @@ $ARGUMENTS
 
 | 파일 | 위치 |
 |------|------|
-| claude-4.6-prompt-strategies.md | prompt-engineering-skills/skills/ |
-| gpt-5.4-prompt-enhancement.md | prompt-engineering-skills/skills/ |
+| claude-fable-5-prompt-strategies.md | prompt-engineering-skills/skills/ |
+| gpt-5.6-prompt-enhancement.md | prompt-engineering-skills/skills/ |
 | gemini-3.1-prompt-strategies.md | prompt-engineering-skills/skills/ |
 | prompt-engineering-guide.md | prompt-engineering-skills/skills/ |
 | image-prompt-guide.md | prompt-engineering-skills/skills/ |

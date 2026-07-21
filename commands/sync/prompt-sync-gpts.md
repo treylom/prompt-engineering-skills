@@ -25,7 +25,7 @@ GPTs-Prompt-Generator.md 파일 업데이트를 위한 서브 스킬입니다.
 | 이미지 생성 관련 | `.claude/skills/image-prompt-guide.md` |
 | 리서치/팩트체크 | `.claude/skills/research-prompt-guide.md` |
 | 모델별 전략 | `.claude/skills/prompt-engineering-guide.md` |
-| GPT-5.2 최적화 | `.claude/skills/gpt-5.4-prompt-enhancement.md` |
+| GPT 최적화 (5.6 Sol + legacy) | `.claude/skills/gpt-5.6-prompt-enhancement.md` |
 
 ## 워크플로우
 
@@ -41,7 +41,7 @@ GPTs-Prompt-Generator.md 파일 업데이트를 위한 서브 스킬입니다.
 - .claude/skills/image-prompt-guide.md
 - .claude/skills/research-prompt-guide.md
 - .claude/skills/prompt-engineering-guide.md
-- .claude/skills/gpt-5.4-prompt-enhancement.md
+- .claude/skills/gpt-5.6-prompt-enhancement.md
 ```
 
 ### 2. 수정 적용

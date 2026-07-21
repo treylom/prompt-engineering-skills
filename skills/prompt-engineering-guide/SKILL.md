@@ -143,7 +143,7 @@ disable-model-invocation: true
 | `ce-context-fundamentals` | 기본 원칙 (시스템 프롬프트 구조화) |
 | `ce-context-optimization` | 최적화 기법 (토큰 효율성) |
 | `gpt-5.5-prompt-enhancement` | GPT 5.x 통합 — outcome-first markdown(5.5) + legacy XML stack(5.4/5.2) |
-| `claude-4.6-prompt-strategies` | Claude 4.5/4.6 프롬프트 전략 가이드 |
+| `claude-fable-5-prompt-strategies` | Claude 현행 전략 (Fable 5·Opus 4.8·Sonnet 5 — 구세대는 `claude-4.7-prompt-strategies`) |
 | `gemini-3.1-prompt-strategies` | Gemini 3 프롬프트 전략 (NB2 포함) |
 | `image-prompt-guide` | 이미지 생성 프롬프트 가이드 |
 | `research-prompt-guide` | 팩트체크/리서치 프롬프트 가이드 (IFCN 원칙 기반) |

@@ -1,7 +1,7 @@
 ## XML 프롬프트 (코딩/에이전트/분석용)
 
 > **적용**: 코딩, 에이전트, 분석, 팩트체크 시 XML 구조 사용
-> **상세 가이드**: `claude-4.6-prompt-strategies.md` 스킬 파일 참조 (Claude 4.6 Adaptive Thinking + Effort Parameter 포함)
+> **상세 가이드**: `claude-fable-5-prompt-strategies.md` (현행 — Fable 5·Opus 4.8·Sonnet 5) + `claude-4.7-prompt-strategies.md` (구세대 XML 구조 Part 12) 스킬 파일 참조
 
 ---
 
@@ -11,7 +11,7 @@
 |---|--------|------|----------|
 | 1 | `prompt-engineering-guide.md` | 모델별 전략 총괄 | 필수 |
 | 2 | `gemini-3.1-prompt-strategies.md` | Gemini 3, Flash, Veo | Gemini 시 필수 |
-| 3 | `claude-4.6-prompt-strategies.md` | Claude 4.5/4.6 전략 | Claude 시 필수 |
+| 3 | `claude-fable-5-prompt-strategies.md` | Claude 현행 전략 (Fable 5·Opus 4.8·Sonnet 5) — 구세대는 `claude-4.7-prompt-strategies.md` | Claude 시 필수 |
 | 4 | `image-prompt-guide.md` | 이미지/동영상 가이드 | 이미지/동영상 시 필수 |
 | 5 | `context-engineering-collection.md` | CE 원칙 | 권장 |
 | 6 | `research-prompt-guide.md` | 팩트체크/리서치 가이드 | 팩트체크/리서치 시 필수 |

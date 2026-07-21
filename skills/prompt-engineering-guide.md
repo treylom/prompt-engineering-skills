@@ -1,8 +1,8 @@
 ---
 name: prompt-engineering-guide
 description: 단일 통합 AI 프롬프트 엔지니어링 스킬. 모델별 전략, 이미지/동영상, 리서치/팩트체크, 슬라이드, 전문가 도메인 프라이밍, Context Engineering을 모두 이 파일에서 관리합니다.
-version: 3.0.0
-updated: 2026-05-12
+version: 3.1.0
+updated: 2026-07-21
 ---
 
 # AI 프롬프트 엔지니어링 통합 가이드
@@ -19,7 +19,7 @@ updated: 2026-05-12
 | 영역 | 이 파일에서 볼 위치 |
 |------|-------------------|
 | GPT 5.x (**5.6 Sol = 기본**) | 모델별 프롬프트 전략 → GPT-5.6 / 5.5 / 5.2 / legacy XML |
-| Claude 4.x | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
+| Claude (**Opus 4.8 = 기본** · Fable 5 · Sonnet 5 / 구세대 4.x) | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
 | Gemini / Veo / 이미지 | Gemini, Nano Banana, 이미지/동영상 통합 부록 |
 | 리서치 / 팩트체크 | 목적별 추가 블록, 글쓰기/리서치 개요, 리서치 통합 부록 |
 | 슬라이드 / PPT | 중간 구조화 워크플로우, 슬라이드 통합 부록 |
@@ -648,6 +648,8 @@ Role:
 ---
 
 ### Claude 4.5 (Opus/Sonnet/Haiku)
+
+> 🆕 **Claude 기본 모델 = Opus 4.8** (2026-06-10부터) · **최고난도·장기 자율 = Fable 5** · **Sonnet 최신 = Sonnet 5**. 현행 프롬프팅 규칙(짧은 지시 1개씩·프롬프트 다이어트·adaptive thinking 전용·reasoning 재출력 금지) = `skills/claude-fable-5-prompt-strategies.md` + 본 파일 통합 부록 "Claude 프롬프트 전략"의 현행 블록. 아래 Claude 4.5 내용은 계보 보존.
 
 Claude 4.5 모델군은 **정밀한 지시 따르기**를 위해 훈련되었습니다. 이전 세대보다 더 명시적인 방향 제시가 필요합니다.
 
@@ -1760,8 +1762,8 @@ operation = client.models.generate_videos(
 | `prompt-engineering-guide` | 컨텍스트 엔지니어링 원칙 |
 | `ce-context-fundamentals` | 기본 원칙 (시스템 프롬프트 구조화) |
 | `ce-context-optimization` | 최적화 기법 (토큰 효율성) |
-| `prompt-engineering-guide` | GPT 5.x 통합 — outcome-first markdown(5.5) + legacy XML stack(5.4/5.2) |
-| `prompt-engineering-guide` | Claude 4.x 프롬프트 전략 가이드 (Opus 4.5/4.6/4.7 + Sonnet 4.5/4.6 + Haiku 4.5) |
+| `prompt-engineering-guide` | GPT 5.x 통합 — lean outcome-first(**5.6 Sol = 기본**) + outcome-first(5.5) + legacy XML stack(5.4/5.2) |
+| `prompt-engineering-guide` | Claude 프롬프트 전략 — 현행(**Opus 4.8 = 기본** · Fable 5 · Sonnet 5) + 구세대(Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5) |
 | `prompt-engineering-guide` | Gemini 3 프롬프트 전략 (NB2 포함) |
 | `prompt-engineering-guide` | 이미지 생성 프롬프트 가이드 (공냥이 @specal1849 자료 기반) |
 | `prompt-engineering-guide` | 팩트체크/리서치 프롬프트 가이드 (IFCN 원칙 기반) |
@@ -2405,15 +2407,40 @@ Ask only for the smallest missing input if blocked.
 
 ---
 
-### Claude 4.x prompt strategies
+### Claude 현행 모델 전략 (Fable 5 · Opus 4.8 · Sonnet 5) 🆕
+
+> **Updated**: 2026-07-21 | **Source**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
+> **Covers**: **Claude Fable 5** (최고난도·장기 자율), **Opus 4.8** (Claude 디폴트, 2026-06-10부터), **Sonnet 5** (Sonnet 최신)
+
+핵심 철학: 세 모델 모두 **지시 따르기가 강해져 "열거형 장문 프롬프트"가 역효과** — 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방의 다이어트가 마이그레이션의 본체.
+
+**모델 선택**: 가장 어려운 미해결 문제·며칠 단위 자율 run·병렬 서브에이전트 = **Fable 5** / 검증된 파이프라인·예측 가능한 동작 = **Opus 4.8** / 속도·비용 균형(准-Opus 코딩) = **Sonnet 5**.
+
+**Opus 4.8 핵심**:
+- `effort`가 최우선 레버 — 코딩·agentic = `xhigh`, 지능 민감 최소 `high`. 얕은 추론 = 프롬프트 우회 말고 effort ↑. `max_tokens` 64K부터.
+- thinking 기본 off — `thinking: {type: "adaptive"}` 명시 필요. `budget_tokens`/`temperature`/`top_p`/prefill = **400 에러**.
+- verbosity 자동 조정·literal 해석("Apply this to **every** section") · 도구/서브에이전트 사용 보수적(언제/왜 명시로 보정).
+- 코드리뷰 recall 함정: "high-severity만" 옛 지시를 충실히 따름 → coverage 단계와 filter 단계 분리 프롬프트.
+
+**Fable 5 핵심**:
+- adaptive thinking 전용 — `thinking` 파라미터 자체를 생략(disabled도 400). reasoning 재출력 지시 = refusal 위험.
+- 더 긴 turn이 기본값(수 분~수 시간) — timeout·스트리밍·진행 표시 선조정.
+- 짧은 지시 1개로 steering: "Lead with the outcome." / 진행 주장 grounding: "Before reporting progress, audit each claim against a tool result."
+- 경계 명시: 문제 서술·질문이면 진단만 보고하고 정지(무단 수정 금지 스니펫).
+
+**Sonnet 5 핵심**: 신규 tokenizer(동일 텍스트 ~30% 토큰 증가 — 버짓 보수 산정) · `budget_tokens` 완전 제거(400) · `effort` low~max 지원(기본 high) · thinking 생략 시 adaptive 기본.
+
+---
+
+### Claude 4.x prompt strategies (구세대 — 4.7 이하 참고 보존)
 
 ### Claude 프롬프트 전략
 
-> **Version**: 3.2.0 | **Updated**: 2026-04-30
+> **Version**: 3.2.0 | **Updated**: 2026-04-30 | ⚠️ **구세대 참고 문서** — 현행(Fable 5·Opus 4.8·Sonnet 5)은 위 "Claude 현행 모델 전략" 섹션 참조
 > **Source**: Anthropic 공식 문서 ([platform.claude.com — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Migration](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) + [Adaptive Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Extended Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking))
-> **Covers**: **Opus 4.7** (2026-04-16 신규), **Opus 4.6** (first-class 유지), **Sonnet 4.6** (4.5 대비 effort 기본값 변경), Opus 4.5, Sonnet 4.5, Haiku 4.5
+> **Covers**: **Opus 4.7**, **Opus 4.6** (first-class 유지), **Sonnet 4.6** (4.5 대비 effort 기본값 변경), Opus 4.5, Sonnet 4.5, Haiku 4.5
 
-Claude 4.x 모델군 (Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5)은 **정밀한 지시 따르기**를 위해 훈련되었습니다. **4.7은 4.6보다 더 리터럴하게 해석**하므로 범위 명시가 더 중요합니다. **Opus 4.6도 여전히 first-class**로 사용 가능 — 사용자가 명시하면 4.6 코드 패턴을 그대로 적용 (4.7 마이그레이션 강요 금지). 4.6 vs 4.7 의사결정은 Part 0.6 참조.
+Claude 4.x 구세대 모델군 (Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5)은 **정밀한 지시 따르기**를 위해 훈련되었습니다. **4.7은 4.6보다 더 리터럴하게 해석**하므로 범위 명시가 더 중요합니다. **Opus 4.6도 여전히 first-class**로 사용 가능 — 사용자가 명시하면 4.6 코드 패턴을 그대로 적용 (4.7 마이그레이션 강요 금지). 4.6 vs 4.7 의사결정은 Part 0.6 참조.
 
 ---
 

@@ -59,7 +59,7 @@ GPT-5.2에서 자주 사용하는 XML 태그들:
 | `<tool_persistence>` | 도구 실패 시 재시도 규칙 | GPT-5.4 에이전트 |
 | `<eagerness_control>` | 탐색 적극성 양방향 제어 | GPT-5.4 에이전트 |
 
-> **Claude 4.5/4.6 XML 구조 상세**: `claude-4.6-prompt-strategies.md` 스킬의 Part 12 참조
+> **Claude 4.5/4.6 XML 구조 상세**: `claude-4.7-prompt-strategies.md` 스킬의 Part 12 참조 (현행 모델 전략은 `claude-fable-5-prompt-strategies.md`)
 > **GPT-5.4 에이전틱 패턴 상세**: `gpt-5.5-prompt-enhancement.md` 스킬 참조
 
 ---

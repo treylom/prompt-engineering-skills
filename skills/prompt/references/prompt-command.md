@@ -1,11 +1,11 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.10.1 | **Updated**: 2026-07-18 — 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설(실행 직전 프롬프트 코드블록 생성 여부·역할 직접 지명·SoT 저장 3항목 체크 — 하나라도 미충족이면 실행 금지). v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격(사용자 피드백 반영("리서치/팩트체크 템플릿 미로드" 회귀 수정)) ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조(strategies v1.2.0 — delta 3건 반영, 나머지 정합 확인)
+> **Version**: 2.11.0 | **Updated**: 2026-07-21 — 🆕 모델 라인업 현행화: GPT 디폴트 **GPT-5.6 Sol** 승격(lean outcome-first, 5.5/5.4는 legacy 라우팅), Gems/GPTs 지침·통합 가이드의 Opus 4.7-디폴트 잔존 제거(Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 · Sonnet 5 반영). v2.10.1: 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설. v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격 ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
 > **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
 > **Opus 4.7 / 4.6 공식 소스 (구세대 first-class)**: [platform.claude.com/docs — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) — 사용자 명시 시 4.7/4.6 코드 패턴 적용
-> **GPT-5.5 공식 가이드**: 2026-04 발표 — [GPT-5.5 prompt guide](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) (outcome-first markdown 6섹션). GPT-5.4의 XML 12블록 stack과 **다른 패턴**이라 모델별 라우팅 적용.
+> **GPT 공식 가이드 (디폴트 = GPT-5.6 Sol, 2026-07)**: [Prompting guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) — lean outcome-first. 상세: `skills/gpt-5.6-prompt-enhancement.md`. 5.5 outcome-first(6섹션)·5.4 XML 12블록 stack은 legacy — 모델별 라우팅 적용.
 
 AI 모델별로 최적화된 프롬프트를 생성합니다.
 
@@ -118,7 +118,7 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
 | 위치 | 값 예시 | 설명 |
 |------|--------|------|
 | `--batch` | (필수 플래그) | 인터랙티브 우회 신호 |
-| 1번째 토큰 | `Claude` / `GPT-5.2` / `GPT-5.4` / `GPT-5.5` / `Gemini` / `gpt-image` / `Gemini-Image` / `Seedream` | 타겟 모델 (모델별 최적화 블록 결정). `Claude`는 **Opus 4.8 기본**(adaptive thinking + effort=xhigh; 4.7/4.6/Fable 5는 명시 시), `GPT-5.5`는 GPT-5.4 파라미터 계승 (API 미공개, Codex/ChatGPT 전용). 이미지 모델(`gpt-image`/`Gemini-Image`/`Seedream`) 지정 시 Step 5의 텍스트 모델 블록은 스킵하고 `prompt-engineering-guide.md`의 JSON 구조만 생성 |
+| 1번째 토큰 | `Claude` / `GPT-5.2` / `GPT-5.4` / `GPT-5.5` / `GPT-5.6` / `Gemini` / `gpt-image` / `Gemini-Image` / `Seedream` | 타겟 모델 (모델별 최적화 블록 결정). `Claude`는 **Opus 4.8 기본**(adaptive thinking + effort=xhigh; 4.7/4.6/Fable 5는 명시 시), GPT 미지정·`GPT-5.6`은 **GPT-5.6 Sol 기본**(lean outcome-first — `skills/gpt-5.6-prompt-enhancement.md`), 5.5/5.4/5.2는 legacy 명시 시. 이미지 모델(`gpt-image`/`Gemini-Image`/`Seedream`) 지정 시 Step 5의 텍스트 모델 블록은 스킵하고 `prompt-engineering-guide.md`의 JSON 구조만 생성 |
 | 2번째 토큰 | `간결` / `보통` / `상세` | 프롬프트 상세도 |
 | 나머지 | 자유 텍스트 | 워커가 수행할 핵심 지시문 (목적 자동 감지) |
 
@@ -225,11 +225,11 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) - 2025년 12월 기준 사용자 투표 순위
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8 / GPT 디폴트 = GPT-5.6 Sol)
 
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
-| **코딩/개발** | **Claude Opus 4.8** (2026-05, `xhigh` effort) | GPT-5.5 Codex (2026-04-23) | **Fable 5** (최고난도·장기 자율) / Opus 4.7 (안정성·기존 코드) |
+| **코딩/개발** | **Claude Opus 4.8** (2026-05, `xhigh` effort) | GPT-5.6 Sol / GPT-5.5 Codex | **Fable 5** (최고난도·장기 자율) / Opus 4.7 (안정성·기존 코드) |
 | **수학/논리** | GPT-5.2 | Gemini 3 Flash | Claude Opus 4.8 / 4.7 |
 | **글쓰기/창작** | Gemini 3 Pro | Gemini 3 Flash | Claude Opus 4.8 / 4.7 |
 | **종합/분석** | Gemini 3 Pro | Grok 4.1 | Claude Opus 4.8 / 4.7 |
@@ -257,7 +257,7 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
 | **웹 검색/리서치** | Gemini 3 Pro Grounding | GPT-5.2 Search | GPT-5.1 Search |
-| **팩트체크** | **GPT-5.2 Thinking** | Gemini 3 Pro Grounding | Perplexity Sonar Pro |
+| **팩트체크** | **GPT-5.6 Thinking** | Gemini 3 Pro Grounding | Perplexity Sonar Pro |
 
 ---
 
@@ -479,6 +479,7 @@ Your context window will be automatically compacted as it approaches its limit, 
 
 ## 🚀 GPT-5.5 Outcome-First 핵심 (v2.6.0 — 2026-04-30)
 
+> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
 > **공식 가이드**: [GPT-5.5 Prompt Guidance](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) (2026-04 발표)
 > **핵심**: 5.4의 process-heavy XML 12블록 stack 대신 **outcome-first markdown 6섹션** 권장.
 > **상세 스킬**: `prompt-engineering-guide.md` (블록 정의, 마이그레이션, anti-patterns)
@@ -547,10 +548,10 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 
 | 사용자 명시 | 적용 enhancement |
 |------------|-----------------|
-| `GPT-5.5` 또는 `gpt-5.5` | `prompt-engineering-guide.md` (outcome-first 6섹션) |
+| `GPT-5.6` / `gpt-5.6` / GPT 모델 미지정 | **`skills/gpt-5.6-prompt-enhancement.md` (lean outcome-first 디폴트, 2026-07)** |
+| `GPT-5.5` 또는 `gpt-5.5` | `prompt-engineering-guide.md` (outcome-first 6섹션 — legacy) |
 | `GPT-5.4` / `GPT-5.2` / `GPT-5` | `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 |
 | `legacy XML` / `5.4 스타일` 명시 | `prompt-engineering-guide.md` 하단 Legacy 섹션 강제 |
-| GPT 모델 미지정, 일반 작업 | GPT-5.5 outcome-first 디폴트 |
 
 > **Note**: 2026-04-30 v2.7.0부터 `prompt-engineering-guide.md` 별도 파일은 **폐기**되고 `prompt-engineering-guide.md` 단일 파일에 outcome-first + legacy XML stack 모두 통합됨 (GPTs/Gems 첨부파일 10개 한도 대응).
 
@@ -750,7 +751,7 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
     "options": [
       {"label": "Claude Opus 4.8 (Recommended)", "description": "디폴트 (2026-06-10~), Adaptive Thinking + effort=xhigh, 1M context 기본"},
       {"label": "Claude Fable 5", "description": "최고난도·장기 자율 run·병렬 서브에이전트 — 프롬프트 다이어트 원칙"},
-      {"label": "GPT-5.5 (Codex/ChatGPT)", "description": "2026-04-23 출시, Browser Use + Auto-approval, API 미공개"},
+      {"label": "GPT-5.6 Sol", "description": "2026-07 GPT 기본 모델, lean outcome-first (5.5/5.4는 legacy 명시 시)"},
       {"label": "Gemini 3 Pro", "description": "멀티모달 + Grounding Search 강점"}
     ]
   },
@@ -1830,8 +1831,12 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.10.1
-- **Updated**: 2026-07-18
+- **Version**: 2.11.0
+- **Updated**: 2026-07-21
+- **Changes v2.11.0** (2026-07-21):
+  - **[MAJOR] GPT 디폴트 = GPT-5.6 Sol 승격**: 모델 라우팅 표에 5.6 행 신설(미지정 GPT → `skills/gpt-5.6-prompt-enhancement.md` lean outcome-first), 5.5/5.4/5.2는 legacy 명시 시. --batch 1번째 토큰에 `GPT-5.6` 추가, AskUserQuestion 옵션·추천 모델 표·팩트체크 순위 갱신
+  - **[MAJOR] 구세대 잔존 표기 일소**: Gems 지침 v2.6.0(디폴트 4.7→4.8·Fable 5 신설·분할 파일 02 rankings의 4.6-era 정리 + dead 파일 참조 `claude-4.6-prompt-strategies.md` 수정), GPTs 지침 v2.6.0(동일), 통합 가이드 v3.1.0(Claude 현행 전략 섹션 신설 — Fable 5·Opus 4.8·Sonnet 5, 기존 4.x 섹션 구세대 참고로 재분류)
+  - **[MEDIUM] 플러그인 재패키징**: tofukyung-portlab `prompt-generator` 포트 v2.9.0 → v2.11.0 (설치 캐시 최신화)
 - **Changes v2.10.1** (2026-07-18):
   - **[MEDIUM] AUTO 모드 "3.5 산출 자가진단" 게이트 신설**: 실행 직전 ①프롬프트 코드블록 실제 생성 여부 ②`<role>` 실존 전문가 직접 지명 여부 ③프롬프트 전문의 SoT 저장 여부 3항목 체크 — 하나라도 미충족이면 실행 대신 생성 단계(2)로 복귀. 워크플로우 규격이 컨텍스트에 있어도 단계를 건너뛰는 사례에 대한 방지책
 - **Changes v2.10.0** (2026-07-15):
