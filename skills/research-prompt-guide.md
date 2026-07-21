@@ -4,7 +4,7 @@ description: 팩트체크 및 리서치 프롬프트 가이드. IFCN 원칙 기�
 references:
   - prompt-engineering-guide
   - context-engineering-collection
-  - gpt-5.5-prompt-enhancement
+  - gpt-5.6-prompt-enhancement
 ---
 
 # 리서치 & 팩트체크 프롬프트 가이드
@@ -384,7 +384,11 @@ references:
 
 ## 3. 모델별 최적화
 
-### 3.1 GPT-5.2 최적화
+> 🆕 **현행 라인업 (2026-07)**: 팩트체크 고정 = **GPT-5.6 Thinking** · 웹 리서치 1순위 = **Claude Opus 4.8 Search**. GPT 현행 디폴트(GPT-5.6 Sol)는 lean outcome-first Markdown — 전체 블록 구조는 `gpt-5.6-prompt-enhancement.md` 참조.
+
+### 3.1 GPT 최적화 (구 GPT-5.2 XML 스타일 — 참고 보존)
+
+> 아래 XML 템플릿은 5.2 세대 스타일. GPT-5.2 Search 는 검색 용도로 여전히 현역이나, 텍스트 리서치 디폴트는 GPT-5.6 Sol(위 포인터).
 
 ```xml
 <system_prompt>
@@ -416,7 +420,7 @@ references:
 </system_prompt>
 ```
 
-### 3.2 Gemini 3 최적화
+### 3.2 Gemini 3.1 최적화
 
 ```markdown
 ## Constraints (Read First)
@@ -440,7 +444,9 @@ references:
 - 한계점 명시
 ```
 
-### 3.3 Claude 4.5 최적화
+### 3.3 Claude 최적화 (Opus 4.8 · Fable 5 현행)
+
+> XML 구조 프롬프트는 현행 Claude(Opus 4.8·Fable 5)에도 유효 — 아래 템플릿은 버전 무관하게 그대로 사용 가능.
 
 ```xml
 <system_prompt>
@@ -640,4 +646,4 @@ references:
 **Created**: 2025-12-28
 **Version**: 1.0.0
 **Author**: Claude Code
-**Related Skills**: prompt-engineering-guide, gpt-5.5-prompt-enhancement
+**Related Skills**: prompt-engineering-guide, gpt-5.6-prompt-enhancement

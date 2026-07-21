@@ -143,7 +143,7 @@
 
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
-| 웹 검색/리서치 | Claude Opus 4.8 Search | Gemini 3 Pro Grounding | GPT-5.2 Search |
+| 웹 검색/리서치 | Claude Opus 4.8 Search | GPT-5.2 Search | Gemini 3 Pro Grounding |
 | 팩트체크 | **GPT-5.6 Thinking** (고정) | Gemini 3 Pro Grounding | Perplexity Sonar Pro |
 | 실시간 정보 | GPT-5.2 Search | Grok 4.20 Search | o3 Search |
 
