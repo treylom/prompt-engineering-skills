@@ -1,7 +1,7 @@
 {
   "name": "prompt-engineering-skills",
-  "description": "아이디어를 실행 가능한 프롬프트로 정리해주는 도구 — /prompt v2.11.2 + 모델별 최적화 전략(Claude/GPT/Gemini/이미지) 스킬",
-  "version": "2.11.2",
+  "description": "아이디어를 실행 가능한 프롬프트로 정리해주는 도구 — /prompt v2.11.3 + 모델별 최적화 전략(Claude/GPT/Gemini/이미지) 스킬",
+  "version": "2.11.3",
   "author": {
     "name": "tofukyung",
     "url": "https://github.com/treylom"

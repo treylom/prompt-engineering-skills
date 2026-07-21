@@ -1,6 +1,6 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.11.2 | **Updated**: 2026-07-21 — 🆕 v2.11.2: 동일 플러그인 나머지 스킬 현행화(prompt-variation-guide 통누락 해소·prompt-update 모델 믹스). v2.11.1: research-prompt-guide §3 현행화. v2.11.0: 모델 라인업 현행화: GPT 디폴트 **GPT-5.6 Sol** 승격(lean outcome-first, 5.5/5.4는 legacy 라우팅), Gems/GPTs 지침·통합 가이드의 Opus 4.7-디폴트 잔존 제거(Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 · Sonnet 5 반영). v2.10.1: 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설. v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격 ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조
+> **Version**: 2.11.3 | **Updated**: 2026-07-21 — 🆕 v2.11.3: --batch 리서치 흐름 "모델별 필수 블록" 표에 GPT-5.6 Sol 디폴트 행 신설(구 5.2/5.4 행은 legacy 명시 시로 조건화). v2.11.2: 동일 플러그인 나머지 스킬 현행화(prompt-variation-guide 통누락 해소·prompt-update 모델 믹스). v2.11.1: research-prompt-guide §3 현행화. v2.11.0: 모델 라인업 현행화: GPT 디폴트 **GPT-5.6 Sol** 승격(lean outcome-first, 5.5/5.4는 legacy 라우팅), Gems/GPTs 지침·통합 가이드의 Opus 4.7-디폴트 잔존 제거(Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 · Sonnet 5 반영). v2.10.1: 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설. v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격 ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
 > **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
@@ -133,7 +133,8 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
      → 사용자 지시문/주제로 placeholder 치환
 5. 모델별 필수 블록 적용:
      - Claude → <default_to_action>, <use_parallel_tool_calls>
-     - GPT-5.2/5.4 → <output_verbosity_spec>, <web_search_rules>, <uncertainty_and_ambiguity>
+     - GPT-5.6 Sol(디폴트) → Markdown lean: `# Success Criteria` / `# Stop Rules` / 불확실성 처리 지시 — 상세 `skills/gpt-5.6-prompt-enhancement.md`
+     - GPT-5.2/5.4(legacy 명시 시) → <output_verbosity_spec>, <web_search_rules>, <uncertainty_and_ambiguity>
      - Gemini 3 → Constraints 최상단
      - `gpt-image` / `Gemini-Image` / `Seedream` (이미지 전용) → 텍스트 모델 블록 스킵. `prompt-engineering-guide.md` Read 로드 → JSON 구조(purpose/hero/context/evidence/constraints) + Visual Re-description + Technical Specifications만 생성. Anti-Patterns 섹션에 "no text/watermark/logos, no post-processing, deliver raw PNG as-is" 포함
 6. CE 체크리스트(U자형, Lost-in-Middle 방지) 적용
@@ -1832,8 +1833,10 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.11.2
+- **Version**: 2.11.3
 - **Updated**: 2026-07-21
+- **Changes v2.11.3** (2026-07-21):
+  - **[LOW] --batch 리서치 흐름 "모델별 필수 블록" 표 GPT-5.6 행 신설**: 독립 검토 지적 — 1번째 토큰 표는 GPT-5.6이 1급인데 후속 필수 블록 표가 5.2/5.4 XML만 나열하던 내부모순 해소. GPT-5.6 Sol 디폴트 = Markdown lean(`# Success Criteria`/`# Stop Rules`), 구 XML 행은 legacy 명시 시로 조건화 (deep-research v2.1.1 라우팅 정합)
 - **Changes v2.11.2** (2026-07-21):
   - **[MEDIUM] prompt-variation-guide 스킬 현행화 (재경님 지적 — 동일 플러그인 나머지 스킬 통누락 해소)**: SKILL.md v1.1.0 — Part 3.3 성격 표 GPT-5.2/Claude 4.5/Gemini 3 → **GPT-5.6 Sol**(Markdown lean outcome-first)·**Claude Opus 4.8·Fable 5**·**Gemini 3.1**, anti-pattern #6 을 5.6 기준(Success Criteria/Stop Rules)으로, techniques/examples 라벨 재정비(GPT XML 예시 = 구 5.2 세대 스타일 명시, Claude XML = 현행 유효)
   - **[LOW] prompt-update.md 모델 믹스 현행화**: Workers/DA Sonnet 4.6 → Sonnet 5
