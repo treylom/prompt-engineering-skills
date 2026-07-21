@@ -6,9 +6,11 @@ disable-model-invocation: true
 
 # 프롬프트 생성 다양성 가이드
 
-> **Version**: 1.0.0
-> **Created**: 2026-01-08
+> **Version**: 1.1.0
+> **Created**: 2026-01-08 | **Updated**: 2026-07-21 — 모델 라인업 현행화 (GPT-5.6 Sol · Claude Opus 4.8/Fable 5 · Gemini 3.1)
 > **Purpose**: /auto-prompt 에이전트의 프롬프트 생성 다양성 향상
+>
+> 🆕 **세대 안내**: 본 가이드의 GPT XML 블록 표기(`output_verbosity_spec` 등)는 구 5.2/5.4 세대 스타일 — 사용자가 XML 스타일을 명시할 때만 적용. **현행 GPT-5.6 Sol 디폴트는 Markdown lean outcome-first**(`skills/gpt-5.6-prompt-enhancement.md`). Claude XML 블록은 현행(Opus 4.8·Fable 5)에도 유효.
 
 **이 가이드의 목표**: 동일한 작업이라도 모델별/작업유형별/난이도별로 구조와 표현이 명확히 다른 프롬프트를 생성하는 방법 제공
 
@@ -52,9 +54,9 @@ Layer 4: Output Format (출력 형식)
 
 | 모델 | 성격 | 표현 스타일 | 강조점 |
 |------|------|------------|--------|
-| **GPT-5.2** | 효율 중심, 보수적 | 간결, 토큰 최소화 | 제약 (Constraints) |
-| **Claude 4.5** | 명시적, 이유 중심 | 상세, 맥락 풍부 | 맥락 (Context) + 행동 (Action) |
-| **Gemini 3** | 구조 중심, 단계적 | 계층적, 순서 명확 | 제약 우선 (Constraints First) |
+| **GPT-5.6 Sol** | 결과 중심, lean | Markdown lean outcome-first, 열거 최소화 | 성공 기준 (Success Criteria) + Stop Rules |
+| **Claude (Opus 4.8 · Fable 5)** | 명시적, 이유 중심 | 상세, 맥락 풍부 | 맥락 (Context) + 행동 (Action) |
+| **Gemini 3.1** | 구조 중심, 단계적 | 계층적, 순서 명확 | 제약 우선 (Constraints First) |
 | **Perplexity** | 연구 중심, 출처 기반 | 검색 → 종합 | 워크플로우 (Workflow) + 출처 |
 
 ---
@@ -99,8 +101,8 @@ Layer 4: Output Format (출력 형식)
 5. Claude인데 맥락 설명 없음
    → Claude는 "왜 중요한지" 설명 필요
 
-6. GPT인데 output_verbosity_spec 없음 (난이도 3+)
-   → 난이도 3 이상은 필수
+6. GPT인데 Success Criteria/Stop Rules 없음 (난이도 3+)
+   → 5.6 Sol Markdown 기준 필수. 구 XML 스타일 명시 요청 시엔 output_verbosity_spec
 ```
 
 ---

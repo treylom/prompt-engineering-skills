@@ -17,10 +17,10 @@ $ARGUMENTS
 - **team_id**: prompt-eng.update.v1
 - **설명**: 프롬프트 엔지니어링 통합 업데이트 — 최신 AI 모델 문서 반영
 - **팀원**: 7명 (Lead + KM Workers 3 + Researcher 1 + Sync Executor 1 + DA 1)
-- **모델 믹스**: Lead: Opus 1M, Workers: Sonnet 4.6, DA: Sonnet 4.6
+- **모델 믹스**: Lead: Opus 1M, Workers: Sonnet 5, DA: Sonnet 5
 - **생성일**: 2026-03-08
 - **Ralph**: ON (최대 5회)
-- **DA**: ON (Sonnet 4.6)
+- **DA**: ON (Sonnet 5)
 
 ## 실행
 

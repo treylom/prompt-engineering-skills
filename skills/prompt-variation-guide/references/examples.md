@@ -1,5 +1,7 @@
 # 변주 예시 모음 (Before/After)
 
+> 🆕 세대 안내 (2026-07-21): GPT 예시는 구 5.2 XML 세대 스타일로 표기 — 현행 GPT-5.6 Sol 디폴트는 Markdown lean outcome-first(`skills/gpt-5.6-prompt-enhancement.md`). Claude 예시는 현행(Opus 4.8 · Fable 5)에도 유효, Gemini 는 3.1 기준.
+
 3가지 직업군 × 4개 모델 × 3가지 난이도 = 완전한 예시 세트.
 
 ---
@@ -13,17 +15,17 @@
 
 #### Difficulty 1-2 Variations (자연어)
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```
 당신은 초등학교 5학년 담임교사입니다. 국어 3단원 '의견을 조절하며 토의해요'의 학습지도안을 작성해주세요.
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```
 당신은 경력 10년의 초등학교 교사입니다. 5학년 국어 3단원 학습지도안을 작성하세요. 도입-전개-정리 구조로 작성하고, 구체적인 활동을 포함해주세요.
 ```
 
-**Gemini 3**:
+**Gemini 3.1**:
 ```
 당신은 초등학교 5학년 담임교사입니다. 국어 3단원 토의 수업의 학습지도안을 작성하세요. 40분 수업 기준입니다.
 ```
@@ -43,7 +45,7 @@
 
 #### Difficulty 3-5 Variations (Markdown)
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```markdown
 # 역할
 경력 10년의 초등학교 5학년 담임교사
@@ -67,7 +69,7 @@
 | 단계 | 시간 | 활동 내용 | 자료 |
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```markdown
 # 역할
 경력 10년의 초등학교 5학년 담임교사
@@ -89,7 +91,7 @@
 표 형식 (단계 | 시간 | 활동 내용 | 자료)
 ```
 
-**Gemini 3** (Constraints First):
+**Gemini 3.1** (Constraints First):
 ```markdown
 ## 제약조건 (MUST READ FIRST)
 - 정확히 40분 분량
@@ -139,7 +141,7 @@
 
 #### Difficulty 6-7 Variations (XML)
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```xml
 <system_prompt>
   <role>경력 20년의 초등교육 전문가, 교육과정 설계 컨설턴트</role>
@@ -176,7 +178,7 @@
 </system_prompt>
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```xml
 <system_prompt>
   <role>경력 20년의 초등교육 전문가</role>
@@ -214,7 +216,7 @@
 </system_prompt>
 ```
 
-**Gemini 3** (Constraints Absolutely First):
+**Gemini 3.1** (Constraints Absolutely First):
 ```xml
 <system_prompt>
   <!-- Constraints MUST come first! -->
@@ -360,17 +362,17 @@
 
 #### Difficulty 1-2 Variations
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```
 당신은 경력 15년의 부동산 전문 변호사입니다. 제공된 부동산 매매 계약서를 법률적으로 검토해주세요.
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```
 당신은 부동산 전문 변호사입니다. 매매 계약서를 검토하고, 법적 위험 요소를 식별하며, 수정이 필요한 조항을 구체적으로 지적해주세요.
 ```
 
-**Gemini 3**:
+**Gemini 3.1**:
 ```
 당신은 부동산 전문 변호사입니다. 매매 계약서를 검토하세요. 특약 사항과 위험 조항에 집중해주세요.
 ```
@@ -384,7 +386,7 @@
 
 #### Difficulty 3-5 Variations
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```markdown
 # 역할
 경력 15년의 부동산 전문 변호사
@@ -410,7 +412,7 @@
 ### 추가 확인 사항
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```markdown
 # 역할
 부동산 전문 변호사 (경력 15년)
@@ -432,7 +434,7 @@
 ### 수정 권고안
 ```
 
-**Gemini 3**:
+**Gemini 3.1**:
 ```markdown
 ## 제약조건
 - 민법 제563조~제575조 기준 검토
@@ -508,17 +510,17 @@
 
 #### Difficulty 1-2 Variations
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```
 당신은 10년 경력의 카페 운영자입니다. 신메뉴 3종의 원가를 계산하고 판매가를 설정해주세요.
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```
 당신은 카페 운영자입니다. 신메뉴 3종 (아메리카노 변형)의 재료비를 계산하고, 30% 마진을 적용한 판매가를 제시하세요. 계산 과정을 단계별로 보여주세요.
 ```
 
-**Gemini 3**:
+**Gemini 3.1**:
 ```
 당신은 카페 운영자입니다. 신메뉴 3종의 원가와 판매가를 계산하세요. 마진율은 30%입니다.
 ```
@@ -532,7 +534,7 @@
 
 #### Difficulty 3-5 Variations
 
-**GPT-5.2**:
+**GPT (구 5.2 XML 예시)**:
 ```markdown
 # 역할
 10년 경력의 카페 운영자, 원가관리 전문
@@ -560,7 +562,7 @@
 JSON 배열 (3개 메뉴)
 ```
 
-**Claude 4.5**:
+**Claude (Opus 4.8 · Fable 5)**:
 ```markdown
 # 역할
 카페 운영자 (10년 경력)
@@ -583,7 +585,7 @@ JSON 배열 (3개 메뉴)
 | 메뉴명 | 재료비 | 포장재 | 총원가 | 판매가 (30% 마진) | 최종 판매가 |
 ```
 
-**Gemini 3**:
+**Gemini 3.1**:
 ```markdown
 ## 제약조건
 - 마진율 정확히 30%

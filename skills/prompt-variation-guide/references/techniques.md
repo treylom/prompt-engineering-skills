@@ -6,9 +6,11 @@ Variation Decision Matrix, Advanced Patterns, Job Adaptability Guide 상세.
 
 ## Part 3: Variation Decision Matrix
 
+> 🆕 GPT 열의 XML 블록은 구 5.2 세대 스타일(명시 요청 시) — 현행 GPT-5.6 Sol 디폴트는 같은 개념을 Markdown 섹션으로 표현(예: verbosity 제어 → `# Output` 간결 지시). Claude 열은 현행(Opus 4.8·Fable 5) 유효.
+
 ### 3.1 Task Type × Model Matrix
 
-| 작업 유형 | GPT-5.2 | Claude 4.5 | Gemini 3 | Perplexity |
+| 작업 유형 | GPT (구 5.2 XML) | Claude (Opus 4.8 · Fable 5) | Gemini 3.1 | Perplexity |
 |----------|---------|------------|----------|------------|
 | **코딩/개발** | `<design_and_scope_constraints>` | `<avoid_over_engineering>` + `<investigate_before_answering>` | `must_not`에 금지 패턴 명시 | N/A |
 | **글쓰기/문서** | `<output_verbosity_spec>` | `<avoid_excessive_markdown>` | `format_rules` 상세화 | 우수 사례 검색 + 스타일 가이드 |
@@ -43,12 +45,12 @@ Variation Decision Matrix, Advanced Patterns, Job Adaptability Guide 상세.
 
 **코딩 작업 + 고난이도 (Difficulty 6-7)**:
 ```xml
-GPT-5.2:
+GPT (구 5.2 XML 스타일):
   <output_verbosity_spec> (간결화)
   + <design_and_scope_constraints> (범위 제약)
   + <tool_usage_rules> (도구 사용 규칙)
 
-Claude 4.5:
+Claude (Opus 4.8 · Fable 5):
   <default_to_action> (즉시 실행)
   + <avoid_over_engineering> (과도한 설계 방지)
   + <investigate_before_answering> (파일 확인 먼저)
@@ -57,11 +59,11 @@ Claude 4.5:
 
 **글쓰기 작업 + 고난이도**:
 ```xml
-GPT-5.2:
+GPT (구 5.2 XML 스타일):
   <output_verbosity_spec> (간결화)
   + <long_context_handling> (긴 문서)
 
-Claude 4.5:
+Claude (Opus 4.8 · Fable 5):
   <avoid_excessive_markdown> (마크다운 최소화)
   + <default_to_action> (즉시 작성)
 ```

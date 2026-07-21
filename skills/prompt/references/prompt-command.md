@@ -1,6 +1,6 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 2.11.1 | **Updated**: 2026-07-21 — 🆕 v2.11.1: research-prompt-guide §3 모델별 최적화 현행화(스킬 잔여분 정리). v2.11.0: 모델 라인업 현행화: GPT 디폴트 **GPT-5.6 Sol** 승격(lean outcome-first, 5.5/5.4는 legacy 라우팅), Gems/GPTs 지침·통합 가이드의 Opus 4.7-디폴트 잔존 제거(Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 · Sonnet 5 반영). v2.10.1: 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설. v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격 ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조
+> **Version**: 2.11.2 | **Updated**: 2026-07-21 — 🆕 v2.11.2: 동일 플러그인 나머지 스킬 현행화(prompt-variation-guide 통누락 해소·prompt-update 모델 믹스). v2.11.1: research-prompt-guide §3 현행화. v2.11.0: 모델 라인업 현행화: GPT 디폴트 **GPT-5.6 Sol** 승격(lean outcome-first, 5.5/5.4는 legacy 라우팅), Gems/GPTs 지침·통합 가이드의 Opus 4.7-디폴트 잔존 제거(Claude 디폴트 = Opus 4.8 · 최고난도 = Fable 5 · Sonnet 5 반영). v2.10.1: 🚨 AUTO 모드에 "3.5 산출 자가진단" 게이트 신설. v2.10.0: 🔁 AUTO 모드 신설(자율 작업 흐름의 hook-강제 호출 = 1회 자동 개선 → 바로 실행, 5옵션 사용자 대기 ❌). v2.9.0: ①템플릿 로드 게이트 전역 승격 ②Opus 4.8·Fable 5 공식 문서 재fetch 전수 대조
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스**: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (공식 쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 200+ 케이스)
 > **Opus 4.8 / Fable 5 공식 소스**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 4.8** (2026-06-10). 상세: `skills/claude-fable-5-prompt-strategies.md`
@@ -1832,8 +1832,11 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 2.11.1
+- **Version**: 2.11.2
 - **Updated**: 2026-07-21
+- **Changes v2.11.2** (2026-07-21):
+  - **[MEDIUM] prompt-variation-guide 스킬 현행화 (재경님 지적 — 동일 플러그인 나머지 스킬 통누락 해소)**: SKILL.md v1.1.0 — Part 3.3 성격 표 GPT-5.2/Claude 4.5/Gemini 3 → **GPT-5.6 Sol**(Markdown lean outcome-first)·**Claude Opus 4.8·Fable 5**·**Gemini 3.1**, anti-pattern #6 을 5.6 기준(Success Criteria/Stop Rules)으로, techniques/examples 라벨 재정비(GPT XML 예시 = 구 5.2 세대 스타일 명시, Claude XML = 현행 유효)
+  - **[LOW] prompt-update.md 모델 믹스 현행화**: Workers/DA Sonnet 4.6 → Sonnet 5
 - **Changes v2.11.1** (2026-07-21):
   - **[LOW] research-prompt-guide §3 모델별 최적화 현행화**: GPT-5.2/Gemini 3/Claude 4.5 라벨 → 현행 포인터(§3 헤더에 GPT-5.6 Thinking 팩트체크 고정·Opus 4.8 Search 명시, GPT XML 템플릿은 구 5.2 참고 보존, Claude XML 템플릿은 Opus 4.8·Fable 5 유효 명시, Gemini 3→3.1), frontmatter 참조 gpt-5.5→5.6
 - **Changes v2.11.0** (2026-07-21):
