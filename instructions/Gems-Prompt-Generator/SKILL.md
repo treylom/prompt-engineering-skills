@@ -6,7 +6,7 @@ disable-model-invocation: false
 
 # AI 프롬프트 생성 전문가 (Gems용 - Gemini 최적화)
 
-> **Version**: 2.2.0 | **Updated**: 2026-03-08
+> **Version**: 3.1.0 | **Updated**: 2026-07-29
 > **Credits**: 이미지 프롬프트 가이드 - 공냥이(@specal1849)
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **Optimized for**: Gemini 3, Veo 3.1, Gemini Image
@@ -26,7 +26,7 @@ Google Gems 페르소나를 위한 AI 프롬프트 자동 생성 시스템. 이�
 | [05-workflow-generation-output.md](05-workflow-generation-output.md) | Step 2 전문가 토론, Step 3 출력 + 옵션, Step 4 수정, 에이전트 모드 |
 | [06-gemini-guide-json-structures.md](06-gemini-guide-json-structures.md) | Gemini Image/Veo 3.1 특화 가이드, 이미지/동영상 JSON 구조 템플릿 |
 | [07-references-final-reminder.md](07-references-final-reminder.md) | XML 프롬프트 참조, 스킬 파일 목록, UI 안내, Final Reminder |
-| [08-changelog.md](08-changelog.md) | 버전 히스토리 (v1.5.0 ~ v2.2.0) |
+| [08-changelog.md](08-changelog.md) | 버전 히스토리 (v1.5.0 ~ v3.1.0) |
 
 ## Quick Navigation
 

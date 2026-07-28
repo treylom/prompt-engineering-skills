@@ -1,5 +1,14 @@
 ## Version History
 
+**Version**: 3.1.0 | **Updated**: 2026-07-29
+**Changes v3.1.0** (2026-07-29): **정본(`commands/prompt.md` v3.1.0) 미전파 수리 — 이 디렉터리판이 v2.2.0(2026-03-08) 시점에 멈춰 있던 sibling 갭 해소.** 단일 파일판(`instructions/Gems-Prompt-Generator.md`)과 동일 내용을 분할 배치했습니다.
+- **[CRITICAL] 🏛️ 대원칙 불변 조항 신설** → `01-mindset-constraints.md` Constraints 최상단 직하. 전문가 프롬프팅 + 모델별 라우팅·자동 탐지를 전 목적·전 모델 상위 조항으로 명문화
+- **[MAJOR] 이미지 절 = 타겟 경로 분기** → `06-gemini-guide-json-structures.md`. 기본 타겟 = Gemini Image(JSON) ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`. **킷 규격을 Gemini Image·Seedream에 강제 금지** 명시
+- **[MAJOR] JSON 필드 신설** → 이미지 `target_model`·`expert_anchor` / 동영상 `cinematographer`(실존 1인 지명)
+- **[MEDIUM] FINAL REMINDER 대원칙 2줄 추가** → `07-references-final-reminder.md` (Lost-in-Middle 방지 반복)
+- **[PATCH] 버전 표기 통일**: 2.2.0 → 3.1.0. 정본 버전에 맞춰 단일 파일판·디렉터리판 번호를 일치시켜, 앞으로 "이 판이 정본 몇 버전을 반영했는지"가 번호만으로 보이게 했습니다(과거엔 단일판 2.6.0 / 디렉터리판 2.2.0 으로 어긋나 있었습니다).
+- **5가지 옵션 워크플로는 무수정 유지** — 기존 절 삭제·축소 ❌
+
 **Version**: 2.2.0 | **Updated**: 2026-03-08
 **Changes v2.2.0**:
 - **[벤치마크] 전체 순위 갱신**: LMArena (2026-03-06) + Artificial Analysis (2026-03) 기준
