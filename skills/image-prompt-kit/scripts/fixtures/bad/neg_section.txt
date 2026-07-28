@@ -1,0 +1,1 @@
+한국어 이벤트 포스터, 상업 인쇄 완성도. Scene: 상단 타이틀 밴드, 중앙 일러스트, 하단 여백. Camera: 정면 평면 구성, 중앙 정렬. Lighting: 소프트박스 균등광. Color grading: 딥네이비 #0F1D30, 크림 #F7F4EC, 골드 #C9A24B. Texture/Medium: 매트 아트지 질감. Negative: crowd, watermark. AR 4:5

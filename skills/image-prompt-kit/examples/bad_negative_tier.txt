@@ -1,0 +1,8 @@
+한국어 이벤트 포스터, 상업 인쇄 완성도.
+Scene: 중앙에 달과 야시장 일러스트, no crowd in the background, 하단은 카피용 여백.
+Camera: 정면 평면 구성, 중앙 대칭 정렬.
+Lighting: 부드러운 소프트박스 균등광.
+Color grading: 딥네이비 #0F1D30 배경, 크림 #F7F4EC 타이틀.
+Texture/Medium: 매트 아트지 질감, 인쇄 톤.
+no nudity, no nipple or genital exposure, no wardrobe malfunction, no extra people, no text, no watermark
+AR 4:5

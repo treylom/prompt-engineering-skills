@@ -1,0 +1,3 @@
+{"id":"HARD-EDGE","category":"C0","format":"A","tier":0,"ar":"3:1","size":"4000x1024","quality":"high","full_prompt":"한국어 이벤트 포스터, 정면 중앙 레이아웃, 부드러운 자연광 조명, 매트 아트지 질감, 딥네이비 #0F1D30 배경과 크림 #F7F4EC 포인트. AR 3:1","output_path":"out/hard-edge.png"}
+{"id":"HARD-MULT","category":"C0","format":"A","tier":0,"ar":"1:1","size":"1000x1000","quality":"high","full_prompt":"한국어 이벤트 포스터, 정면 중앙 레이아웃, 부드러운 자연광 조명, 매트 아트지 질감, 딥네이비 #0F1D30 배경과 크림 #F7F4EC 포인트. AR 1:1","output_path":"out/hard-mult.png"}
+{"id":"HARD-RATIO","category":"C0","format":"A","tier":0,"ar":"15:4","size":"3840x1024","quality":"high","full_prompt":"한국어 이벤트 포스터, 정면 중앙 레이아웃, 부드러운 자연광 조명, 매트 아트지 질감, 딥네이비 #0F1D30 배경과 크림 #F7F4EC 포인트. AR 15:4","output_path":"out/hard-ratio.png"}

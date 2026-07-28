@@ -1,0 +1,9 @@
+Scene: the single word "GRAVITY" repeated as eight concentric rectangular rings receding to
+a glowing vanishing point at the center of the tall frame, letters bending around the ring
+corners, the outer two rings large and fully legible, inner rings shrinking into rhythmic
+texture, a lone silhouetted figure standing at the tunnel mouth. Camera: dead-center one-point
+perspective, symmetrical. Lighting: light source at the vanishing point, rings darkening
+toward the viewer. Color grading: black #0A0A0A, warm white #F2EFE8, signal red #C4302B on
+alternate rings. Texture/Medium: flat poster print, subtle film grain. Text-in-image: the
+repeated word is the composition itself, each visible repetition legible — no invented glyphs,
+no watermark. AR 2:3

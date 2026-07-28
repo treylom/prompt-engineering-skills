@@ -1,0 +1,8 @@
+한국어 카드뉴스 표지, 에디토리얼 인쇄 완성도.
+Scene: 상단 1/3 타이틀 밴드에 헤드라인, 중앙에 둥근 말풍선 3D 오브젝트, 하단 캡션 밴드에 배지. 가장자리 5% 세이프 마진, 헤드라인 주변 generous negative space.
+Camera: 정면 평면 구성, 중앙 대칭 정렬, 풀블리드.
+Lighting: 부드러운 소프트박스 균등광, 옅은 콘택트 섀도로 깊이.
+Color grading: 웜 아이보리 #F7F4EC 배경, 딥네이비 #0F1D30 텍스트, 로즈골드 #B76E79 액센트.
+Texture/Medium: 매트 아트지 질감, 미세 그레인, 인쇄 톤.
+Text-in-image: headline "글자 배치의 기술" 상단 중앙(굵은 세리프, #0F1D30), subhead "영역 문법으로 지시한다" 헤드라인 아래 절반 크기(산세리프), badge "v2.0" 우하단(콘덴스드). All text appears once, perfectly legible — no duplicate text, no extra words, no invented glyphs, no watermark.
+AR 4:5

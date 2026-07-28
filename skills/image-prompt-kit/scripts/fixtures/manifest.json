@@ -1,0 +1,231 @@
+[
+  {
+    "path": "fixtures/good/example_poster.txt",
+    "mode": "text",
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/good/keyart_cinematic.txt",
+    "mode": "text",
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/good/hwabo_formatB.txt",
+    "mode": "text",
+    "flags": [
+      "--tier",
+      "2"
+    ],
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/good/poster_tier1.txt",
+    "mode": "text",
+    "flags": [
+      "--tier",
+      "1"
+    ],
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/good/real_hwabo.txt",
+    "mode": "text",
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/good/real_keyart.txt",
+    "mode": "text",
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/bad/example_bad_poster.txt",
+    "mode": "text",
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-HEAD-BRACKET",
+        "E-SD-VOCAB",
+        "E-WEIGHT",
+        "E-MJ-FLAG",
+        "E-NEG-001"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/bad/neg_outside_whitelist.txt",
+    "mode": "text",
+    "flags": [
+      "--tier",
+      "1"
+    ],
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-NEG-001"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/bad/tier2_leak.txt",
+    "mode": "text",
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-NEG-TIER"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/bad/dup_copy.txt",
+    "mode": "text",
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-TEXT-DUP"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/bad/slot_leak.txt",
+    "mode": "text",
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-SLOT-LEAK"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/good/records.jsonl",
+    "mode": "jsonl",
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/bad/records.jsonl",
+    "mode": "jsonl",
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-SIZE-LOCK",
+        "E-SIZE-AR",
+        "E-REC-QUALITY",
+        "E-REC-ARMATCH",
+        "E-REC-DUPID"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/bad/hard_constraints.jsonl",
+    "mode": "jsonl",
+    "flags": [
+      "--api"
+    ],
+    "expect": {
+      "ok": false,
+      "codes": [
+        "E-SIZE-EDGE",
+        "E-SIZE-MULT",
+        "E-SIZE-RATIO"
+      ]
+    }
+  },
+  {
+    "path": "fixtures/good/typo_poster_material.txt",
+    "mode": "text",
+    "flags": [
+      "--tier",
+      "1"
+    ],
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/good/typo_poster_tunnel.txt",
+    "mode": "text",
+    "flags": [
+      "--tier",
+      "1"
+    ],
+    "expect": {
+      "ok": true
+    }
+  },
+  {
+    "path": "fixtures/bad/tier2_pair.txt",
+    "mode": "text",
+    "flags": ["--tier", "2"],
+    "expect": { "ok": false, "codes": ["E-TIER2-PAIR"] }
+  },
+  {
+    "path": "fixtures/bad/tier2_dup.txt",
+    "mode": "text",
+    "flags": ["--tier", "2"],
+    "expect": { "ok": false, "codes": ["E-TIER2-DUP"] }
+  },
+  {
+    "path": "fixtures/bad/tier2_extra.txt",
+    "mode": "text",
+    "flags": ["--tier", "2"],
+    "expect": { "ok": false, "codes": ["E-TIER2-EXTRA"] }
+  },
+  {
+    "path": "fixtures/bad/tier2_pos.txt",
+    "mode": "text",
+    "flags": ["--tier", "2"],
+    "expect": { "ok": false, "codes": ["E-TIER2-POS"] }
+  },
+  {
+    "path": "fixtures/bad/no_ar_end.txt",
+    "mode": "text",
+    "expect": { "ok": false, "codes": ["E-AR-END"] }
+  },
+  {
+    "path": "fixtures/bad/fmtb_hex.txt",
+    "mode": "text",
+    "expect": { "ok": false, "codes": ["E-FMT-B-HEX"] }
+  },
+  {
+    "path": "fixtures/bad/neg_section.txt",
+    "mode": "text",
+    "expect": { "ok": false, "codes": ["E-NEG-SECTION"] }
+  },
+  {
+    "path": "fixtures/bad/text_quote.txt",
+    "mode": "text",
+    "expect": { "ok": false, "codes": ["E-TEXT-QUOTE"] }
+  },
+  {
+    "path": "fixtures/bad/schema.jsonl",
+    "mode": "jsonl",
+    "expect": {
+      "ok": false,
+      "codes": ["E-REC-CATEGORY", "E-REC-QUALITY", "E-REC-TIER", "E-REC-FORMAT", "E-PATH-ESCAPE", "E-QA-GATE"]
+    }
+  },
+  {
+    "path": "fixtures/bad/empty.jsonl",
+    "mode": "jsonl",
+    "expect": { "ok": false, "codes": ["E-REC-EMPTY"] }
+  },
+  {
+    "path": "fixtures/good/record_21x9.jsonl",
+    "mode": "jsonl",
+    "flags": ["--api"],
+    "expect": { "ok": true }
+  }
+]

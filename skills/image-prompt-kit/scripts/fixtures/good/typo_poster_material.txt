@@ -1,0 +1,9 @@
+Scene: the word "GLASS" sculpted as a single piece of clear glass standing on a seamless
+pale studio surface, light refracting through every stroke and throwing soft caustic patterns
+onto the floor, tiny air bubbles trapped deep inside the letterforms. Camera: macro close
+framing at letter height, shallow depth of field, the far letters melting into soft focus.
+Lighting: one soft key from upper left, gentle cool fill, soft contact shadow under every
+letter. Color grading: warm grey field #E9E6E0, glass edge teal #BFDCD8, deep refraction
+#4A6B68. Texture/Medium: photoreal render finish, flawless surface with honest refraction.
+Text-in-image: the sculpted word itself is the only text, appearing once. All text appears once, perfectly legible —
+no duplicate text, no extra words, no invented glyphs, no watermark. AR 4:5

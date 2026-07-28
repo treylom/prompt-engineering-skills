@@ -1,0 +1,2 @@
+[AR 3:4 SIZE 1024x1536]
+A beautiful Korean poster, masterpiece, 8k, ultra-detailed. no watermark, no text. (sharp:1.3). --ar 3:4

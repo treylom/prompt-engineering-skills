@@ -1,47 +1,157 @@
 ---
 name: image-prompt-guide
-description: AI 이미지 생성 프롬프트 가이드. 공냥이(@specal1849)님의 자료를 기반으로 한 종합 이미지 프롬프트 작성법.
+description: AI 이미지 생성 프롬프트 가이드. 정본 = 공냥 프롬프트 킷 v4(gpt-image-2 텍스트 프롬프트 계약 — 포맷 A/B·철칙·jsonl·검증기, skills/image-prompt-kit/ vendor 원문). 웹 UI(ChatGPT/Gemini) JSON 간이 경로는 legacy 부록.
 references:
   - prompt-engineering-guide
   - context-engineering-collection
-version: 1.10.0
+  - image-prompt-kit (vendor)
+version: 2.0.0
 created: 2025-12-28
 author: Claude Code (공냥이(@specal1849)님 자료 기반)
 source_credits:
   - name: 공냥이(@specal1849)
+    url_kit: https://github.com/gongnyang/gongnyang-prompt-kit
     url_slides: https://docs.google.com/presentation/d/1rPQVnbu1INJyUAqCvMA7dkO2WzJpD4Q9q_UXq9RH2GU/edit
     url_notion: https://fascinated-alley-b43.notion.site/PRO-2b1861d1faaf80b8bf7ef4093827f59b
 ---
 
 # AI 이미지 프롬프트 마스터 가이드
 
-> **자료 출처**: 이 가이드는 공냥이(@specal1849)님의 "이미지 프롬프트 101" 슬라이드와 "PRO 이미지 프롬프트" Notion 문서를 기반으로 작성되었습니다.
+> **자료 출처**: 정본 계약은 공냥이(@specal1849)님의 [공냥 프롬프트 킷 v4](https://github.com/gongnyang/gongnyang-prompt-kit)(MIT — 원문 사본 `skills/image-prompt-kit/`)를 따릅니다. 후반부 일반 이론·웹 UI 경로는 같은 저자의 "이미지 프롬프트 101" 슬라이드와 "PRO 이미지 프롬프트" Notion 문서 기반입니다.
 
 ---
 
-## 0. Codex `/prompt` 적용 계약
+## 0. Codex `/prompt` 적용 계약 (v2.0.0 — 공냥 킷 v4 정본)
 
 Codex의 `prompt` 스킬이 이미지 목적을 감지하면 이 파일을 **직접 전체 로드**한 뒤 아래 계약을 우선 적용합니다.
 
-- 플러그인 외부의 `image-prompt`·`gongnyang-photo` 스킬로 우회하지 않습니다.
-- 최종 산출은 설명문이 아니라 JSON 이미지 프롬프트입니다.
-- 최상위 필수 키는 `purpose`·`hero`·`context`·`evidence`·`constraints`입니다.
-- `visual_re_description`에는 `Visual Re-description` 라벨과 함께 추상적 요구를 구체적인 색·재질·조명·구도·전후 대비로 번역한 결과를 적습니다.
+- 플러그인 외부의 `image-prompt`·`gongnyang-photo` 스킬로 우회하지 않습니다. (킷 원문은 플러그인 **내부** `skills/image-prompt-kit/`에 동봉 — 이걸 읽는 것은 우회가 아닙니다.)
+- **gpt-image-2 / Codex `$imagegen` 대상 최종 산출 = 킷 포맷의 한국어 텍스트 프롬프트**입니다(§K 참조): 단발 = 포맷 A(라벨 6섹션) 또는 포맷 B(화보 플랫 콤마형) 본문 + 끝 `AR x:y` 토큰만. **JSON 골격 산출이 아닙니다.**
+- **배치·라이브러리 산출 = jsonl 레코드**(1줄 = 1프롬프트, §K6 스키마) — `full_prompt` 필드에 위 텍스트 프롬프트를 담습니다.
+- 고가치 산출물은 응답 전 `node skills/image-prompt-kit/scripts/check_prompt.mjs`(stdin 가능, jsonl은 `--jsonl`) 검증 — `ok:true`가 산출 조건입니다.
+- 출력 직전 자가검사: ① 포맷 A/B 구조인가(§K3) ② 철칙 9 위반 없나(§K2 — 특히 네거티브 전면 긍정형·SD어휘 0·끝 AR) ③ 렌더 텍스트가 있으면 Tier-1 결합 공식 1회인가. 누락 시 이 계약으로 한 번 재생성합니다.
+- 웹 UI(ChatGPT gpt-image·Gemini) 간이 경로의 JSON 골격은 **legacy 부록**(§L)으로만 사용합니다.
 
-```json
+---
+
+## K. 공냥 프롬프트 킷 v4 — 정본 계약 (vendor: `skills/image-prompt-kit/`)
+
+> 원문 전체 = `skills/image-prompt-kit/KIT-SKILL.md` + `references/` (MIT, © 공냥이 @specal1849, rev `fb5f75f`). 아래는 그 핵심의 충실 전사 — 충돌 시 vendor 원문이 우선.
+
+### K1. 워크플로우
+
+1. 빠진 결정(카테고리·컷타입·피사체·스타일·구도·텍스트·AR)은 추론해 채운다. 묻는 건 한글 문구 원문·브랜드명·민감 소재뿐.
+2. 라우팅 표(§K5)에서 읽을 파일 결정, 포맷은 §K3.
+3. 철칙 9개(§K2)를 지켜 작성, 끝에 `AR` 토큰.
+4. 고가치 산출물은 응답 전 `check_prompt.mjs` 검증(`ok:true`).
+5. 생성 연계 시 컴파일된 프롬프트만 넘긴다(거친 원문 금지).
+
+출력 계약: 단일 = 본문 + 끝 `AR x:y`만(설명 없이) · 다중 = 엔트리당 `Title/Category(Cn)/Cut type/Prompt` · 생성 요청 = 조용히 컴파일 후 툴 호출.
+
+### K2. 철칙 9
+
+1. **앞머리 `[AR x:y SIZE wxh]` 브래킷 금지.** size는 API 파라미터(jsonl `size`)로만, 프롬프트엔 끝 `AR x:y` 하나만. 슬롯 토큰(`[PERSONA_LOCK]` 류)은 작성 전용 — 잔존 = 실격(`E-SLOT-LEAK`).
+2. **장면 배제는 전부 긍정형** — gpt-image-2는 장면 네거티브를 오히려 렌더한다(군중→"인물 한 명, 단독", 배경→"깨끗한 단색 배경"). 예외는 두 레인뿐:
+
+   | 티어 | 조건 | 허용 문구 |
+   |---|---|---|
+   | Tier-0 기본 | 항상 | all-positive, 부정문 0개 |
+   | Tier-1 텍스트 가드 | 렌더 텍스트 있을 때만 | 화이트리스트 7종: `no extra words` · `no duplicate text` · `no invented glyphs` · `no watermark` · `no logo` · `no extra text` · `verbatim, no extra characters` |
+   | Tier-2 화보 레인 | 명시 선언 시만(휴리스틱 승격 금지) | SAFETY_ASSERT(긍정형, 피사체절)+NEGATIVE_TAIL(AR 직전 1회) **페어** — 정본 `references/editorial-hwabo.md` §3 |
+
+   Tier-1 결합 공식(유일 방출형): `All text appears once, perfectly legible — no duplicate text, no extra words, no invented glyphs, no watermark.` `Negative:` 라벨은 전 티어 금지(`E-NEG-SECTION`).
+3. **SD-era 폐기 어휘 금지.** `masterpiece/best quality/8k/4k/uhd/trending on artstation/ultra-detailed/highly detailed/sharp focus`, 가중치 `(word:1.3)`, `--ar/--v`, 본문 `§`, 빈 형용사(멋지게/감성적으로/고급스럽게/세련되게/beautiful/stunning). 무대 지정("어워드 수준/전문가처럼/최고급")도 동급 — 수치(여백 %·60/30/10·위계 단수)·몸 반응·구체 예시로 환원(`references/concept-axes.md` §죽은 단어 환원).
+4. **장비 스펙 → 결과로 환원.** EXIF·장비명 대신 "shallow DoF, background falls off softly"·"warm key + cool rim". (패션 `Lens character:`·`Director signature:`는 결과+앵커라 예외.)
+5. **수치는 박는다.** HEX 팔레트(컷당 3~5색), 켈빈, `key:fill 1:2` 비율.
+6. **1행 = 1컷 = 1 호출.** 한 캔버스 그리드/매트릭스 금지, 여러 컷은 N행.
+7. **이상적 피부 금지** → "natural skin texture, visible pores, subtle film grain".
+8. **실제 상표·인물 참조 금지**, 가상 브랜드/페르소나로.
+9. **생성 후 글자 후처리 절대 금지.** 텍스트는 프롬프트로 이미지 안에서 렌더(따옴표 카피+롤 라벨+자유 작성 존). PNG 위 코드 합성(PIL·ImageMagick·SVG/HTML·캔버스) 일절 금지 — 폰트·커닝·톤이 겉돈다. 글자 오류는 프롬프트 수정 후 재생성(타이포 구체화 → `2048x2048`+quality high → 카피 축소 순).
+
+### K3. 포맷 A / 포맷 B
+
+- **포맷 A — 라벨 6섹션**(구조물 전반: 포스터·키아트·인포그래픽·도감·카드뉴스·만화 등). 순수 서술+HEX, 핵심 시각정보 최상단:
+
+  | # | 섹션 | 무엇을 / 분량 |
+  |---|---|---|
+  | 1 | **Scene** | 누가·무엇이·어디서·무엇을. 핵심 먼저. 60~120어 |
+  | 2 | **Camera** | 시점·거리·렌즈 character(결과 서술). 15~30어 |
+  | 3 | **Lighting** | 방향·soft/hard·그림자·림라이트(장비명 금지). 10~25어 |
+  | 4 | **Color grading** | 팔레트 + 색온도 + **HEX 3~5개**. 10~20어 |
+  | 5 | **Texture/Medium** | 매체·질감·표면 반응·후처리. 10~20어 |
+  | 6 | **Text-in-image** (선택) | `"따옴표 카피"` + 폰트·크기·위치 + legibility 1회. 0~25어 |
+  | — | 트레일링 | 끝에 `AR x:y` 토큰만 |
+
+- **포맷 B — 화보 플랫 콤마형 단문**: 라벨 없이 콤마 한 문단, 350~450자, 기본 AR `2:3`. 슬롯 12종 순서·Tier-2 → `references/editorial-hwabo.md`.
+- 라우팅: 단독 인물 화보/글래머 에디토리얼 → B, 그 외 전부 → A.
+
+### K4. 사이즈 락 + 텍스트 렌더 요점
+
+Codex(`$imagegen`) 경로는 6종만 안전, `auto` 금지, 챕터 내 통일: `1:1=1024x1024` · `16:9=1792x1024` · `2:3(·3:4·4:5 근사)=1024x1536` · `9:16=1024x1792` · `3:2(·4:3)=1536x1024` · 밀집/다컷=`2048x2048`. (하드 제약 4종: 최대변 3840·각 변 16배수·비율 ≤3:1·총픽셀 655,360~8,294,400 — 6종은 안전 부분집합(6종 안에서는 위반 불가). 투명 배경은 gpt-image-2 미지원 → 1.5 폴백. `$imagegen`은 플래그 없음 — size/quality는 산문+jsonl 필드로. 배치 ≤10장/호출.)
+
+텍스트 렌더: 카피는 따옴표 고정+폰트·크기·위치·HEX, 한 줄 한 언어(한글+영문 혼합 금지). 카피 2개↑는 롤 라벨(headline/subhead/callout) 분리. 같은 카피 2회 표기 = 2회 렌더라서 금지. 한글 스펠아웃 금지(하이픈이 글자로 렌더). 정확도 레버 = 캔버스 크기(2048). 밀집 텍스트는 `quality: high`+큰 변.
+
+### K5. 라우팅 표 (읽을 파일 = `skills/image-prompt-kit/` 기준)
+
+| 요청 신호 | 카테고리/포맷 | 읽을 파일 |
+|---|---|---|
+| 단독 인물 화보·에디토리얼 | C1·포맷 B | `references/editorial-hwabo.md` (+`references/style-taxonomy.md`) |
+| 타이포 포스터·글자가 곧 이미지·활자 견본·워드마크 | TP1~TP17 | `references/typo-poster-router.md` → `references/typo-poster/TPn-*.md` 1개 |
+| 홍보판촉물·브랜드 포스터·표지 판면(앨범/북커버·패키징) | P1~P12 | `references/promo-router.md` → `references/promo/Pn-*.md` 1개. 카드뉴스 밀도 문법 금지(미감 사망) |
+| 포스터·키아트·인포그래픽·카드뉴스·만화·도감·아이콘·뷰티·목업 | C2~C11 | `references/category-patterns.md` 해당 §. C6·C7=밀도 기본값·돌파 전술 §C6 |
+| 프레젠테이션·슬라이드 덱 | C12 | `references/category-patterns.md` §C12 |
+| 무드("있어보이게"·"럭셔리"·"영화처럼") | 룩 L1~L9 | `references/look-presets.md` 프리셋 1개 드롭인 |
+| 시안 다변화·양산 컨셉·"컨셉부터" | M/R/X/T축 | `references/concept-axes.md` 축 1개 변주 |
+| 글자 배치·폰트·그리드 | — | `references/typography-layout.md` |
+| 카메라·조명·색 어휘 | — | `references/photo-vocab.md` |
+| jsonl 배치·모델 팩트·완성 예제 | — | `references/jsonl-and-examples.md` |
+
+라우터(P/TP)는 패턴 1개 선택 후 해당 파일 **하나만** 로드. 복수 매칭 시 위쪽 행 우선 — 경계 케이스는 각 라우터의 경계·교차 참조 절이 우선.
+
+### K6. jsonl 레코드 스키마 (배치 = 1줄 1프롬프트)
+
+```jsonc
 {
-  "purpose": "이미지의 목적, 매체, 대상 독자",
-  "hero": "주 피사체와 가장 먼저 읽혀야 할 시각 요소",
-  "context": "사용 장면, 배경, 레이아웃, 정보 위계",
-  "evidence": "주장을 눈으로 확인하게 만드는 구체적 시각 증거",
-  "visual_re_description": "Visual Re-description: 추상어를 색·재질·조명·구도·대비로 재기술",
-  "constraints": "비율, 필수 문구, 가독성, 보존·금지 요소"
+  "id": "C1-LEVITATION-001",
+  "category": "C1", "cut_type": "levitation_catalog", "title": "...",
+  "format": "A",                       // "A"|"B"
+  "tier": 0,                           // 0|1|2
+  "lane": "standard",                  // "standard"|"editorial"
+  "palette": ["#F7F4EC", "#B76E79"],
+  "ar": "3:4", "size": "1024x1536",   // size=API 파라미터, ar=프롬프트 끝 토큰
+  "quality": "medium",                 // auto 금지
+  "full_prompt": "<순수 서술 ... 끝에 AR 3:4>",
+  "labels": ["TRENCH COAT"], "korean_copy": "오늘 더 따뜻해요",
+  "status": "draft"
 }
 ```
 
-출력 직전 여섯 항목을 검사하고, 누락 시 이 계약으로 한 번 재생성합니다.
+`full_prompt`는 러너가 그대로 소비 — 끝에 AR만, 앞 브래킷·`Negative:` 섹션 없음. 전체 필드·QA 규약 = `references/jsonl-and-examples.md` §2.
+
+### K7. 검증기
+
+`node skills/image-prompt-kit/scripts/check_prompt.mjs <file>` (stdin 가능) · `--jsonl` 레코드 · `--tier <0|1|2>` 강제 · `--api`(사이즈락 → warning) · `--test` 셀프테스트. 티어 판정 우선순위: `--tier` > jsonl `tier` > `lane`("editorial"→2) > 휴리스틱(렌더 텍스트→1, 없으면 0) — Tier-2는 휴리스틱 승격 불가. 출력 `{ok, format, tier, errors, warnings}` — errors 0 = exit 0. 주요 에러: `E-NEG-TIER`(미선언 상위 티어)·`E-SLOT-LEAK`·`E-SIZE-LOCK`·`E-TIER2-PAIR`(tail 단독)·`E-TIER2-POS`(tail이 AR 직전 아님)·네거티브/앞브래킷/SD어휘/가중치/슬래시플래그/끝AR누락.
+
+### K8. 완성 예시 (포맷 A — `examples/poster.txt` 원문, 검증 ok:true)
+
+```
+한국어 이벤트 포스터, 상업 인쇄 완성도.
+Scene: 화면 상단 1/3에 굵은 세리프 메인 타이틀, 중앙에 달과 야시장 일러스트, 하단은 카피용 여백. 정돈된 매거진 레이아웃.
+Camera: 정면 평면 구성, 중앙 대칭 정렬, 풀블리드.
+Lighting: 부드러운 소프트박스 균등광, 옅은 콘택트 섀도로 깊이.
+Color grading: 딥네이비 #0F1D30 배경, 크림 #F7F4EC 타이틀, 로즈골드 #B76E79 액센트는 달 테두리에만.
+Texture/Medium: 매트 아트지 질감, 미세 그레인, 인쇄 톤.
+Text-in-image: "봄밤 야시장" 상단 중앙(굵은 세리프), "4.20 SAT 6PM" 하단(콘덴스드 산세리프). 모든 텍스트는 한 번씩만, 완벽히 또렷하게.
+AR 4:5
+```
+
+추가 예시 = `examples/`(hwabo_formatB·keyart_16x9·typography_card·bad_* 반례) + `examples/prompts.sample.jsonl`.
 
 ---
+
+## L. Legacy 부록 — 일반 이론 · 웹 UI JSON 간이 경로 (§1~§14)
+
+> ⚠️ **이하 §1~§14 = 일반 이론·참고 자료** (공냥이 구자료 기반 — Recaption·시그널 이론, 형식 비교, 치트시트). **gpt-image-2/`$imagegen` 산출 계약으로는 위 §0·§K가 우선**하며, 아래의 JSON 산출 예시들은 웹 UI(ChatGPT/Gemini) 간이 경로(§L = §3 JSON 구조)에서만 씁니다. §15(동영상)·§17(슬라이드)는 별도 도메인으로 유효.
 
 ## 1. 이미지 생성 프로세스 이해
 
@@ -124,7 +234,7 @@ at the viewer with large, curious yellow-green eyes..."
 > "구분된 섹션을 나눠서 만들 때는 **XML이나 마크다운**을 선호합니다."
 > "인포그래픽 디자인의 경우 **계층구조 설계가 필수**고 이를 표현하는 가장 쉬운 방법이 **마크다운**"
 
-### 3.3 JSON 프롬프트 예시 (권장 기본 형식)
+### 3.3 (§L) JSON 프롬프트 예시 — 웹 UI 간이 경로/legacy
 
 > **권장**: 이미지 생성 시 JSON 구조를 기본으로 사용하고, 유연한 설명이 필요한 부분만 자연어로 작성합니다.
 
@@ -678,7 +788,8 @@ Create high-quality, vertical layout infographic
 
 | 상황 | 권장 형식 |
 |------|----------|
-| **기본 이미지 생성** | **JSON** (구조화된 속성 + 유연한 자연어 details) |
+| **gpt-image-2 / Codex `$imagegen` (정본)** | **킷 텍스트 프롬프트** — 포맷 A 라벨 6섹션 / 포맷 B 콤마형 + 끝 `AR` (§K) · 배치 = jsonl |
+| 기본 이미지 생성 (웹 UI 간이 경로) | JSON (구조화된 속성 + 유연한 자연어 details) |
 | 구분된 섹션/인포그래픽 | **XML** 또는 **Markdown** |
 | 연결된 느낌/타임라인 | **JSON** 또는 **YAML** |
 | 배치 생성/일관성 필요 | **JSON** |
@@ -954,9 +1065,14 @@ Style Rules: Do [가이드라인] / Don't [안티패턴]
 ## Skill Metadata
 
 **Created**: 2025-12-28
-**Version**: 1.10.0
+**Version**: 2.0.0
 **Author**: Claude Code (공냥이(@specal1849)님 자료 기반)
-**Last Updated**: 2026-05-02
+**Last Updated**: 2026-07-29
+**Changes v2.0.0** (2026-07-29):
+- **[MAJOR] 정본 계약 교체 — 공냥 프롬프트 킷 v4 이식**: gpt-image-2/`$imagegen` 산출 = 킷 텍스트 프롬프트(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR`), 배치 = jsonl 레코드. 구 JSON 골격(6키 purpose/hero/… 및 subject/style JSON)은 웹 UI 간이 경로 legacy로 강등(§0·§K 배너)
+- **[MAJOR] §K 신설**: 킷 핵심 충실 전사 — 워크플로우·철칙 9(티어드 네거티브: 기본 전면 긍정형+Tier-1 화이트리스트 7종+Tier-2 페어)·포맷 A/B·사이즈 락 6종·텍스트 렌더 요점·라우팅 표(C1~C12/P1~P12/TP1~TP17/L1~L9/M·R·X·T축)·jsonl 스키마·검증기(check_prompt.mjs)·완성 예시
+- **[MAJOR] 킷 원문 vendor**: `skills/image-prompt-kit/`(KIT-SKILL.md·references 전체·검증기+fixtures·examples txt/jsonl·LICENSE, rev fb5f75f, MIT) — 외부 스킬 우회 금지 원칙 유지하며 내부 동봉으로 해소
+- 계기: 이미지 생성 막힘 — 구 JSON 계약·네거티브 스택이 킷 규칙(전면 긍정형·SD어휘 금지)과 상충 (재경님 2026-07-28 지시 "킷을 최대한 가져오기")
 **Changes v1.10.0** (2026-05-02):
 - **[NEW] 비영어 대사 자연스럽게 만들기 섹션 추가** (15.6): 언어 표시 + 영어 감정/말투 메타 지시 패턴. Seedance·Veo·Sora·Kling 공통 적용
 - **5개 시나리오 예시 추가**: 한/일/스페인/중국어 + 감정 키워드 사전(8 감정)
