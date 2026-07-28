@@ -31,6 +31,8 @@ Codex의 `prompt` 스킬이 이미지 목적을 감지하면 이 파일을 **직
 - 고가치 산출물은 응답 전 `node skills/image-prompt-kit/scripts/check_prompt.mjs`(stdin 가능, jsonl은 `--jsonl`) 검증 — `ok:true`가 산출 조건입니다.
 - 출력 직전 자가검사: ① 포맷 A/B 구조인가(§K3) ② 철칙 9 위반 없나(§K2 — 특히 네거티브 전면 긍정형·SD어휘 0·끝 AR) ③ 렌더 텍스트가 있으면 Tier-1 결합 공식 1회인가. 누락 시 이 계약으로 한 번 재생성합니다.
 - 웹 UI(ChatGPT gpt-image·Gemini) 간이 경로의 JSON 골격은 **legacy 부록**(§L)으로만 사용합니다.
+- **적용 범위(모델별 라우팅 — 대원칙)**: 본 킷 계약 전체는 **gpt-image-2 계열**(`$imagegen`·gpt-image API·ChatGPT) 전용입니다. **Gemini-Image(NB2/3 Pro Image)·Seedream** 타겟은 킷의 **보편 원칙만 공유**(구체 시각어·전면 긍정형·수치 박기·전문가 시각 언어 앵커)하고, gpt-image-2 전용 규격(사이즈락 6종·Tier-1 고정 문자열·`$imagegen` 규약·검증기 강제)은 적용하지 않습니다 — 해당 모델 최적 자연어 서술로 컴파일. 타겟 모델 미지정 = 현재 환경 자동 탐지(생성 연계 = gpt-image-2 기본), 산출에 "타겟: <모델>" 1줄 명시.
+- **전문가 프롬프팅(대원칙)**: 모든 이미지 프롬프트에 실존 전문가의 **시각 언어 앵커**를 반영합니다 — 화보(포맷 B) = `Director signature:`·`Lens character:` 슬롯(철칙4 예외의 공식 경로), 포맷 A = Camera·Lighting·Color grading 섹션에 해당 실존 포토그래퍼/아트디렉터 스타일을 결과 서술로 번역. "전문가처럼/최고급" 빈 수사는 철칙3대로 금지 — 전문가는 *지명*, 수사는 *구체 어휘로 환원*.
 
 ---
 
