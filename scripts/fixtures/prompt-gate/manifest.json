@@ -1,0 +1,11 @@
+{
+  "_note": "각 FAIL 케이스는 '지정 축에서만' 걸려야 한다. 나머지 축은 전부 충족시켜 축 오염을 검출한다.",
+  "cases": [
+    { "file": "pass/interactive-text.md",     "mode": "interactive", "purpose": "text",  "expect": "pass", "expectFailAxes": [] },
+    { "file": "fail/a1-four-options.md",      "mode": "interactive", "purpose": "text",  "expect": "fail", "expectFailAxes": ["A1"] },
+    { "file": "fail/a2-role-placeholder.md",  "mode": "interactive", "purpose": "text",  "expect": "fail", "expectFailAxes": ["A2"] },
+    { "file": "fail/a2-image-name-only.md",   "mode": "batch",       "purpose": "image", "expect": "fail", "expectFailAxes": ["A2"] },
+    { "file": "fail/a3-no-target.md",         "mode": "interactive", "purpose": "text",  "expect": "fail", "expectFailAxes": ["A3"] },
+    { "file": "fail/a4-no-ar.md",             "mode": "batch",       "purpose": "image", "expect": "fail", "expectFailAxes": ["A4"] }
+  ]
+}

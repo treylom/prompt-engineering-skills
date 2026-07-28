@@ -1,5 +1,8 @@
 ## Version History
 
+**Version**: 3.2.0 | **Updated**: 2026-07-29
+**Changes v3.2.0** (2026-07-29): **산출 코드 게이트 신설** — `scripts/prompt-output-gate.mjs`(리포 정본 측 도구·의존성 0). /prompt 산출 텍스트를 기계 판정: A1 5옵션 전부(라벨 기준) · A2 전문가 앵커(text=`<role>` 정규 패턴 / image=Director signature·Lens character 또는 Camera·Lighting·Color grading 슬롯 — 구조만 판정, 실존 인물 여부 등 의미 축은 UNMEASURED 고지) · A3 `타겟:` 모델 표기 · A4 image+gpt-image 시 끝 `AR` · A5 `--check-versions` 버전 표기 5표면 정합. exit 0=PASS/1=FAIL/2=UNMEASURED(통과 취급 금지). fixture 7종(축 격리) 셀프테스트 = `--test`. 첫 실행에서 Gems 단일판 헤더 버전 잔존(2.6.0)을 실적발·수리. Gems 지침 내용 변경 없음(버전 표기 동기화만).
+
 **Version**: 3.1.0 | **Updated**: 2026-07-29
 **Changes v3.1.0** (2026-07-29): **정본(`commands/prompt.md` v3.1.0) 미전파 수리 — 이 디렉터리판이 v2.2.0(2026-03-08) 시점에 멈춰 있던 sibling 갭 해소.** 단일 파일판(`instructions/Gems-Prompt-Generator.md`)과 동일 내용을 분할 배치했습니다.
 - **[CRITICAL] 🏛️ 대원칙 불변 조항 신설** → `01-mindset-constraints.md` Constraints 최상단 직하. 전문가 프롬프팅 + 모델별 라우팅·자동 탐지를 전 목적·전 모델 상위 조항으로 명문화

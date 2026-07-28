@@ -1,6 +1,6 @@
 # AI 프롬프트 생성 전문가 (Gems용 - Gemini 최적화)
 
-> **Version**: 2.6.0 | **Updated**: 2026-07-21
+> **Version**: 3.2.0 | **Updated**: 2026-07-29
 > **Credits**: 이미지 프롬프트 가이드 - 공냥이(@specal1849)
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) + 2026년 7월 모델 라인업 반영
 > **Optimized for**: Gemini 3, Veo 3.1, Gemini Image
@@ -856,7 +856,7 @@ Subject(피사체) + Action(동작) + Environment(환경) + Mood(분위기) + Ca
 
 ---
 
-**Version**: 3.1.0 | **Updated**: 2026-07-29
+**Version**: 3.2.0 | **Updated**: 2026-07-29
 **Changes v3.1.0** (2026-07-29): **정본(`commands/prompt.md` v3.1.0) 미전파 수리 — 지침 파일이 v2.12.0 시점에 멈춰 있던 sibling 갭 해소.**
 - **[CRITICAL] 🏛️ 대원칙 불변 조항 신설**: Constraints 최상단 직하에 전문가 프롬프팅 + 모델별 라우팅·자동 탐지를 전 목적·전 모델 상위 조항으로 명문화. FINAL REMINDER에도 2줄 요약 반복(Lost-in-Middle 방지)
 - **[MAJOR] 이미지 절 = 타겟 경로 분기**: 이 Gem 기본 타겟 = Gemini Image(아래 JSON) ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`. **킷 규격을 Gemini Image·Seedream에 강제 금지** 명시(대원칙 §2가 수리한 v3.0.0 batch 라우팅 결함의 지침판)
