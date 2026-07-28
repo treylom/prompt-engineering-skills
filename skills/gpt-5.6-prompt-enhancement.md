@@ -1,3 +1,9 @@
+---
+name: gpt-5-6-prompt-enhancement
+description: Use when composing prompts targeting GPT-5.6 Sol (GPT 디폴트) or legacy GPT-5.5/5.4/5.2 — lean outcome-first 7블록 규칙 + LEGACY 섹션(구 XML 스택)을 담은 GPT 프롬프트 전략 레퍼런스. /prompt 커맨드가 GPT 타겟 감지 시 로드.
+disable-model-invocation: true
+---
+
 # GPT-5.6 Sol 프롬프트 향상 스킬 (Lean Outcome-First + Legacy)
 
 > **Version**: 1.2.0 | **Updated**: 2026-07-11

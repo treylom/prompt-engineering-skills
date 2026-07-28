@@ -1,6 +1,7 @@
 ---
 name: slide-prompt-guide
-description: 슬라이드/PPT 프롬프트 가이드. baoyu-slide-deck의 아웃라인-먼저 패턴을 원샷 프롬프트로 녹여낸 종합 가이드.
+description: Use when composing slide/PPT generation prompts — baoyu-slide-deck의 아웃라인-먼저 패턴을 원샷 프롬프트로 녹여낸 종합 레퍼런스.
+disable-model-invocation: true
 references:
   - prompt-engineering-guide
   - image-prompt-guide

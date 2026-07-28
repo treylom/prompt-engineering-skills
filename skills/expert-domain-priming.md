@@ -1,6 +1,7 @@
 ---
 name: expert-domain-priming
-description: 전문가 도메인 프라이밍 가이드. 실제 전문가 지명과 전문 용어로 AI의 잠재 공간을 활성화하는 방법론.
+description: Use when a prompt needs an expert role assignment — 실존 전문가 지명과 전문 용어로 AI의 잠재 공간을 활성화하는 전문가 도메인 프라이밍 방법론 레퍼런스(/prompt 전문가 프롬프팅 대원칙의 근거 자료).
+disable-model-invocation: true
 references:
   - prompt-engineering-guide
   - context-engineering-collection
@@ -8,8 +9,8 @@ version: 2.1.0
 created: 2026-02-02
 author: Claude Code
 source_credits:
-  - name: 최승준 소장님, 노정석
-    context: "Master Class - 원리를 생각하는 프롬프팅", https://erucipe.notion.site/2e3d5c9e7e598053ae93e9ff5951dcaa , https://www.youtube.com/watch?v=Q43tbLNx21A&t=1107s
+  - name: "최승준 소장님, 노정석"
+    context: "'Master Class - 원리를 생각하는 프롬프팅' — https://erucipe.notion.site/2e3d5c9e7e598053ae93e9ff5951dcaa , https://www.youtube.com/watch?v=Q43tbLNx21A&t=1107s"
   - name: 공냥이(@specal1849)
     context: "프롬프트 쿠튀르: 전문가의 AI 활용법"
   - name: erucipe (Notion A-Z)

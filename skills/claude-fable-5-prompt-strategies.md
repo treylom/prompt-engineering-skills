@@ -1,3 +1,9 @@
+---
+name: claude-fable-5-prompt-strategies
+description: Use when composing prompts targeting Claude Opus 5 (Claude 디폴트), Fable 5, Opus 4.8, or Sonnet 5 — 최신 Claude 프롬프트 전략 레퍼런스(/prompt Claude 타겟의 정본). thinking·effort·breaking change·미지원 기능 분기 포함.
+disable-model-invocation: true
+---
+
 # Claude Opus 5 · Fable 5 · Opus 4.8 · Sonnet 5 프롬프트 전략
 
 > **Version**: 1.3.0 | **Updated**: 2026-07-28 (Part 2.5 Opus 5 신설 — **Claude 디폴트 = Opus 5**. breaking 2건·검증지시 제거·서브에이전트 억제·미지원 회귀 2건. 공식 3문서 대조.) | 이전: 1.2.1 · 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)

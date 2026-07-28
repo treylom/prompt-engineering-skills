@@ -1,3 +1,9 @@
+---
+name: gpt-5-5-prompt-enhancement
+description: Use when a prompt explicitly requests GPT-5.5 style — pointer stub. 실제 내용은 gpt-5.6-prompt-enhancement.md의 LEGACY 섹션으로 통합·보존됨.
+disable-model-invocation: true
+---
+
 # GPT-5.5 프롬프트 향상 스킬 → GPT-5.6로 이관됨 (stub)
 
 > **이 파일은 포인터 stub입니다.** GPT-5.5 outcome-first + GPT-5.4/5.2 XML legacy 패턴은 [`gpt-5.6-prompt-enhancement.md`](./gpt-5.6-prompt-enhancement.md) 하단 **LEGACY 섹션**으로 통합·보존되었습니다.

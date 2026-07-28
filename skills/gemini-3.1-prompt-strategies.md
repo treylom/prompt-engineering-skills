@@ -1,3 +1,9 @@
+---
+name: gemini-3-1-prompt-strategies
+description: Use when composing or optimizing prompts targeting Google Gemini models (Gemini 3 Pro/Flash, 3.1) — Google 공식 문서 + 실전 팁 기반 Gemini 프롬프트 전략 레퍼런스. /prompt 커맨드가 Gemini 타겟 감지 시 로드하는 참조 자료.
+disable-model-invocation: true
+---
+
 # Gemini 프롬프트 전략 통합 가이드
 
 > **Version**: 2.0.0 | **Created**: 2025-12-28 | **Updated**: 2026-03-08

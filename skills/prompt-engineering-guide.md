@@ -1,6 +1,7 @@
 ---
 name: prompt-engineering-guide
-description: 단일 통합 AI 프롬프트 엔지니어링 스킬. 모델별 전략, 이미지/동영상, 리서치/팩트체크, 슬라이드, 전문가 도메인 프라이밍, Context Engineering을 모두 이 파일에서 관리합니다.
+description: Use when generating research/factcheck/image/video/slide prompts that need base templates (IFCN·StructuredResearch 등) — 단일 통합 AI 프롬프트 엔지니어링 레퍼런스. 모델별 전략, 이미지/동영상, 리서치/팩트체크, 슬라이드, 전문가 도메인 프라이밍, Context Engineering을 모두 이 파일에서 관리(대형 파일 — grep으로 위치 확인 후 부분 Read).
+disable-model-invocation: true
 version: 3.1.0
 updated: 2026-07-21
 ---

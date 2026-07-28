@@ -1,10 +1,11 @@
 ---
 name: image-prompt-guide
-description: AI 이미지 생성 프롬프트 가이드. 정본 = 공냥 프롬프트 킷 v4(gpt-image-2 텍스트 프롬프트 계약 — 포맷 A/B·철칙·jsonl·검증기, skills/image-prompt-kit/ vendor 원문). 웹 UI(ChatGPT/Gemini) JSON 간이 경로는 legacy 부록.
+description: Use when generating AI image prompts — 정본 = 공냥 프롬프트 킷 v4(gpt-image-2 텍스트 프롬프트 계약 — 포맷 A/B·철칙·jsonl·검증기, skills/image-prompt-kit/ vendor 원문). 웹 UI(ChatGPT/Gemini) JSON 간이 경로는 legacy 부록. /prompt 커맨드가 이미지 타겟 감지 시 전체 로드.
+disable-model-invocation: true
 references:
   - prompt-engineering-guide
   - context-engineering-collection
-  - image-prompt-kit (vendor)
+  - image-prompt-kit
 version: 2.0.0
 created: 2025-12-28
 author: Claude Code (공냥이(@specal1849)님 자료 기반)

@@ -1,6 +1,7 @@
 ---
 name: research-prompt-guide
-description: 팩트체크 및 리서치 프롬프트 가이드. IFCN 원칙 기반 검증 워크플로우와 일반 리서치 템플릿 제공.
+description: Use when composing factcheck or research prompts — IFCN 원칙 기반 검증 워크플로우와 일반 리서치 템플릿을 담은 레퍼런스.
+disable-model-invocation: true
 references:
   - prompt-engineering-guide
   - context-engineering-collection
