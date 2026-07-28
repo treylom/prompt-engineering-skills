@@ -146,7 +146,26 @@ function checkTargetLine(text) {
 
 /* ── A4: 킷 포맷 끝 AR (image + gpt-image 타겟) ─────────────── */
 const GPT_IMAGE_RE = /gpt-image(?:-2)?|\$imagegen/i;
-const AR_TAIL_RE = /(?:^|\n)\s*AR\s+\d{1,2}\s*:\s*\d{1,2}\s*$/;
+// 줄 시작 앵커 ❌ — 킷 포맷 B(화보 콤마형)는 한 문단 끝에 `AR x:y` 가 이어 붙는다.
+const AR_TAIL_RE = /\bAR\s+\d{1,2}\s*:\s*\d{1,2}\s*$/;
+const FENCE_RE = /```([^\n]*)\n([\s\S]*?)```/g;
+
+/**
+ * 프롬프트 본문 블록 추출.
+ *
+ * A4 는 "산출 문서의 끝"이 아니라 "프롬프트 블록의 끝"을 봐야 한다.
+ * interactive 모드는 프롬프트 뒤에 5옵션 메뉴가 **반드시** 오므로(A1 이 그걸 요구한다),
+ * 문서 tail 을 보면 A1 과 A4 가 구조적으로 상충해 A4 가 영구 FAIL 이 된다.
+ * (2026-07-29 실전 1호 오탐 — fixture 에 interactive+image 양성 케이스가 없어
+ *  셀프테스트 전건 통과 상태로 실물에서 터졌다.)
+ */
+function extractPromptBlock(text) {
+  const fences = [...text.matchAll(FENCE_RE)];
+  if (!fences.length) return null;
+  const textFences = fences.filter((m) => /^\s*text\s*$/i.test(m[1]));
+  const pool = textFences.length ? textFences : fences;
+  return pool[pool.length - 1][2];
+}
 
 function checkKitAr(text, purpose) {
   if (purpose !== "image") {
@@ -156,12 +175,14 @@ function checkKitAr(text, purpose) {
     return axis("A4", "kit_ar", PASS,
       "면제 — gpt-image-2/$imagegen 타겟이 아님(웹 UI·Gemini Image 경로는 JSON 이 정본, 킷 규격 강제 ❌)");
   }
-  const body = text.replace(/\s+$/, "");
-  if (AR_TAIL_RE.test(body)) {
-    return axis("A4", "kit_ar", PASS, "킷 포맷 끝 `AR x:y` 토큰 존재");
+  const block = extractPromptBlock(text);
+  const scope = (block === null ? text : block).replace(/\s+$/, "");
+  const where = block === null ? "문서 tail(코드펜스 없음 — fallback)" : "프롬프트 코드펜스 블록 tail";
+  if (AR_TAIL_RE.test(scope)) {
+    return axis("A4", "kit_ar", PASS, `킷 포맷 끝 \`AR x:y\` 토큰 존재 — 검사 범위: ${where}`);
   }
   return axis("A4", "kit_ar", FAIL,
-    "gpt-image 타겟인데 본문 끝 `AR x:y` 토큰 부재 — 킷 포맷 A/B 는 끝에 AR 이 와야 함");
+    `gpt-image 타겟인데 \`AR x:y\` 토큰 부재 — 킷 포맷 A/B 는 프롬프트 본문 끝에 AR 이 와야 함 (검사 범위: ${where})`);
 }
 
 /* ── A5: 버전 표기 정합 (--check-versions) ─────────────────── */

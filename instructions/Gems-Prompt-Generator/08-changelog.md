@@ -1,5 +1,8 @@
 ## Version History
 
+**Version**: 3.2.1 | **Updated**: 2026-07-29
+**Changes v3.2.1** (2026-07-29): **게이트 A4 오탐 수리** — 실전 1호 판정(GD 실출력, 인간 판정 3축 전건 PASS)이 A4 FAIL로 갈린 오탐의 원인 2개 수리: ①검사 범위 = 문서 tail → `extractPromptBlock()`(```text 우선 → 마지막 펜스 → 문서 tail fallback) ②`AR_TAIL_RE` 줄시작 앵커 제거(킷 포맷 B 콤마형은 문단 끝에 이어 붙음 — 절반 수리가 여전히 FAIL임을 회귀 3단으로 실측). A4 출력에 검사 범위 표기 추가. fixture에 GD 실출력을 `pass/interactive-image.md`로 승격(관측된 양성도 fixture 밖에 있으면 통과가 정보를 안 줌) — 셀프테스트 8/8, 기존 음성 검출력 보존. 지침 내용 무변경(버전 표기 동기화만).
+
 **Version**: 3.2.0 | **Updated**: 2026-07-29
 **Changes v3.2.0** (2026-07-29): **산출 코드 게이트 신설** — `scripts/prompt-output-gate.mjs`(리포 정본 측 도구·의존성 0). /prompt 산출 텍스트를 기계 판정: A1 5옵션 전부(라벨 기준) · A2 전문가 앵커(text=`<role>` 정규 패턴 / image=Director signature·Lens character 또는 Camera·Lighting·Color grading 슬롯 — 구조만 판정, 실존 인물 여부 등 의미 축은 UNMEASURED 고지) · A3 `타겟:` 모델 표기 · A4 image+gpt-image 시 끝 `AR` · A5 `--check-versions` 버전 표기 5표면 정합. exit 0=PASS/1=FAIL/2=UNMEASURED(통과 취급 금지). fixture 7종(축 격리) 셀프테스트 = `--test`. 첫 실행에서 Gems 단일판 헤더 버전 잔존(2.6.0)을 실적발·수리. Gems 지침 내용 변경 없음(버전 표기 동기화만).
 

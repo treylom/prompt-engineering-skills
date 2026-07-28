@@ -267,7 +267,7 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 
 ---
 
-**Version**: 3.2.0 | **Updated**: 2026-07-29
+**Version**: 3.2.1 | **Updated**: 2026-07-29
 
 **Changes v3.1.0** (2026-07-29): **정본(`commands/prompt.md` v3.1.0) 미전파 수리 — 지침 파일이 v2.12.0 시점에 멈춰 있던 sibling 갭 해소.** ① **🏛️ 대원칙 불변 조항 신설**(CRITICAL RULES 직하 — 전문가 프롬프팅 + 모델별 라우팅·자동 탐지, 전 목적·전 모델·향후 이식 불변) ② **이미지 절 = 타겟 경로 분기**(웹 UI JSON ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`) + JSON에 `target_model`·`expert_anchor` 필드 신설 ③ 동영상 JSON에 `cinematographer`(실존 1인 지명) 신설 ④ FINAL REMINDER에 대원칙 2줄 추가 ⑤ 버전 표기 정정(파일 내부 v2.6.0 → 3.1.0, git 이력과 6개 버전 어긋나 있던 stale 해소). **5가지 옵션 워크플로는 무수정 유지**(기존 절 삭제·축소 ❌).
 **Changes v2.6.0** (2026-07-21): 모델 라인업 현행화 — Claude 디폴트 Opus 4.7 → **Opus 4.8** + **Fable 5** 신설(최고난도, 프롬프트 다이어트) / GPT 디폴트 5.5 → **GPT-5.6 Sol** (lean outcome-first). 참조 스킬을 `claude-fable-5-prompt-strategies.md`(현행)·`gpt-5.6-prompt-enhancement.md`(GPT 통합)로 갱신, 4.7/4.6·5.5/5.4는 구세대 first-class 유지.

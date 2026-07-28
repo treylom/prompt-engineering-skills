@@ -1,7 +1,9 @@
 {
-  "_note": "각 FAIL 케이스는 '지정 축에서만' 걸려야 한다. 나머지 축은 전부 충족시켜 축 오염을 검출한다.",
+  "_note": "각 FAIL 케이스는 '지정 축에서만' 걸려야 한다. 나머지 축은 전부 충족시켜 축 오염을 검출한다. PASS 케이스는 관측된 실물을 포함한다 — 양성이 fixture 밖에 있으면 통과가 정보를 안 준다.",
   "cases": [
     { "file": "pass/interactive-text.md",     "mode": "interactive", "purpose": "text",  "expect": "pass", "expectFailAxes": [] },
+    { "file": "pass/interactive-image.md",    "mode": "interactive", "purpose": "image", "expect": "pass", "expectFailAxes": [],
+      "_src": "GD 실출력 2026-07-29 (3축 인간 판정 전건 PASS) — A4 실전 오탐 1호의 회귀 fixture" },
     { "file": "fail/a1-four-options.md",      "mode": "interactive", "purpose": "text",  "expect": "fail", "expectFailAxes": ["A1"] },
     { "file": "fail/a2-role-placeholder.md",  "mode": "interactive", "purpose": "text",  "expect": "fail", "expectFailAxes": ["A2"] },
     { "file": "fail/a2-image-name-only.md",   "mode": "batch",       "purpose": "image", "expect": "fail", "expectFailAxes": ["A2"] },
