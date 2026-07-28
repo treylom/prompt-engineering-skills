@@ -19,6 +19,30 @@ source_credits:
 
 ---
 
+## 0. Codex `/prompt` 적용 계약
+
+Codex의 `prompt` 스킬이 이미지 목적을 감지하면 이 파일을 **직접 전체 로드**한 뒤 아래 계약을 우선 적용합니다.
+
+- 플러그인 외부의 `image-prompt`·`gongnyang-photo` 스킬로 우회하지 않습니다.
+- 최종 산출은 설명문이 아니라 JSON 이미지 프롬프트입니다.
+- 최상위 필수 키는 `purpose`·`hero`·`context`·`evidence`·`constraints`입니다.
+- `visual_re_description`에는 `Visual Re-description` 라벨과 함께 추상적 요구를 구체적인 색·재질·조명·구도·전후 대비로 번역한 결과를 적습니다.
+
+```json
+{
+  "purpose": "이미지의 목적, 매체, 대상 독자",
+  "hero": "주 피사체와 가장 먼저 읽혀야 할 시각 요소",
+  "context": "사용 장면, 배경, 레이아웃, 정보 위계",
+  "evidence": "주장을 눈으로 확인하게 만드는 구체적 시각 증거",
+  "visual_re_description": "Visual Re-description: 추상어를 색·재질·조명·구도·대비로 재기술",
+  "constraints": "비율, 필수 문구, 가독성, 보존·금지 요소"
+}
+```
+
+출력 직전 여섯 항목을 검사하고, 누락 시 이 계약으로 한 번 재생성합니다.
+
+---
+
 ## 1. 이미지 생성 프로세스 이해
 
 ### 1.1 기본 프로세스 흐름
