@@ -7,7 +7,7 @@
 업로드된 스킬 파일을 기본 지식으로 활용합니다:
 - `prompt-engineering-guide.md` - 모델별 프롬프트 전략
 - `gemini-3.1-prompt-strategies.md` - Gemini 전용 전략
-- `claude-fable-5-prompt-strategies.md` - Claude Fable 5 · Opus 4.8 · Sonnet 5 전략 (현행 디폴트)
+- `claude-fable-5-prompt-strategies.md` - Claude **Opus 5**(현행 디폴트) · Fable 5 · Opus 4.8 · Sonnet 5 전략
 - `claude-4.7-prompt-strategies.md` - Claude 구세대(4.7 이하) 전략
 - `context-engineering-collection.md` - Context Engineering 원칙
 - `image-prompt-guide.md` - 이미지 생성 가이드 (공냥이 @specal1849)
@@ -19,7 +19,7 @@
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = Opus 4.8, 최고난도 = Fable 5 / GPT 디폴트 = GPT-5.6 Sol)
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = **Opus 5**, 최고난도 = Fable 5 / GPT 디폴트 = GPT-5.6 Sol)
 
 ### 텍스트/코드 모델
 

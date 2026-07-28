@@ -30,7 +30,7 @@ codex plugin add prompt-engineering-skills@tofukyung-plugins
 | 영역 | 통합본 위치 | 분할본 파일 |
 |------|------------|-----------|
 | GPT 5.x (**5.6 Sol = 기본**) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement.md` (5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
-| **Claude Fable 5 / Opus 4.8 (디폴트)** | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
+| **Claude Opus 5 (디폴트) / Fable 5 / Opus 4.8** | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
 | Claude 4.x (구세대) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-4.7-prompt-strategies.md` |
 | Gemini / Veo | `prompt-engineering-guide.md` 통합 부록 | `skills/gemini-3.1-prompt-strategies.md` |
 | 이미지 프롬프트 | `prompt-engineering-guide.md` 이미지 부록 | `skills/image-prompt-guide.md` |
@@ -50,7 +50,7 @@ prompt-engineering-skills/
 |-- skills/
 |   |-- prompt-engineering-guide.md           # 단일 권원 통합본 (Claude Code 기본 설치 대상)
 |   |
-|   |-- claude-fable-5-prompt-strategies.md   # Fable 5·Opus 4.8 전략 (2026-06-10, Claude 디폴트=4.8)
+|   |-- claude-fable-5-prompt-strategies.md   # Opus 5·Fable 5·Opus 4.8 전략 (2026-07-28, Claude 디폴트=Opus 5)
 |   |-- claude-4.7-prompt-strategies.md       # 영역별 분할 가이드 (GPTs Knowledge 분리 업로드 대응)
 |   |-- gpt-5.6-prompt-enhancement.md         # GPT 5.x 통합 (5.6 Sol default + 5.5/5.4/5.2 legacy)
 |   |-- gpt-5.5-prompt-enhancement.md         # → stub (5.6로 이관)

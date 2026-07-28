@@ -4,7 +4,7 @@
 > **Credits**: 이미지 프롬프트 가이드 - 공냥이(@specal1849)
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) + 2026년 7월 모델 라인업 반영
 > **Optimized for**: Gemini 3, Veo 3.1, Gemini Image
-> **Claude 공식 소스 (디폴트 = Opus 4.8, 2026-06-10부터)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Fable 5 = 최고난도·장기 자율**, 구세대(4.7/4.6)는 first-class 유지 (사용자 명시 시 해당 패턴 적용, 마이그레이션 강요 금지)
+> **Claude 공식 소스 (디폴트 = **Opus 5**, 2026-07-28부터)**: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) + [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Fable 5 = 최고난도·장기 자율**, 구세대(4.7/4.6)는 first-class 유지 (사용자 명시 시 해당 패턴 적용, 마이그레이션 강요 금지)
 > **GPT 공식 가이드 (디폴트 = GPT-5.6 Sol, 2026-07)**: [Prompting guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) — lean outcome-first. 5.5 outcome-first / 5.4 XML 12블록 stack은 legacy(명시 요청 시 fallback). 상세 스킬: `prompt-engineering-guide.md`
 
 ---
@@ -420,13 +420,14 @@
 | **GPT-5.6 Sol** (디폴트, lean outcome-first) | Markdown 간결 구조 — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `gpt-5.6-prompt-enhancement.md` 참조). 상세: `prompt-engineering-guide.md` | |
 | GPT-5.5 (outcome-first legacy) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 | |
 | GPT-5.4 / 5.2 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. 상세: `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 | |
-| **Claude Opus 4.8** (디폴트) | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>` (리터럴 해석), `thinking: adaptive` + `effort=xhigh`. verbosity 자동 조정·도구 사용 보수적(effort↑로 보정). **Breaking**: budget_tokens/temperature/prefill 금지 | |
+| **Claude Opus 5** (디폴트) | 검증·재확인 지시 **제거**(스스로 검증 — 남기면 과검증) · **간결성 명시**(기본 응답이 길어짐) · 서브에이전트 위임 억제 · 범위 고정. `effort` low/medium 적극, `xhigh|max` 시 `max_tokens` 64k+ | |
+| **Claude Opus 4.8** (구세대) | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>` (리터럴 해석), `thinking: adaptive` + `effort=xhigh`. verbosity 자동 조정·도구 사용 보수적(effort↑로 보정). **Breaking**: budget_tokens/temperature/prefill 금지 | |
 | **Claude Fable 5** (최고난도·장기 자율) | **장문 열거 ❌ — 짧은 지시 1개씩** (프롬프트 다이어트). adaptive thinking 전용(`thinking` 생략), reasoning 재출력 지시 금지(refusal 위험) | |
 | Claude Opus 4.7 / 4.6 (명시 시 first-class) | 4.7: adaptive + xhigh (budget_tokens/temperature/prefill 금지) · 4.6: `budget_tokens`/`temperature`/prefill **사용 가능**. 마이그레이션 강요 금지 | |
 
 **GPT 모델 라우팅**: 미지정/일반 GPT 작업 → **GPT-5.6 Sol lean outcome-first 디폴트**. `GPT-5.5` 명시 → 5.5 outcome-first. `GPT-5.4` / `5.2` / `legacy XML` 명시 시에만 XML stack 적용.
 
-**Claude 모델 라우팅**: 미지정/최신 → **Opus 4.8 디폴트**. "Fable 5"·"최고난도"·"장기 자율" → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 시 해당 구세대 패턴 (마이그레이션 강요 금지). 구세대→4.8 전환 전 회귀 매트릭스(`prompt-engineering-guide.md` Part 0.5) 통과 필수.
+**Claude 모델 라우팅**: 미지정/최신 → **Opus 5 디폴트**(thinking 기본 ON · `disabled`+`xhigh|max`=400 · web fetch·Priority Tier **미지원** → 그 경우 4.8 명시). "Fable 5"·"최고난도"·"장기 자율" → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 시 해당 구세대 패턴 (마이그레이션 강요 금지). 구세대→4.8 전환 전 회귀 매트릭스(`prompt-engineering-guide.md` Part 0.5) 통과 필수.
 
 **🎯 역할(Role) 직접 전문가 지명 (CRITICAL)**
 

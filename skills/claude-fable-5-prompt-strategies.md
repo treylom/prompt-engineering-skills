@@ -1,8 +1,8 @@
-# Claude Fable 5 · Opus 4.8 · Sonnet 5 프롬프트 전략
+# Claude Opus 5 · Fable 5 · Opus 4.8 · Sonnet 5 프롬프트 전략
 
-> **Version**: 1.2.1 | **Updated**: 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)
+> **Version**: 1.3.0 | **Updated**: 2026-07-28 (Part 2.5 Opus 5 신설 — **Claude 디폴트 = Opus 5**. breaking 2건·검증지시 제거·서브에이전트 억제·미지원 회귀 2건. 공식 3문서 대조.) | 이전: 1.2.1 · 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)
 > **Source**: Anthropic 공식 문서 및 실전 벤치마크
-> **Covers**: **Claude Fable 5 / Mythos 5** (최신), **Opus 4.8**, **Sonnet 5** (최신). 4.7 이하 모델군은 `claude-4.7-prompt-strategies.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
+> **Covers**: **Claude Opus 5** (**현행 디폴트**, 2026-07-28~), **Fable 5 / Mythos 5**, **Opus 4.8**, **Sonnet 5**. 4.7 이하 모델군은 `claude-4.7-prompt-strategies.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
 
 핵심 철학 전환: 두 모델 모두 **지시 따르기가 강해져서 "열거형 장문 프롬프트"가 역효과**. 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방 스킬·프롬프트는 **다이어트가 마이그레이션의 본체**.
 
@@ -12,8 +12,10 @@
 
 | 상황 | 선택 |
 |------|------|
+| **미지정·일반 작업 (디폴트)** | **Opus 5** — 에이전틱 코딩·장기 과제·1M context. thinking 기본 ON |
 | 가장 어려운 미해결 문제, 며칠 단위 자율 run, 병렬 서브에이전트 오케스트레이션 | **Fable 5** |
 | 검증된 파이프라인·예측 가능한 동작·코드리뷰 하네스 | **Opus 4.8** (또는 Fable 5 fallback 대상) |
+| **web fetch 도구 · Priority Tier 필요** | **Opus 4.8 명시** — Opus 5 **미지원**(Part 2.5.5) |
 | Fable 5 refusal(공격적 보안·생물과학·reasoning 추출) 대비 | Opus 4.8 server/client-side fallback 구성 |
 
 ## Part 2: Opus 4.8 핵심 패턴
@@ -36,6 +38,107 @@ estimated severity so a downstream filter can rank them.
 ```
 
 - **computer use**: 최대 2576px/3.75MP — 1080p 전송이 성능·비용 균형(공식), 비용 민감 = 720p.
+
+## Part 2.5: Opus 5 핵심 패턴 (**현행 Claude 디폴트**, 2026-07-28~)
+
+> **공식 출처**: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) · [What's new in Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) · [Migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide) — 접근일 2026-07-28
+> 모델 ID = **`claude-opus-5`**(날짜 접미사 없음) · 1M context(기본=최대) · 128k max output · 가격 4.8 동일($5/$25) · **drop-in upgrade**(4.8 프롬프트가 그대로 잘 돎)
+
+### 2.5.1 🔴 Breaking change 2건 (공식이 "breaking" 으로 명명)
+
+| # | 변경 | 조치 |
+|---|------|------|
+| 1 | **thinking 기본 ON** — 4.8 은 `thinking` 필드 없으면 thinking 없이 돌았으나 **5 는 adaptive thinking 으로 돈다** | `max_tokens` 는 여전히 *thinking+응답 합계* 하드 리밋 → **4.8 에서 thinking 없이 돌던 워크로드는 `max_tokens` 재검토**. 구 동작 유지는 `thinking:{type:"disabled"}` (아래 제약) |
+| 2 | **thinking 끄기가 effort `high` 이하로 제한** | `thinking:{type:"disabled"}` + effort `xhigh`/`max` = **400 에러**. **매 요청 독립 검증** — 앞 턴이 통과해도 그 요청에서 effort 올리면 거부 |
+
+```python
+# ❌ 4.8 에선 통과, 5 에선 400
+client.messages.create(model="claude-opus-5", max_tokens=16000,
+    thinking={"type": "disabled"}, output_config={"effort": "xhigh"}, messages=[...])
+
+# ✅ (a) thinking 재활성 — 필드 제거
+client.messages.create(model="claude-opus-5", max_tokens=16000,
+    output_config={"effort": "xhigh"}, messages=[...])
+# ✅ (b) thinking 끈 채로 — effort 하향
+client.messages.create(model="claude-opus-5", max_tokens=16000,
+    thinking={"type": "disabled"}, output_config={"effort": "high"}, messages=[...])
+```
+
+### 2.5.2 검증 지시 — **삭제가 아니라 「출력 형식 계약」으로 전환**
+
+공식 원문(verbatim):
+
+> *"If your prompt contains explicit verification instructions … remove them."*
+> — Prompting Claude Opus 5
+
+공식이 빼라는 것은 **행동 지시**(모델에게 *"검증하라"*)다. Opus 5 는 시키지 않아도 자가검증하므로 그 지시는 **과검증**만 유발한다. 그러나 우리가 그 지시로 지키던 **산출 품질 표면**(출처·한계·판정)까지 버릴 이유는 없다 — **같은 요구를 「답에 이 칸이 채워져 나와야 한다」는 출력 양식으로 옮기면** 공식 권고와 충돌하지 않으면서 표면이 유지된다.
+
+**전환 규칙 — 행동형 → 형식형**
+
+| 빼는 것 (행동 지시) | 대신 넣는 것 (출력 형식 계약) |
+|---|---|
+| "최종 검증 단계를 넣어라" · "서브에이전트로 검증하라" | 답 말미에 **`근거` 칸**(각 주장의 출처)과 **`한계` 칸**(확인 못 한 것) |
+| "답을 두 번 확인하라" · "응답 전 재검증" | 답 말미에 **`판정` 칸**(결론 + 확신도) |
+| "high-severity 만" · "보수적으로 보고하라" | **전부 보고**시키고 **별도 패스로 필터** — 과제약을 리터럴로 따라 *덜 보고*하므로, coverage 와 filter 를 **다른 단계로 분리**(Part 2 패턴이 5 에서 **더 중요**) |
+
+**변환 예**
+
+```diff
+- After completing the analysis, verify your findings and double-check each claim.
++ End your response with these sections:
++   ## 근거   — each claim with its source
++   ## 한계   — what you could not confirm
++   ## 판정   — conclusion + confidence (high / medium / low)
+```
+
+⚠️ **경계**: 계약은 **답의 목차**를 정할 뿐 **행동을 지시하지 않는다.** `"verify"`·`"double-check"`·`"re-examine"` 류 동사가 계약 문구에 들어가면 그 순간 다시 행동 지시가 되어 공식 권고를 위반한다 — **칸 이름과 채울 내용만** 적는다.
+
+📌 **계약 칸 목록은 전 모델 동일**(핵심 산출 · 근거 · 한계 · 판정 + 목적별 확장). **모델별로 다른 것은 얹는 문구·길이·위치뿐**이며, 구세대(4.8 · Fable 5 · Sonnet 5)도 **같은 칸 목록**을 쓰되 표현은 기존 방식 그대로 둔다.
+
+### 2.5.3 **더해야 할 것**
+
+| 축 | 지시 |
+|---|---|
+| **간결성 명시** | 기본 응답이 이전 Opus 보다 **길다**. effort 를 낮추면 *thinking 양*이 줄 뿐 **가시 응답 길이는 안정적으로 안 줄어든다** → 프롬프트로 직접 |
+| **문서 산출 길이** | 디스크에 쓰는 파일(리포트·md)도 길어짐 → 길이 보정 지시 |
+| **진행 서술(narration)** | 에이전틱 중 "이제 뭘 하겠다"를 자주 announce → **박자·형태를 서술**. 금지형보다 **긍정 예시**가 효과적 |
+| **범위 고정** | 요청 안 한 단계를 덧붙이거나 과제를 재해석할 수 있음 → 좁은 과제엔 범위 명시 |
+| **서브에이전트 억제** | 위임을 **더 쉽게** 함 → 위임 기준 명시 또는 **결정적 상한** |
+| **자기수정 서술 억제** | 앞선 발언 정정을 자주 서술 → *사용자 결정을 바꾸는 오류만* 정정하도록 |
+| **effort 재스윕** | 이전 모델 기본값 그대로 쓰지 말 것. `low`·`medium` 이 **1차 비용·지연 레버**. `xhigh`/`max` 시 `max_tokens` **64k 부터** |
+| **비전 workaround 재검증** | 이전 모델용 우회가 불필요해졌을 수 있음. 도구(크롭·검증) 제공이 thinking 상향보다 비용 효율적 |
+
+```text
+Keep responses focused, brief, and concise. Keep disclaimers and caveats short, and spend
+most of the response on the main answer. When asked to explain something, give a high-level
+summary unless an in-depth explanation is specifically requested.
+```
+```text
+Delegate to a subagent only for large tasks that are genuinely independent and parallelizable,
+such as a wide multi-file investigation. Do not delegate work you can finish yourself in a
+handful of tool calls, and do not use subagents to verify or double-check your own work.
+```
+
+### 2.5.4 thinking 을 꺼야만 하는 통합용 (공식 완화책)
+
+thinking off 시 **① 도구 호출이 구조화 블록 대신 평문으로 새어나옴**(그 호출은 실행 안 되고, 에이전틱 루프에선 그 평문이 히스토리에 남아 **이후 턴까지 오염**) **② `<thinking>` 등 내부 XML 태그가 가시 응답에 노출**.
+**1순위 대책 = thinking 을 켠 채 effort 를 낮추는 것** — 공식: *"thinking enabled at `low` effort performs better than thinking disabled at similar cost."*
+
+> 🚨 시스템 프롬프트에 **"생각하지 마라 / 추론하지 마라"** 규칙이 있으면 **제거** — 태그 유출을 오히려 **증가**시킨다. 태그를 이름으로 지목하는 지시도 일반형보다 **덜** 효과적.
+
+```text
+When you use a tool, you may say a brief sentence first. If no tool can express what the user
+asked for, say so instead of guessing. Do not include internal or system XML tags in your response.
+```
+
+### 2.5.5 ⚠️ 승격 시 따라오는 **미지원 회귀 2건**
+
+| 기능 | Opus 4.8 | **Opus 5** | 분기 |
+|---|---|---|---|
+| **web fetch 도구** | 지원 | **미지원** | 웹 fetch 필요 프롬프트는 **`Opus 4.8` 명시** 라우팅 |
+| **Priority Tier** | 지원 | **미지원** | Priority Tier 커밋 조직은 용량 계획 별도 |
+
+그 외: 프롬프트 캐시 최소 길이가 **1,024 → 512 토큰**으로 완화(코드 변경 불요) · Fast mode 는 Claude API 한정.
 
 ## Part 3: Fable 5 핵심 패턴
 

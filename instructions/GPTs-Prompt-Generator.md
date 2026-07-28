@@ -85,7 +85,7 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 - **이미지**: **gpt-image-2** / NanoBanana2 / Gemini 3 Pro Image
 - **동영상**: Veo 3.1 / Sora 2 / Kling 3.0
 
-**Claude 라우팅 (디폴트 = Opus 4.8, 2026-06-10부터)**: 미지정/최신 → 4.8 디폴트. "Fable 5"·"최고난도"·"장기 자율" → Fable 5 (**장문 열거 ❌ 프롬프트 다이어트**, reasoning 재출력 지시 금지). "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 → 해당 구세대 패턴 (4.6은 `budget_tokens`·`temperature`·prefill OK — 마이그레이션 강요 금지). **4.7+ Breaking**: 4.6 코드 그대로 넣으면 400 에러 (`adaptive` only, sampling 제거, prefill 금지).
+**Claude 라우팅 (디폴트 = Opus 5, 2026-07-28부터)**: 미지정/최신 → **Opus 5** 디폴트(thinking 기본 ON · `thinking:disabled`+effort `xhigh|max` = 400). "Opus 4.8" 명시 또는 **web fetch·Priority Tier 필요** → 4.8. "Fable 5"·"최고난도"·"장기 자율" → Fable 5 (**장문 열거 ❌ 프롬프트 다이어트**, reasoning 재출력 지시 금지). "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 → 해당 구세대 패턴 (4.6은 `budget_tokens`·`temperature`·prefill OK — 마이그레이션 강요 금지). **4.7+ Breaking**: 4.6 코드 그대로 넣으면 400 에러 (`adaptive` only, sampling 제거, prefill 금지).
 **GPT 라우팅 (디폴트 = GPT-5.6 Sol, 2026-07 공식)**: lean outcome-first — 열거 최소화·짧고 정확한 지시. 5.5 outcome-first 6섹션 / 5.4 XML stack은 legacy(명시 시만). `reasoning.effort`는 low/medium 우선, 부족할 때만 escalate.
 
 ---
@@ -229,13 +229,14 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 | **GPT-5.6 Sol** (디폴트) | Markdown lean outcome-first — 열거 최소화 (요약 — 전체 블록 구조는 참조 스킬) | `gpt-5.6-prompt-enhancement.md` |
 | GPT-5.5 (legacy) | Markdown 6섹션 (Role/Personality/Goal/Success Criteria/Constraints/Output/Stop Rules) | `gpt-5.6-prompt-enhancement.md` 하단 Legacy 섹션 |
 | GPT-5.4 / 5.2 (legacy XML) | XML 12블록 stack (output_verbosity_spec 등) | `gpt-5.6-prompt-enhancement.md` 하단 Legacy 섹션 |
-| **Claude Opus 4.8** (디폴트) | XML + `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>`. API: `thinking={"type":"adaptive"}` + `effort="xhigh"` | `claude-fable-5-prompt-strategies.md` Part 2 |
+| **Claude Opus 5** (디폴트) | 검증·재확인 지시 **제거**(과검증) · 간결성 명시 · 서브에이전트 억제 · 범위 고정. thinking 기본 ON, `disabled`+`xhigh|max`=400 | `claude-fable-5-prompt-strategies.md` Part 2.5 |
+| **Claude Opus 4.8** (구세대 first-class) | XML + `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>`. API: `thinking={"type":"adaptive"}` + `effort="xhigh"` | `claude-fable-5-prompt-strategies.md` Part 2 |
 | **Claude Fable 5** (최고난도) | 짧은 지시 1개씩 — 장문 열거 ❌. adaptive thinking 전용(`thinking` 생략) | `claude-fable-5-prompt-strategies.md` Part 3/4 |
 | Claude Opus 4.7 / 4.6 (명시 시) | 4.7: adaptive + xhigh · 4.6: `budget_tokens`/`temperature`/prefill 사용 가능 | `claude-4.7-prompt-strategies.md` Part 0/0.6 |
 | Gemini 3 / 이미지 / 동영상 | JSON / Constraints 최상단 | `gemini-3.1-prompt-strategies.md` |
 
 **GPT 라우팅 규칙**: 미지정 GPT → **5.6 Sol lean outcome-first 디폴트**. `5.5` 명시 → 5.5 outcome-first. `5.4 XML 스타일` 명시 → legacy XML.
-**Claude 라우팅 규칙**: 미지정 Claude → **Opus 4.8 디폴트**. "Fable 5"·"최고난도" → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" → 해당 구세대 패턴.
+**Claude 라우팅 규칙**: 미지정 Claude → **Opus 5 디폴트**. "Opus 4.8"·web fetch·Priority Tier → 4.8. "Fable 5"·"최고난도" → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" → 해당 구세대 패턴.
 
 ## GPT-5.5 Anti-Patterns
 

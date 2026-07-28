@@ -2411,7 +2411,7 @@ Ask only for the smallest missing input if blocked.
 ### Claude 현행 모델 전략 (Fable 5 · Opus 4.8 · Sonnet 5) 🆕
 
 > **Updated**: 2026-07-21 | **Source**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
-> **Covers**: **Claude Fable 5** (최고난도·장기 자율), **Opus 4.8** (Claude 디폴트, 2026-06-10부터), **Sonnet 5** (Sonnet 최신)
+> **Covers**: **Claude Opus 5** (Claude 디폴트, 2026-07-28부터), **Fable 5** (최고난도·장기 자율), **Opus 4.8** (구세대 first-class), **Sonnet 5**
 
 핵심 철학: 세 모델 모두 **지시 따르기가 강해져 "열거형 장문 프롬프트"가 역효과** — 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방의 다이어트가 마이그레이션의 본체.
 
@@ -5251,6 +5251,8 @@ Style Rules: Do [가이드라인] / Don't [안티패턴]
 
 > 이 가이드는 팩트체크와 리서치 작업을 위한 프롬프트 작성 방법을 안내합니다.
 > IFCN(국제팩트체킹네트워크) 5대 원칙을 기반으로 구조화되어 있습니다.
+>
+> 📐 **이 템플릿들은 「출력 형식 계약」입니다** — IFCN 단계·StructuredResearch 섹션은 모델에게 *"검증하라"* 는 **행동 지시가 아니라 답에 채워져 나와야 하는 칸 목록**입니다. 그래서 Claude Opus 5 의 「검증 지시 제거」 권고와 **충돌하지 않고 그대로 유지**됩니다. 칸 목록은 **전 모델 동일**하며 모델별로 다른 것은 얹는 문구·길이·위치뿐입니다. (상세 = `skills/claude-fable-5-prompt-strategies.md` Part 2.5.2)
 
 ---
 
