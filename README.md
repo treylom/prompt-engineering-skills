@@ -148,12 +148,12 @@ Remove-Item -Recurse -Force "$env:TEMP\pes"
 
 | 운영 모드 | 업로드할 Knowledge 파일 | Instructions |
 |----------|---------------------|-------------|
-| **단일 파일 모드** (간단) | `skills/prompt-engineering-guide/references/full.md` 1개 | `instructions/GPTs-Prompt-Generator.md` 또는 `instructions/Gems-Prompt-Generator.md` |
+| **단일 파일 모드** (간단) | export 번들의 `prompt-engineering-guide.md` 1개 (`bash scripts/export-knowledge.sh` 로 생성 — raw `full.md` 직접 업로드 ❌: basename 이 Instructions 참조명과 어긋남) | `instructions/GPTs-Prompt-Generator.md` 또는 `instructions/Gems-Prompt-Generator.md` |
 | **분할 파일 모드** (영역별 분리) | `bash scripts/export-knowledge.sh` 산출 번들(기본 `/tmp/pes-knowledge/`)에서 필요한 가이드 선택 | 동일 (Instructions가 번들 파일명을 참조) |
 
 GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드가 필요하면 핵심만 선택 업로드하거나 통합본을 사용하세요. Gems는 첨부 한도가 다르므로 분할 파일 전체 업로드도 가능합니다.
 
-> **업로드 번들이 왜 필요한가** — 웹 UI 지식 파일은 **파일명이 참조 계약**입니다(Instructions 가 `pes-knowledge/prompt-engineering-guide.md` 같은 번들 파일명으로 참조, 기존 배포 GPTs/Gems 와 호환). 저장소 정본은 P5 분할(2026-07-29) 이후 `skills/<이름>/references/full.md` 이므로, 업로드 직전 `bash scripts/export-knowledge.sh` 로 업로드 계약 basename 번들을 생성해 그 파일들을 업로드합니다.
+> **업로드 번들이 왜 필요한가** — 웹 UI 지식 파일은 **파일명이 참조 계약**입니다(Instructions 가 `prompt-engineering-guide.md` 같은 번들 파일명으로 참조, 기존 배포 GPTs/Gems 와 호환). 저장소 정본은 P5 분할(2026-07-29) 이후 `skills/<이름>/references/full.md` 이므로, 업로드 직전 `bash scripts/export-knowledge.sh` 로 업로드 계약 basename 번들을 생성해 그 파일들을 업로드합니다.
 
 ## 사용 시나리오별 선택 가이드
 
@@ -161,8 +161,8 @@ GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드�
 |------|----------|
 | Claude Code 신규 사용자, 빠른 설치 | 통합본 1개 (`skills/prompt-engineering-guide/references/full.md`) + commands |
 | Claude Code 고급 사용자, Skills 2.0 분할 활용 | 통합본 + `skills/prompt-engineering-guide/` 분할 모듈 |
-| GPTs Knowledge 한도 빡빡함 | 통합본 1개만 업로드 |
-| GPTs에서 이미지·리서치만 별도 운영 | export 번들의 `pes-knowledge/image-prompt-guide.md` + `pes-knowledge/research-prompt-guide.md` 만 업로드 |
+| GPTs Knowledge 한도 빡빡함 | export 번들의 통합본(`prompt-engineering-guide.md`) 1개만 업로드 |
+| GPTs에서 이미지·리서치만 별도 운영 | export 번들의 `image-prompt-guide.md` + `research-prompt-guide.md` 만 업로드 |
 | Gems에 풍부한 분할 자산 모두 활용 | 분할 가이드 8개 + Instructions 분할 모듈 |
 
 ## 운영 규칙

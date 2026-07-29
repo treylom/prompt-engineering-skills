@@ -56,12 +56,17 @@ case "${1:-}" in
       #      제외: instructions/ = 지식 파일명 계약 표면(basename 이 업로드 계약 —
       #            scripts/export-knowledge.sh 가 그 basename 을 실물로 공급, (1c)가 그 계약을 검사)
       #            + CHANGELOG(역사)·fixtures(동결 실출력)·image-prompt-kit(vendor).
+      #      추가 예외: '번들' 문맥 줄 — 업로드 번들에서는 bare basename 이 계약상 정답 표기
+      #      (README 단일/분할 모드 표·export 설명 — 5차 수리에서 Instructions 실표기와 정렬)
       bare=$(grep -rnE -e "\./$t\.md" -e "(^|[^/])$t\.md" . --include='*.md' --include='*.sh' \
               --exclude-dir=.git --exclude-dir=instructions --exclude-dir=image-prompt-kit 2>/dev/null \
-              | grep -v CHANGELOG | grep -v 'scripts/fixtures/' | wc -l | tr -d ' ')
-      # (1c) 지식 업로드 계약 — instructions/ 의 bare basename 이 유효하려면 export 번들이 공급해야 함
-      grep -q "\"skills/\$t/references/full.md\"" scripts/export-knowledge.sh 2>/dev/null \
-        || { grep -q "$t" scripts/export-knowledge.sh 2>/dev/null || { echo "FAIL(1c): export-knowledge.sh 에 $t 누락"; fail=1; }; }
+              | grep -v CHANGELOG | grep -v 'scripts/fixtures/' | grep -v '번들' \
+              | grep -v 'scripts/p5-ref-verify.sh' | wc -l | tr -d ' ')  # 자기 제외: selftest 합성 fixture 보유
+      # (1c) 지식 업로드 계약 — exporter DIRS 배열의 실멤버십 검사
+      #      (v2 — 구판은 이스케이프된 리터럴 '$t' 문자열을 grep 해 generic 루프 줄에 전 타겟 동일 매치
+      #       = false PASS. 4차 리뷰 변이 시험[DIRS 삭제해도 PASS]으로 적발, 실멤버십으로 교체)
+      awk '/^DIRS=\(/,/\)$/' scripts/export-knowledge.sh 2>/dev/null | grep -qw "$t" \
+        || { echo "FAIL(1c): export-knowledge.sh DIRS 에 $t 누락"; fail=1; }
       # (2) 새 위치 실재
       newf="skills/$t/references/full.md"
       # (3) 참조 총계 보존 (스냅샷 대비 감소 = 치환 누락 의심, 증가만 허용)
@@ -85,5 +90,27 @@ case "${1:-}" in
     done
     [ "$fail" = "0" ] && { echo "== VERIFY PASS =="; exit 0; } || { echo "== VERIFY FAIL =="; exit 1; }
     ;;
-  *) echo "usage: $0 snapshot|verify"; exit 2;;
+  selftest)
+    # 검사기 양성 대조 (2026-07-29 4차 리뷰 위임 — 검출력의 영구 fixture)
+    ok=0; ng=0
+    # (a) (1c) 변이: DIRS 에서 타겟 1개 제거한 사본 → 누락 검출돼야 함
+    TMP=$(mktemp -d); sed 's/^DIRS=(prompt-engineering-guide /DIRS=(/' scripts/export-knowledge.sh > "$TMP/mut.sh"
+    if awk '/^DIRS=\(/,/\)$/' "$TMP/mut.sh" | grep -qw "prompt-engineering-guide"; then
+      echo "SELFTEST FAIL: (1c) 변이 미검출"; ng=$((ng+1)); else ok=$((ok+1)); fi
+    # (b) (1b) 합성: bare 언급 파일 → 검출돼야 함
+    echo '가이드는 `prompt-engineering-guide.md` 를 읽는다' > "$TMP/synth.md"
+    if grep -qE "(^|[^/])prompt-engineering-guide\.md" "$TMP/synth.md"; then ok=$((ok+1)); else
+      echo "SELFTEST FAIL: (1b) 합성 bare 미검출"; ng=$((ng+1)); fi
+    # (c) exporter 경계: 비어있지 않은 출력 폴더 → 거부돼야 함
+    mkdir -p "$TMP/out"; touch "$TMP/out/obsolete-guide.md"
+    if bash scripts/export-knowledge.sh "$TMP/out" >/dev/null 2>&1; then
+      echo "SELFTEST FAIL: exporter 가 stale 폴더를 수락"; ng=$((ng+1)); else ok=$((ok+1)); fi
+    # (d) exporter happy path: fresh 폴더 → 정확 10파일
+    if bash scripts/export-knowledge.sh "$TMP/fresh" >/dev/null 2>&1 && [ "$(ls -A "$TMP/fresh" | wc -l | tr -d ' ')" = "10" ]; then
+      ok=$((ok+1)); else echo "SELFTEST FAIL: exporter fresh 10파일 실패"; ng=$((ng+1)); fi
+    rm -rf "$TMP"
+    echo "selftest: PASS=$ok FAIL=$ng"
+    [ "$ng" = "0" ] && exit 0 || exit 1
+    ;;
+  *) echo "usage: $0 snapshot|verify|selftest"; exit 2;;
 esac
