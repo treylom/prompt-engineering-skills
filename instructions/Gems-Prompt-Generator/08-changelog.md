@@ -1,5 +1,8 @@
 ## Version History
 
+**Version**: 3.2.2 | **Updated**: 2026-07-29
+**Changes v3.2.2** (2026-07-29): **Codex 표면 2건 수리(재경님 ChatGPT Works 실증 재현)** — ① `.codex-plugin/plugin.json` 2.12.0→현행(5회 bump 동안 방치돼 Works가 옛 판을 캐시하던 root cause, A5 검사 6표면 확장으로 재발 차단) ② `skills/prompt/SKILL.md`(Works 로드 표면) 이미지 선행 게이트에 **산출 후 5옵션 메뉴 verbatim 의무 절 + 자가검사 ④타겟 표기·⑤전문가 앵커** 신설 — 이미지 경로에서 references 보충이 스킵돼 메뉴·타겟이 누락되던 약문장 수리. 지침 내용 무변경(버전 동기화만).
+
 **Version**: 3.2.1 | **Updated**: 2026-07-29
 **Changes v3.2.1** (2026-07-29): **게이트 A4 오탐 수리** — 실전 1호 판정(GD 실출력, 인간 판정 3축 전건 PASS)이 A4 FAIL로 갈린 오탐의 원인 2개 수리: ①검사 범위 = 문서 tail → `extractPromptBlock()`(```text 우선 → 마지막 펜스 → 문서 tail fallback) ②`AR_TAIL_RE` 줄시작 앵커 제거(킷 포맷 B 콤마형은 문단 끝에 이어 붙음 — 절반 수리가 여전히 FAIL임을 회귀 3단으로 실측). A4 출력에 검사 범위 표기 추가. fixture에 GD 실출력을 `pass/interactive-image.md`로 승격(관측된 양성도 fixture 밖에 있으면 통과가 정보를 안 줌) — 셀프테스트 8/8, 기존 음성 검출력 보존. 지침 내용 무변경(버전 표기 동기화만).
 

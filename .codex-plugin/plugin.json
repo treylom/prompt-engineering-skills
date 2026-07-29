@@ -1,7 +1,7 @@
 {
   "name": "prompt-engineering-skills",
-  "version": "3.2.1",
-  "description": "AI prompt generator: /prompt v3.2.1 with per-model strategy skills (Claude/GPT/Gemini/image).",
+  "version": "3.2.2",
+  "description": "AI prompt generator: /prompt v3.2.2 with per-model strategy skills (Claude/GPT/Gemini/image).",
   "author": {
     "name": "tofukyung"
   },
