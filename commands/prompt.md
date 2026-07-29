@@ -147,7 +147,7 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
 2. 모델 / 상세도 / 지시문 파싱
 3. 지시문 → Step 1 목적 감지 테이블로 자동 라우팅
 4. IF 목적 ∈ {팩트체크, 리서치/조사}:
-     → prompt-engineering-guide.md Read 로드 (Step 2 「리서치/팩트체크 템플릿 자동 로드」 절차)
+     → skills/prompt-engineering-guide/references/full.md Read 로드 (Step 2 「리서치/팩트체크 템플릿 자동 로드」 절차)
      → IFCN 기반 베이스 템플릿(LoopFactChecker / QuickFactCheck / StructuredResearch_v1.0 등) 채택
      → 사용자 지시문/주제로 placeholder 치환
 5. 모델별 필수 블록 적용:
@@ -168,7 +168,7 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
 | 3 | "🔍 요청 분석 중..." 진행 메시지 | 부모 컨텍스트 오염 |
 | 4 | 메타 설명 / 부가 텍스트 | 호출자가 프롬프트만 필요 |
 | 5 | 5가지 선택지 / Step 3 / Step 4 / Step 5 진입 | 인터랙티브 분기 차단 |
-| 6 | 리서치/팩트체크인데 prompt-engineering-guide.md 미로드 | 통합의 핵심 — 누락 시 일반 XML로 격하됨 |
+| 6 | 리서치/팩트체크인데 skills/prompt-engineering-guide/references/full.md 미로드 | 통합의 핵심 — 누락 시 일반 XML로 격하됨 |
 
 ### Batch 출력 형식 (오직 이것만)
 ```
@@ -369,7 +369,7 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 **Opus 4.8 핵심 차이 (4.7 대비)**: 1M context 기본(MS Foundry 200k) · verbosity 자동 조정 · 더 literal한 해석 · 도구 사용 보수적(effort↑로 보정) · 서브에이전트 스폰 보수적(명시 가이드) · 진행 보고 자체 개선("N tool call마다 요약" 스캐폴딩 제거) · 코드리뷰 recall 함정(coverage/filter 분리 프롬프트). **Fable 5 추가 차이**: 지시 따르기 강화 → **장문 열거 프롬프트 다이어트**, reasoning 재출력 지시 = refusal 위험.
 
-**4.6 → 4.7 전환 전 필수 회귀 체크**: `prompt-engineering-guide.md` Part 0.5 회귀 매트릭스 10개 항목 통과 후에만 전환.
+**4.6 → 4.7 전환 전 필수 회귀 체크**: `skills/prompt-engineering-guide/references/full.md` Part 0.5 회귀 매트릭스 10개 항목 통과 후에만 전환.
 
 ### 1. Breaking Changes — 구 Opus 4.6 프롬프트가 400 에러를 내는 지점
 
@@ -504,7 +504,7 @@ Your context window will be automatically compacted as it approaches its limit, 
 > 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
 > **공식 가이드**: [GPT-5.5 Prompt Guidance](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) (2026-04 발표)
 > **핵심**: 5.4의 process-heavy XML 12블록 stack 대신 **outcome-first markdown 6섹션** 권장.
-> **상세 스킬**: `prompt-engineering-guide.md` (블록 정의, 마이그레이션, anti-patterns)
+> **상세 스킬**: `skills/prompt-engineering-guide/references/full.md` (블록 정의, 마이그레이션, anti-patterns)
 
 ### 사용 가능 경로
 
@@ -571,11 +571,11 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 | 사용자 명시 | 적용 enhancement |
 |------------|-----------------|
 | `GPT-5.6` / `gpt-5.6` / GPT 모델 미지정 | **`skills/gpt-5.6-prompt-enhancement/references/full.md` (lean outcome-first 디폴트, 2026-07)** |
-| `GPT-5.5` 또는 `gpt-5.5` | `prompt-engineering-guide.md` (outcome-first 6섹션 — legacy) |
-| `GPT-5.4` / `GPT-5.2` / `GPT-5` | `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 |
-| `legacy XML` / `5.4 스타일` 명시 | `prompt-engineering-guide.md` 하단 Legacy 섹션 강제 |
+| `GPT-5.5` 또는 `gpt-5.5` | `skills/prompt-engineering-guide/references/full.md` (outcome-first 6섹션 — legacy) |
+| `GPT-5.4` / `GPT-5.2` / `GPT-5` | `skills/prompt-engineering-guide/references/full.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 |
+| `legacy XML` / `5.4 스타일` 명시 | `skills/prompt-engineering-guide/references/full.md` 하단 Legacy 섹션 강제 |
 
-> **Note**: 2026-04-30 v2.7.0부터 `prompt-engineering-guide.md` 별도 파일은 **폐기**되고 `prompt-engineering-guide.md` 단일 파일에 outcome-first + legacy XML stack 모두 통합됨 (GPTs/Gems 첨부파일 10개 한도 대응).
+> **Note**: 2026-04-30 v2.7.0부터 `skills/prompt-engineering-guide/references/full.md` 별도 파일은 **폐기**되고 `skills/prompt-engineering-guide/references/full.md` 단일 파일에 outcome-first + legacy XML stack 모두 통합됨 (GPTs/Gems 첨부파일 10개 한도 대응).
 
 > **호환성**: 사용자가 "5.4 XML 스타일"을 GPT-5.5 모델에 적용해달라고 명시 요청하면 그대로 따름.
 
@@ -602,17 +602,17 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 | 키워드/패턴 | 자동 선택 목적 | 권장 출력 형식 | 필수 베이스 스킬 |
 |------------|---------------|---------------|----------------|
 | 이미지, 그림, 사진, 그려줘 | 이미지생성 | **킷 텍스트 프롬프트 기본**(gpt-image-2/`$imagegen` — 포맷 A/B·끝 `AR`. 웹 UI만 JSON) | 플러그인 내부 **`skills/image-prompt-guide/references/full.md` 전체 Read** |
-| 영상, 동영상, 비디오, 클립 | 동영상생성 | **JSON 구조 기본** | `prompt-engineering-guide.md` |
+| 영상, 동영상, 비디오, 클립 | 동영상생성 | **JSON 구조 기본** | `skills/prompt-engineering-guide/references/full.md` |
 | 코드, 코딩, 개발, 프로그램 | 코딩/개발 | XML | 모델별 전략 가이드 |
 | 글, 작성, 블로그, 기사 | 글쓰기/창작 | Markdown + 자연어 | 모델별 전략 가이드 |
-| 분석, 데이터, 통계, 비교 | 분석/리서치 | XML | **`prompt-engineering-guide.md` 필수 로드** |
+| 분석, 데이터, 통계, 비교 | 분석/리서치 | XML | **`skills/prompt-engineering-guide/references/full.md` 필수 로드** |
 | 에이전트, 자동화, 워크플로우 | 에이전트 | XML | 모델별 전략 가이드 |
-| 팩트체크, 사실 확인, 검증, 교차검증, Chain-of-Verification | 팩트체크 | XML | **`prompt-engineering-guide.md` 필수 로드** |
-| 조사, 리서치, 찾아줘, market research, 시장 조사, 경쟁사, 학술 | 리서치/조사 | XML | **`prompt-engineering-guide.md` 필수 로드** |
+| 팩트체크, 사실 확인, 검증, 교차검증, Chain-of-Verification | 팩트체크 | XML | **`skills/prompt-engineering-guide/references/full.md` 필수 로드** |
+| 조사, 리서치, 찾아줘, market research, 시장 조사, 경쟁사, 학술 | 리서치/조사 | XML | **`skills/prompt-engineering-guide/references/full.md` 필수 로드** |
 | 수학, 계산, 풀이, 증명 | 수학/논리 | Markdown + 자연어 | 모델별 전략 가이드 |
-| 슬라이드, PPT, 발표, 프레젠테이션 | 슬라이드생성 | Markdown + JSON | `prompt-engineering-guide.md` |
+| 슬라이드, PPT, 발표, 프레젠테이션 | 슬라이드생성 | Markdown + JSON | `skills/prompt-engineering-guide/references/full.md` |
 
-> ⚠️ **CRITICAL**: 팩트체크 / 리서치 / 분석 목적이 감지되면 `prompt-engineering-guide.md`(SKILL.md + 01-factcheck-prompts.md + 02-general-research.md) Read 로드 후 IFCN 기반 베이스 템플릿을 사용해야 합니다. 일반 XML로 생성 금지. 상세 절차는 Step 2 「리서치/팩트체크 템플릿 자동 로드」 참조.
+> ⚠️ **CRITICAL**: 팩트체크 / 리서치 / 분석 목적이 감지되면 `skills/prompt-engineering-guide/references/full.md` 에서 grep 으로 템플릿 위치 확인 → 부분 Read 후 IFCN 기반 베이스 템플릿을 사용해야 합니다. 일반 XML로 생성 금지. 상세 절차는 Step 2 「리서치/팩트체크 템플릿 자동 로드」 참조.
 
 > 🎨 **이미지생성 = 플러그인 내부 가이드가 정본**: 이미지 목적이 감지되면 `skills/image-prompt-guide/references/full.md`를 처음부터 끝까지 읽고 그 계약으로 프롬프트를 컴파일한다. Codex 플러그인 경로에서는 외부 `image-prompt`·`gongnyang-photo` 스킬을 호출하지 않는다. 공냥이(@specal1849) 기반 출처 표기는 내부 가이드의 `source_credits`를 따른다.
 
@@ -1067,7 +1067,7 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
 ]
 ```
 
-> **참고**: 27개 스타일 전체 목록은 `prompt-engineering-guide.md` 참조. "기타"에서 blueprint, chalkboard, dark-tech 등 추가 스타일 지정 가능
+> **참고**: 27개 스타일 전체 목록은 `skills/prompt-engineering-guide/references/full.md` 참조. "기타"에서 blueprint, chalkboard, dark-tech 등 추가 스타일 지정 가능
 
 ---
 
@@ -1159,7 +1159,7 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
 **트리거**: 목적 = 슬라이드생성 → **반드시 실행**
 
 > baoyu-slide-deck 워크프로세스 기반 + 기존 prompt skills 강점 결합
-> 상세 스타일/내러티브 정보: `prompt-engineering-guide.md` 참조
+> 상세 스타일/내러티브 정보: `skills/prompt-engineering-guide/references/full.md` 참조
 
 > ⚠️ **출력 방식: md 파일 생성 → 파일 경로 제공**
 > 슬라이드 프롬프트는 분량이 많으므로 채팅에 직접 출력하지 않고,
@@ -1190,7 +1190,7 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
 - 폰트명 사용 금지 → 시각적 외형으로 설명
 
 **기존 prompt skills 강점 적용:**
-- 전문가 3인 토론: 프레젠테이션 전문가 관점으로 아웃라인 검토 (prompt-engineering-guide.md 참조)
+- 전문가 3인 토론: 프레젠테이션 전문가 관점으로 아웃라인 검토 (skills/prompt-engineering-guide/references/full.md 참조)
 - CE 체크리스트: U자형 배치 (커버/클로징에 핵심 메시지), 핵심 반복
 - 5가지 선택지: 아웃라인 확인 후 실행/수정/에이전트 모드 선택
 
@@ -1330,16 +1330,16 @@ Style Rules:
 
 **트리거**: 목적 = 글쓰기/창작 OR 분석/리서치 OR 팩트체크
 
-> 🔴 **CRITICAL**: 분석/리서치/팩트체크 목적이면 일반 개요로 생성하지 말고 **`prompt-engineering-guide.md`의 IFCN 기반 워크플로우**를 베이스로 사용하세요.
+> 🔴 **CRITICAL**: 분석/리서치/팩트체크 목적이면 일반 개요로 생성하지 말고 **`skills/prompt-engineering-guide/references/full.md`의 IFCN 기반 워크플로우**를 베이스로 사용하세요.
 >
 > | 목적 세부 | 베이스 워크플로우 | 출처 파일 |
 > |----------|----------------|----------|
-> | 종합 리서치 / 일반 조사 | `StructuredResearch_v1.0` 4-stage (ScopeDefinition → DataCollection → Analysis → Synthesis) | `prompt-engineering-guide.md` |
-> | 시장 조사 | `MarketResearchPrompt` (시장 개요 → 경쟁 → 고객 → 기회/위협) | `02-general-research.md` |
-> | 경쟁사 분석 | `CompetitiveAnalysisPrompt` (제품 → 시장 위치 → 전략 → 역량) | `02-general-research.md` |
-> | 학술/기술 리서치 | `AcademicResearchPrompt` (문헌 검토 → 방법론 → 핵심 발견) | `02-general-research.md` |
-> | 팩트체크 (단계별/대화형) | `LoopFactChecker_UI_v1.2` 4-stage (Baseline → Evidence → CounterClaims → Synthesis) | `01-factcheck-prompts.md` |
-> | 팩트체크 (빠른 검증 / Chain-of-Verification) | `QuickFactCheck` | `01-factcheck-prompts.md` |
+> | 종합 리서치 / 일반 조사 | `StructuredResearch_v1.0` 4-stage (ScopeDefinition → DataCollection → Analysis → Synthesis) | `skills/prompt-engineering-guide/references/full.md` |
+> | 시장 조사 | `MarketResearchPrompt` (시장 개요 → 경쟁 → 고객 → 기회/위협) | `skills/prompt-engineering-guide/references/full.md` |
+> | 경쟁사 분석 | `CompetitiveAnalysisPrompt` (제품 → 시장 위치 → 전략 → 역량) | `skills/prompt-engineering-guide/references/full.md` |
+> | 학술/기술 리서치 | `AcademicResearchPrompt` (문헌 검토 → 방법론 → 핵심 발견) | `skills/prompt-engineering-guide/references/full.md` |
+> | 팩트체크 (단계별/대화형) | `LoopFactChecker_UI_v1.2` 4-stage (Baseline → Evidence → CounterClaims → Synthesis) | `skills/prompt-engineering-guide/references/full.md` |
+> | 팩트체크 (빠른 검증 / Chain-of-Verification) | `QuickFactCheck` | `skills/prompt-engineering-guide/references/full.md` |
 >
 > 모든 리서치/팩트체크 워크플로우는 IFCN 5대 원칙(초당파성·정보투명성·재원투명성·방법론투명성·정직한수정) + 최신성 정책(오늘 → 전날 → 1주일 → 1개월) + 국가/지역 소스 우선 원칙을 포함해야 합니다.
 
@@ -1349,7 +1349,7 @@ Style Rules:
 3. 각 섹션별: 목표, 핵심 포인트 정의
 
 **자동 수행 (분석/리서치/팩트체크):**
-1. Read 도구로 `prompt-engineering-guide.md` + 매칭되는 서브파일 로드
+1. `skills/prompt-engineering-guide/references/full.md` 에서 grep 으로 매칭 템플릿 위치 확인 → 해당 부분 Read
 2. 매칭 베이스 템플릿(위 표) 채택
 3. 사용자 주제/지시문을 `<Topic>` / `<Source>` / `<Target>` 등 placeholder에 주입
 4. IFCN 원칙 + 최신성 정책 블록 보존
@@ -1412,8 +1412,8 @@ Style Rules:
 | 모델 | 필수 블록 / 구조 |
 |------|-----------------|
 | **GPT-5.6 Sol (디폴트)** | Markdown lean outcome-first — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조) |
-| GPT-5.5 (legacy outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `prompt-engineering-guide.md` |
-| GPT-5.2/5.4 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. **상세**: `prompt-engineering-guide.md` 하단 Legacy 섹션 |
+| GPT-5.5 (legacy outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `skills/prompt-engineering-guide/references/full.md` |
+| GPT-5.2/5.4 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. **상세**: `skills/prompt-engineering-guide/references/full.md` 하단 Legacy 섹션 |
 | **Claude Opus 5 (디폴트)** | 4.8 블록에서 **검증·재확인 지시를 뺀** 형태 + 간결성 명시 + 서브에이전트 위임 기준/상한 + 범위 고정. `thinking` 필드 생략(기본 ON), `effort` low/medium 우선 |
 | **Claude Opus 4.8 (구세대)** | 4.7 블록 동일 + literal 해석 범위 명시("every section") + 코드리뷰는 coverage/filter 분리 프롬프트 + 디자인은 구체 스펙 또는 "4방향 제안" 패턴. `thinking: {type: "adaptive"}` + `effort: "xhigh"`(코딩) |
 | **Claude Fable 5** | **장문 열거 ❌ — 짧은 지시 1개씩** (brevity·체크포인트·grounding·경계 스니펫은 `skills/claude-fable-5-prompt-strategies.md`). reasoning 재출력 지시 금지(refusal). adaptive thinking 전용 |
@@ -1429,9 +1429,9 @@ Style Rules:
 > 목적이 `팩트체크`, `리서치/조사`, `분석/리서치`로 감지되면 **반드시 다음 절차**를 따릅니다.
 > 일반 XML 프롬프트로 대체 생성 금지. 누락 시 `/deep-research` 워커 품질이 격하됩니다.
 
-**Step 2-A: 단일 스킬 로드** (프로젝트 루트 기준 상대 경로)
+**Step 2-A: 단일 스킬 로드** (플러그인 루트 기준 상대 경로)
 
-1. `Read(".claude/skills/prompt-engineering-guide/references/full.md")`
+1. `skills/prompt-engineering-guide/references/full.md` 에서 `grep -n` 으로 목적 섹션 위치 확인 → 해당 부분만 Read (약 7,000줄 — 전체 통독 ❌. 플러그인 레포 밖 환경이면 `.claude/skills/prompt-engineering-guide/references/full.md` 동일 절차)
 2. 목적에 따라 이 파일 안의 리서치/팩트체크, 이미지/동영상, 슬라이드, 모델별 전략 섹션을 사용
 3. 팩트체크/리서치 시 IFCN 원칙, 최신성 정책, 국가/지역 소스 우선 원칙을 보존
 4. 모델별 시스템 프롬프트가 필요하면 같은 파일의 GPT/Claude/Gemini 섹션을 함께 적용
@@ -1485,7 +1485,7 @@ Style Rules:
 - [ ] 출력 형식(인라인 인용, 신뢰도 등급, References) 명시됨
 
 **금지 사항:**
-- ❌ `prompt-engineering-guide.md`를 로드하지 않고 일반 `<ResearchPrompt>` 직접 작성
+- ❌ `skills/prompt-engineering-guide/references/full.md`를 로드하지 않고 일반 `<ResearchPrompt>` 직접 작성
 - ❌ IFCN 원칙·RecencyPolicy·CountrySourcePolicy 블록 누락
 - ❌ 베이스 템플릿의 4-stage Workflow를 임의로 압축/생략
 - ❌ 인라인 인용 / References 섹션 누락
@@ -1493,14 +1493,14 @@ Style Rules:
 **🖼️ 이미지/동영상 프롬프트 출력 형식 (CRITICAL)**
 
 이미지 또는 동영상 프롬프트 생성 시:
-1. **반드시 JSON 구조로 출력** (자연어 출력 금지)
-2. 본 파일의 "이미지 프롬프트 JSON 구조" 또는 "동영상 프롬프트 JSON 구조" 섹션 템플릿 사용
+1. **gpt-image-2/`$imagegen` 타겟 = 공냥 킷 텍스트 프롬프트가 정본** (포맷 A/B + 끝 `AR` — `skills/image-prompt-guide/references/full.md` §0·§K. JSON ❌)
+2. **동영상 및 웹 UI(ChatGPT/Gemini) 간이 경로만 JSON 구조** — 본 파일의 해당 JSON 섹션 템플릿 사용
 3. `details` 필드만 자연어로 유연하게 작성
 
 **🎯 역할(Role) 직접 전문가 지명 (CRITICAL)**
 
 > 프롬프트의 `<role>` 블록에 반드시 실존 전문가를 직접 지명한다.
-> `prompt-engineering-guide.md` DB에서 해당 도메인 전문가를 찾아 적용.
+> `skills/prompt-engineering-guide/references/full.md` DB에서 해당 도메인 전문가를 찾아 적용.
 > DB에 없으면 **되도록 웹 검색하여** 해당 분야 실존 전문가를 찾아 적용 (일부 일상적 작업은 전문가 특정이 어려울 수 있음, 그래도 시도할 것).
 
 ```
@@ -1512,7 +1512,7 @@ Style Rules:
 
 **전문가 3인 토론 (간략 진행)**
 
-> `prompt-engineering-guide.md` 참조하여 **실존 전문가 관점**으로 검토
+> `skills/prompt-engineering-guide/references/full.md` 참조하여 **실존 전문가 관점**으로 검토
 > 내부 토론 후 **핵심 결정만 1줄로 표시**: "💡 [적용된 주요 개선점]"
 
 | 역할 | 검토 초점 |
@@ -1805,7 +1805,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 | # | 파일명 | 용도 | 필수 여부 |
 |---|--------|------|----------|
-| 1 | `prompt-engineering-guide.md` | 모델별 전략, 이미지/동영상, 리서치/팩트체크, 슬라이드, 전문가 프라이밍, Context Engineering을 모두 포함한 단일 권원 | ✅ 필수 |
+| 1 | `skills/prompt-engineering-guide/references/full.md` | 모델별 전략, 이미지/동영상, 리서치/팩트체크, 슬라이드, 전문가 프라이밍, Context Engineering을 모두 포함한 단일 권원 | ✅ 필수 |
 
 ---
 
@@ -1896,9 +1896,9 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
   - **[MEDIUM] 추천 모델 표·AskUserQuestion 옵션·모델별 필수 블록에 4.8/Fable 5 반영** (4.7/4.6 first-class 유지)
 - **Changes v2.6.0** (2026-04-30):
   - **[MAJOR] GPT-5.5 공식 outcome-first 가이드 반영**: [GPT-5.5 Prompt Guidance](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) 2026-04 발표. XML 12블록 stack → Markdown 6섹션 (Role / Personality / Goal / Success Criteria / Constraints / Output / Stop Rules) 전환
-  - **[MAJOR] prompt-engineering-guide.md 신규 스킬 추가** (v1.0.0): 6개 핵심 블록 정의(outcome_first_structure, personality_and_collaboration, constraints_block, output_contract, stop_rules, validation_rules) + Migration 매핑 + Anti-patterns
+  - **[MAJOR] skills/prompt-engineering-guide/references/full.md 신규 스킬 추가** (v1.0.0): 6개 핵심 블록 정의(outcome_first_structure, personality_and_collaboration, constraints_block, output_contract, stop_rules, validation_rules) + Migration 매핑 + Anti-patterns
   - **[MAJOR] 모델 라우팅 추가**: 사용자 명시(GPT-5.5 / GPT-5.4 / legacy XML) 또는 일반 GPT 작업 시 자동 분기. 5.5 디폴트 + 5.4는 명시 시 fallback
-  - **[MEDIUM] prompt-engineering-guide.md → v1.1.1 (legacy 명시)**: 제목·헤더에 "Legacy XML Stack" 추가, GPT-5.5 분리 안내
+  - **[MEDIUM] skills/prompt-engineering-guide/references/full.md → v1.1.1 (legacy 명시)**: 제목·헤더에 "Legacy XML Stack" 추가, GPT-5.5 분리 안내
   - **[MEDIUM] 모델별 필수 블록 테이블 재구성**: GPT-5.5 outcome-first 6섹션 / GPT-5.2-5.4 legacy XML stack 분리
   - **[MEDIUM] GPT-5.5 현황 섹션 전면 갱신** (v2.5.0의 "API 미공개" → 공식 가이드 발표 반영)
   - **[LOW] Anti-Patterns 추가**: judgment 영역 ALWAYS/NEVER 회피, step sequence 강요 회피, retrieval 남용 회피, plain paragraph 디폴트
@@ -1910,7 +1910,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
   - **[MEDIUM] Step 1.5 AskUserQuestion 모델 옵션 확장**: 3개 → 4개 (Opus 4.7 / GPT-5.5 Codex / GPT-5.4 / Gemini 3 Pro). 각 모델 사용 경로 명시
   - **[MEDIUM] 모델별 필수 블록 테이블 재구성**: Opus 4.7용 `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>` 명시 + `thinking: adaptive` + `effort=xhigh` 기본값
   - **[MEDIUM] Batch 모드 GPT-5.5 토큰 추가**: `GPT-5.5`를 1번째 토큰으로 허용 (GPT-5.4 파라미터 계승)
-  - **[LOW] prompt-engineering-guide.md 설명 확장**: 4.5/4.6/4.7 통합 전략으로 표기 (파일명 유지, 내용 별도 업데이트 예정)
+  - **[LOW] skills/prompt-engineering-guide/references/full.md 설명 확장**: 4.5/4.6/4.7 통합 전략으로 표기 (파일명 유지, 내용 별도 업데이트 예정)
 - **Changes v2.4.0** (2026-04-24):
   - **[MAJOR] gpt-image-2 핵심 원칙 블록 신설**: OpenAI 공식 쿡북 + EvoLinkAI 커뮤니티 200+ 케이스 분석 반영. "배경→주체→디테일→제약" 4단계 프레임워크 + 10개 원칙(생성/편집 분리, Visual Re-description, 제약 명시, 텍스트 처리, 해상도 검증, 품질 레버, 포토리얼 키워드, 반복 개선, 네거티브 스택) 추가
   - **[MEDIUM] 모델 순위 업데이트**: 이미지 생성 1순위 "gpt-image (GPT Image 1.5)" → **"gpt-image-2"** (OpenAI 2026-04 출시), 편집 컬럼에 "identity/geometry/layout 보존 강점" 명시
@@ -1921,27 +1921,27 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
   - **[MAJOR] 이미지 5-stage Framework 도입**: @specal1849 이미지 프롬프트 이론 기반. 광고/상품용 JSON 구조에 purpose→hero→context→evidence→constraints 5단계 적용. Cross-Attention 레이어별 처리 순서와 일치
   - **[MAJOR] Visual Re-description 규칙 추가**: 추상적 감성어를 구체적 시각 대비로 변환하는 규칙. mood/details 필드에 추상어 자동 재기술 적용
   - **[MEDIUM] 이미지 AskUserQuestion "용도/매체" 질문 추가**: 4가지→5가지. "광고/상품" 선택 시 5-stage Framework 활성화, 기존 "SNS/일반"은 하위 호환
-  - **[MEDIUM] prompt-engineering-guide.md v1.7.0**: Cross-Attention 이론, 수식어 전략, 5-stage 프레임워크, 참고 문헌 5편 추가
+  - **[MEDIUM] skills/prompt-engineering-guide/references/full.md v1.7.0**: Cross-Attention 이론, 수식어 전략, 5-stage 프레임워크, 참고 문헌 5편 추가
   - **[LOW] Expert 1 토큰 순서 검증 추가**: 이미지 프롬프트 시 구체 명사 앞 배치, 추상어 시각 재기술 여부 검증
 - **Changes v2.2.0** (2026-04-11):
-  - **[CRITICAL FIX] /deep-research 통합 완성**: 2026-04-06에 /deep-research v2.1.0이 `Skill("prompt", "--batch ...")` 호출로 변경되었으나, /prompt 측에 `--batch` 모드 핸들러와 prompt-engineering-guide.md 로드 로직이 누락되어 워커가 IFCN 기반 템플릿 대신 일반 XML을 생성하던 문제 해결
+  - **[CRITICAL FIX] /deep-research 통합 완성**: 2026-04-06에 /deep-research v2.1.0이 `Skill("prompt", "--batch ...")` 호출로 변경되었으나, /prompt 측에 `--batch` 모드 핸들러와 skills/prompt-engineering-guide/references/full.md 로드 로직이 누락되어 워커가 IFCN 기반 템플릿 대신 일반 XML을 생성하던 문제 해결
   - **[MAJOR] BATCH 모드 신설**: `--batch {모델} {상세도} {지시문}` 패턴으로 호출 시 인터랙티브 흐름(AskUserQuestion, 5가지 옵션, Step 3-5) 전체 우회 → 프롬프트 코드블록만 출력 → 응답 종료. /deep-research, /tofu-at, /tofu-at-codex 등 워커 호출 컨텍스트 전용
-  - **[MAJOR] prompt-engineering-guide.md 자동 로드 의무화**: 목적이 `팩트체크` / `리서치/조사` / `분석/리서치`로 감지되면 Step 2에서 `prompt-engineering-guide.md` + `01-factcheck-prompts.md` + `02-general-research.md`를 Read로 로드하여 IFCN 기반 베이스 템플릿(LoopFactChecker_UI_v1.2 / QuickFactCheck / StructuredResearch_v1.0 / MarketResearchPrompt / CompetitiveAnalysisPrompt / AcademicResearchPrompt) 채택 후 사용자 주제로 placeholder 치환하는 절차 필수화
+  - **[MAJOR] skills/prompt-engineering-guide/references/full.md 자동 로드 의무화**: 목적이 `팩트체크` / `리서치/조사` / `분석/리서치`로 감지되면 Step 2에서 `skills/prompt-engineering-guide/references/full.md` + `skills/prompt-engineering-guide/references/full.md` + `skills/prompt-engineering-guide/references/full.md`를 Read로 로드하여 IFCN 기반 베이스 템플릿(LoopFactChecker_UI_v1.2 / QuickFactCheck / StructuredResearch_v1.0 / MarketResearchPrompt / CompetitiveAnalysisPrompt / AcademicResearchPrompt) 채택 후 사용자 주제로 placeholder 치환하는 절차 필수화
   - **Step 1 목적 감지 테이블 확장**: "필수 베이스 스킬" 컬럼 추가, 리서치/팩트체크 키워드 확장(market research, 시장 조사, 경쟁사, 학술, Chain-of-Verification, 교차검증)
-  - **Step 1.7 글쓰기/리서치 개요 생성 강화**: 분석/리서치/팩트체크 시 일반 개요 대신 prompt-engineering-guide.md의 4-stage 워크플로우를 베이스로 사용하도록 명시
+  - **Step 1.7 글쓰기/리서치 개요 생성 강화**: 분석/리서치/팩트체크 시 일반 개요 대신 skills/prompt-engineering-guide/references/full.md의 4-stage 워크플로우를 베이스로 사용하도록 명시
   - **Step 2 「리서치/팩트체크 템플릿 자동 로드」 신설**: Step 2-A(서브파일 로드) → Step 2-B(베이스 템플릿 선택) → Step 2-C(커스터마이징) → Step 2-D(검증) 4단계 절차 추가, IFCN 5대 원칙·RecencyPolicy·CountrySourcePolicy 보존 의무화
-  - **참조 스킬 테이블 #7 재정의**: prompt-engineering-guide.md를 "팩트체크/리서치/분석 시 ✅ 필수 로드"로 격상, 6개 베이스 템플릿 명시
+  - **참조 스킬 테이블 #7 재정의**: skills/prompt-engineering-guide/references/full.md를 "팩트체크/리서치/분석 시 ✅ 필수 로드"로 격상, 6개 베이스 템플릿 명시
 - **Changes v2.1.0**:
   - **[HIGH] 이미지 생성 모델 순위 업데이트**: NB2 (Gemini 3.1 Flash Image) 2위 추가
   - **[MEDIUM] 참조 스킬 테이블 업데이트**: Claude 4.5/4.6 설명 반영
 - **Changes v2.0.0**:
   - **직접 전문가 역할 패턴 도입**: `<role>` 블록에 실존 전문가 직접 지명 규칙 추가
   - **폴백 규칙**: DB에 없는 도메인도 AI가 전문가를 탐색하여 역할에 적용
-  - **[MAJOR] 전문가 도메인 프라이밍 통합**: prompt-engineering-guide.md 참조, 실존 전문가 관점으로 프롬프트 검토
+  - **[MAJOR] 전문가 도메인 프라이밍 통합**: skills/prompt-engineering-guide/references/full.md 참조, 실존 전문가 관점으로 프롬프트 검토
   - **[MAJOR] 슬라이드/PPT 생성 워크플로우 추가**: baoyu-slide-deck 패턴 기반 아웃라인 먼저 → 이미지 프롬프트 JSON 생성
   - **슬라이드 AskUserQuestion 추가**: 비주얼 스타일, 내러티브 모드, 슬라이드 수, 대상 청중 4가지 질문
   - **Step 1.7 슬라이드 섹션 추가**: 콘텐츠 분석 → 아웃라인 → STYLE_INSTRUCTIONS → 이미지 프롬프트 JSON (4단계)
-  - **참조 스킬 추가**: prompt-engineering-guide.md (#8), prompt-engineering-guide.md (#9)
+  - **참조 스킬 추가**: skills/prompt-engineering-guide/references/full.md (#8), skills/prompt-engineering-guide/references/full.md (#9)
   - **전문가 토론 강화**: Expert 2가 실존 전문가 관점으로 도메인 전문 용어 검증
 - **Changes v1.9.6**:
   - **[FIX] Step 3 출력 템플릿에 이미지/동영상 안내 통합**: "💬 선택하세요" 바로 아래에 안내 표시
@@ -1961,7 +1961,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
   - **`<mindset>` 블록 추가**: "천천히, 최선을 다해 작업하세요" 마음가짐 규칙 최상단 배치
   - **GPTs/Gems와 버전 통일**: 모든 프롬프트 생성기 v1.9.2로 동기화
 - **Changes v1.8.1**:
-  - **스킬 파일 업데이트 반영**: prompt-engineering-guide.md v1.1.0 (Gemini 실제 사용 예시 @specal1849), prompt-engineering-guide.md v1.6.0 (만화/코믹 스타일 추가)
+  - **스킬 파일 업데이트 반영**: skills/prompt-engineering-guide/references/full.md v1.1.0 (Gemini 실제 사용 예시 @specal1849), skills/prompt-engineering-guide/references/full.md v1.6.0 (만화/코믹 스타일 추가)
 - **Changes v1.8.0**:
   - **[MAJOR] 동영상 모델 선택 기능 추가**: Veo 3.1, Sora 2, Sora 2 Pro 중 선택 (AskQuestion 첫 번째 질문)
   - **동영상 모델별 생성 길이 비교 테이블 추가**: 기본 길이(확장 미사용), 최대 길이(확장 사용), 해상도 정보
@@ -1989,8 +1989,8 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
   - **출력 형식 테이블 간소화**: 이미지/동영상 모두 JSON 구조 기본으로 통합
   - **버전 체계 리셋**: 모든 채널 1.5.0으로 통일
 - **Changes v4.2.0**:
-  - **prompt-engineering-guide.md 크레딧 추가**: 두부 @tofukyung 크레딧 추가
-  - **prompt-engineering-guide.md 크레딧 추가**: 공냥이 @specal1849 크레딧 추가
+  - **skills/prompt-engineering-guide/references/full.md 크레딧 추가**: 두부 @tofukyung 크레딧 추가
+  - **skills/prompt-engineering-guide/references/full.md 크레딧 추가**: 공냥이 @specal1849 크레딧 추가
 - **Changes v4.1.0**:
   - **금지사항 강화**: 이미지/동영상 바로 생성 방지 규칙 최상단 배치
   - **개선 옵션 UI**: 3번 선택 시에만 세부 옵션 표시
@@ -2013,4 +2013,4 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 ## Auto-Learned Patterns
 
 - [2026-04-11] v2.2.0에서 `--batch` 모드 추가 — 프로그래밍 호출(deep-research/tofu-at 워커)에서 AskUserQuestion·5가지 옵션·메타텍스트 전부 우회, 프롬프트 코드블록 1개만 출력. 이전 버전은 워커가 "1번 선택"을 기다리며 멈추는 버그 있었음 (source: 2026-04-11-2307)
-- [2026-04-11] 배치 호출 시 리서치/팩트체크 지시문에 prompt-engineering-guide.md 미로드가 가장 자주 발생하는 오류 — "리서치" 키워드가 지시문에 있으면 prompt-engineering-guide.md Read 로드 필수. 누락 시 IFCN 베이스 템플릿 대신 일반 XML로 격하됨 (source: 2026-04-11-2335)
+- [2026-04-11] 배치 호출 시 리서치/팩트체크 지시문에 skills/prompt-engineering-guide/references/full.md 미로드가 가장 자주 발생하는 오류 — "리서치" 키워드가 지시문에 있으면 skills/prompt-engineering-guide/references/full.md Read 로드 필수. 누락 시 IFCN 베이스 템플릿 대신 일반 XML로 격하됨 (source: 2026-04-11-2335)
