@@ -187,7 +187,8 @@ function checkKitAr(text, purpose) {
 
 /* ── A5: 버전 표기 정합 (--check-versions) ─────────────────── */
 const VERSION_SOURCES = [
-  { path: ".claude-plugin/plugin.json", re: /"version"\s*:\s*"([^"]+)"/, label: "plugin.json" },
+  { path: ".claude-plugin/plugin.json", re: /"version"\s*:\s*"([^"]+)"/, label: "plugin.json (Claude)" },
+  { path: ".codex-plugin/plugin.json", re: /"version"\s*:\s*"([^"]+)"/, label: "plugin.json (Codex — Works가 버전 판단에 쓰는 매니페스트, 2026-07-29 5회 bump 방치 실증)" },
   { path: "instructions/GPTs-Prompt-Generator.md", re: /\*\*Version\*\*\s*[:：]\s*([0-9][^\s|]*)/, label: "GPTs 지침" },
   { path: "instructions/Gems-Prompt-Generator.md", re: /\*\*Version\*\*\s*[:：]\s*([0-9][^\s|]*)/, label: "Gems 지침" },
   { path: "instructions/Gems-Prompt-Generator/SKILL.md", re: /\*\*Version\*\*\s*[:：]\s*([0-9][^\s|]*)/, label: "Gems 디렉터리판 SKILL" },
