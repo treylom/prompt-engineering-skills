@@ -48,25 +48,21 @@ prompt-engineering-skills/
 |-- LICENSE
 |
 |-- skills/
-|   |-- prompt-engineering-guide.md           # 단일 권원 통합본 (Claude Code 기본 설치 대상)
+|   |-- prompt-engineering-guide/             # 단일 권원 통합본 (P5 분할 2026-07-29)
+|   |   |-- SKILL.md                          #   SKILL.md = 얇은 라우팅 인덱스(섹션 맵·grep 앵커)
+|   |   `-- references/full.md                #   full.md = 본문 정본 (Claude Code 기본 설치 대상)
 |   |
-|   |-- claude-fable-5-prompt-strategies.md   # Opus 5·Fable 5·Opus 4.8 전략 (2026-07-28, Claude 디폴트=Opus 5)
-|   |-- claude-4.7-prompt-strategies.md       # 영역별 분할 가이드 (GPTs Knowledge 분리 업로드 대응)
-|   |-- gpt-5.6-prompt-enhancement.md         # GPT 5.x 통합 (5.6 Sol default + 5.5/5.4/5.2 legacy)
+|   |-- claude-4.7-prompt-strategies/         # 구세대 Claude first-class      } 대형 가이드 공통 구조:
+|   |-- gpt-5.6-prompt-enhancement/           # GPT 5.x 통합 (5.6 Sol 디폴트)  } SKILL.md 인덱스
+|   |-- gemini-3.1-prompt-strategies/         # Gemini 3/3.1·Veo·NB2           } + references/full.md
+|   |-- image-prompt-guide/                   # 이미지 정본 = 공냥 킷 v4 계약   }
+|   |-- expert-domain-priming/                # 전문가 DB 12도메인              }
+|   |-- research-prompt-guide/                # IFCN 팩트체크·리서치            }
+|   |
+|   |-- claude-fable-5-prompt-strategies.md   # Opus 5·Fable 5·Opus 4.8 전략 (flat, 2026-07-28)
 |   |-- gpt-5.5-prompt-enhancement.md         # → stub (5.6로 이관)
-|   |-- gemini-3.1-prompt-strategies.md
-|   |-- image-prompt-guide.md
-|   |-- research-prompt-guide.md
 |   |-- slide-prompt-guide.md
-|   |-- expert-domain-priming.md
 |   |-- context-engineering-collection.md
-|   |
-|   |-- prompt-engineering-guide/             # Skills 2.0 분할 모듈 (frontmatter + references)
-|   |   |-- SKILL.md
-|   |   `-- references/
-|   |       |-- techniques.md
-|   |       |-- frameworks.md
-|   |       `-- examples.md
 |   |
 |   `-- prompt-variation-guide/               # 프롬프트 변형/A/B 전략 분할 모듈
 |       |-- SKILL.md
@@ -113,7 +109,7 @@ prompt-engineering-skills/
 ```bash
 git clone https://github.com/treylom/prompt-engineering-skills.git /tmp/pes
 mkdir -p ~/.claude/skills ~/.claude/commands
-cp /tmp/pes/skills/prompt-engineering-guide/references/full.md ~/.claude/skills/
+cp -r /tmp/pes/skills/prompt-engineering-guide ~/.claude/skills/
 cp /tmp/pes/commands/*.md ~/.claude/commands/
 rm -rf /tmp/pes
 ```
@@ -125,9 +121,7 @@ git clone https://github.com/treylom/prompt-engineering-skills.git /tmp/pes
 mkdir -p ~/.claude/skills ~/.claude/commands
 
 # 1) skills/: 통합본 + 분할 가이드 + 분할 모듈 디렉토리
-cp /tmp/pes/skills/*.md ~/.claude/skills/ 2>/dev/null
-cp -r /tmp/pes/skills/prompt-engineering-guide ~/.claude/skills/
-cp -r /tmp/pes/skills/prompt-variation-guide ~/.claude/skills/
+cp -r /tmp/pes/skills/* ~/.claude/skills/
 
 # 2) commands/: 메인 + sync 헬퍼
 cp /tmp/pes/commands/*.md ~/.claude/commands/
@@ -145,7 +139,7 @@ rm -rf /tmp/pes
 ```powershell
 git clone https://github.com/treylom/prompt-engineering-skills.git $env:TEMP\pes
 New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills", "$env:USERPROFILE\.claude\commands" | Out-Null
-Copy-Item "$env:TEMP\pes\skills\prompt-engineering-guide.md" "$env:USERPROFILE\.claude\skills"
+Copy-Item -Recurse "$env:TEMP\pes\skills\prompt-engineering-guide" "$env:USERPROFILE\.claude\skills\prompt-engineering-guide"
 Copy-Item "$env:TEMP\pes\commands\*.md" "$env:USERPROFILE\.claude\commands"
 Remove-Item -Recurse -Force "$env:TEMP\pes"
 ```

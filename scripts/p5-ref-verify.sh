@@ -50,6 +50,12 @@ case "${1:-}" in
       # (1) 옛 flat 경로 문자열(skills/<t>.md) 잔존 참조 — 이동 후 0 이어야 함
       old=$(grep -rn "skills/$t\.md" . --include='*.md' --include='*.json' --include='*.sh' \
               --exclude-dir=.git 2>/dev/null | grep -v 'CHANGELOG' | wc -l | tr -d ' ')
+      # (1b) bare 운영 경로 잔존 — `./<t>.md` 상대 링크·`](<t>.md)` md 링크 (2026-07-29 손석희 재리뷰 지적:
+      #      skills/ 접두 검사만으론 stub 링크·라우터 지시·설치 명령의 bare 소비 경로를 못 봄.
+      #      instructions/ 는 웹 UI 붙여넣기 표면의 의미 라벨이라 제외)
+      bare=$(grep -rn -e "\./$t\.md" -e "]($t\.md)" . --include='*.md' --include='*.sh' \
+              --exclude-dir=.git --exclude-dir=instructions 2>/dev/null \
+              | grep -v CHANGELOG | grep -v 'scripts/fixtures/' | wc -l | tr -d ' ')
       # (2) 새 위치 실재
       newf="skills/$t/references/full.md"
       # (3) 참조 총계 보존 (스냅샷 대비 감소 = 치환 누락 의심, 증가만 허용)
@@ -57,6 +63,7 @@ case "${1:-}" in
       nowc=$(count_refs "$t")
       st="PASS"
       [ "$old" != "0" ] && st="FAIL(옛 flat 참조 ${old}건 잔존)"
+      [ "$bare" != "0" ] && st="FAIL(bare 운영 경로 ${bare}건 잔존)"
       [ -f "$newf" ] || st="FAIL(신규 ${newf} 부재)"
       [ -n "$snapc" ] && [ "$nowc" -lt "$snapc" ] && st="FAIL(참조 계수 감소 ${snapc}→${nowc} — 치환 누락 의심)"
       printf '%-36s old=%-3s new=%s snap=%s now=%s  %s\n' "$t" "$old" "$([ -f "$newf" ] && echo O || echo X)" "${snapc:-?}" "$nowc" "$st"

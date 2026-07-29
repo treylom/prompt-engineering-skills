@@ -34,5 +34,5 @@ description: Use when the user asks to create, refine, or optimize a prompt ('�
 
 그 밖의 요청은 이 스킬 디렉터리의 [references/prompt-command.md](references/prompt-command.md)를 읽고, 그 문서 전체를 프롬프트 생성 절차로 삼아 사용자의 요청($ARGUMENTS)을 처리한다. 이미지 요청도 위 선행 게이트를 통과한 뒤 필요한 공통 절차를 이 문서에서 보충한다.
 
-- 모델별 전략 문서는 플러그인 루트 `skills/` 아래에 있다 (claude-fable-5-prompt-strategies.md, gpt-5.6-prompt-enhancement.md, gemini-3.1-prompt-strategies.md, image-prompt-guide.md 등). `references/prompt-command.md` 가 지시하는 상대경로 `skills/...` 는 이 플러그인 루트 기준으로 해석한다.
+- 모델별 전략 문서는 플러그인 루트 `skills/` 아래에 있다 — flat: `claude-fable-5-prompt-strategies.md` / 대형 가이드(P5 분할): `skills/<이름>/references/full.md` (`gpt-5.6-prompt-enhancement`·`gemini-3.1-prompt-strategies`·`image-prompt-guide` 등 — 각 디렉터리의 SKILL.md 가 섹션 맵 인덱스). `references/prompt-command.md` 가 지시하는 상대경로 `skills/...` 는 이 플러그인 루트 기준으로 해석한다.
 - `--batch` 인자가 있으면 질문 없이 바로 결과를 출력한다.

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 > **Version**: 1.3.0 | **Updated**: 2026-07-28 (Part 2.5 Opus 5 신설 — **Claude 디폴트 = Opus 5**. breaking 2건·검증지시 제거·서브에이전트 억제·미지원 회귀 2건. 공식 3문서 대조.) | 이전: 1.2.1 · 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)
 > **Source**: Anthropic 공식 문서 및 실전 벤치마크
-> **Covers**: **Claude Opus 5** (**현행 디폴트**, 2026-07-28~), **Fable 5 / Mythos 5**, **Opus 4.8**, **Sonnet 5**. 4.7 이하 모델군은 `claude-4.7-prompt-strategies.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
+> **Covers**: **Claude Opus 5** (**현행 디폴트**, 2026-07-28~), **Fable 5 / Mythos 5**, **Opus 4.8**, **Sonnet 5**. 4.7 이하 모델군은 `claude-4.7-prompt-strategies/references/full.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
 
 핵심 철학 전환: 두 모델 모두 **지시 따르기가 강해져서 "열거형 장문 프롬프트"가 역효과**. 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방 스킬·프롬프트는 **다이어트가 마이그레이션의 본체**.
 

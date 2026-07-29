@@ -575,7 +575,7 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 | `GPT-5.4` / `GPT-5.2` / `GPT-5` | `skills/prompt-engineering-guide/references/full.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 |
 | `legacy XML` / `5.4 스타일` 명시 | `skills/prompt-engineering-guide/references/full.md` 하단 Legacy 섹션 강제 |
 
-> **Note**: 2026-04-30 v2.7.0부터 `skills/prompt-engineering-guide/references/full.md` 별도 파일은 **폐기**되고 `skills/prompt-engineering-guide/references/full.md` 단일 파일에 outcome-first + legacy XML stack 모두 통합됨 (GPTs/Gems 첨부파일 10개 한도 대응).
+> **Note**: 2026-04-30 v2.7.0부터 `gpt-5.4-prompt-enhancement.md` 별도 파일은 **폐기**되고 GPT 통합 파일(현 `skills/gpt-5.6-prompt-enhancement/references/full.md`)에 outcome-first + legacy XML stack 모두 통합됨 (GPTs/Gems 첨부파일 10개 한도 대응).
 
 > **호환성**: 사용자가 "5.4 XML 스타일"을 GPT-5.5 모델에 적용해달라고 명시 요청하면 그대로 따름.
 
@@ -1495,7 +1495,7 @@ Style Rules:
 이미지 또는 동영상 프롬프트 생성 시:
 1. **gpt-image-2/`$imagegen` 타겟 = 공냥 킷 텍스트 프롬프트가 정본** (포맷 A/B + 끝 `AR` — `skills/image-prompt-guide/references/full.md` §0·§K. JSON ❌)
 2. **동영상 및 웹 UI(ChatGPT/Gemini) 간이 경로만 JSON 구조** — 본 파일의 해당 JSON 섹션 템플릿 사용
-3. `details` 필드만 자연어로 유연하게 작성
+3. (JSON 경로에 한해) `details` 필드만 자연어로 유연하게 작성
 
 **🎯 역할(Role) 직접 전문가 지명 (CRITICAL)**
 
@@ -1926,7 +1926,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 - **Changes v2.2.0** (2026-04-11):
   - **[CRITICAL FIX] /deep-research 통합 완성**: 2026-04-06에 /deep-research v2.1.0이 `Skill("prompt", "--batch ...")` 호출로 변경되었으나, /prompt 측에 `--batch` 모드 핸들러와 skills/prompt-engineering-guide/references/full.md 로드 로직이 누락되어 워커가 IFCN 기반 템플릿 대신 일반 XML을 생성하던 문제 해결
   - **[MAJOR] BATCH 모드 신설**: `--batch {모델} {상세도} {지시문}` 패턴으로 호출 시 인터랙티브 흐름(AskUserQuestion, 5가지 옵션, Step 3-5) 전체 우회 → 프롬프트 코드블록만 출력 → 응답 종료. /deep-research, /tofu-at, /tofu-at-codex 등 워커 호출 컨텍스트 전용
-  - **[MAJOR] skills/prompt-engineering-guide/references/full.md 자동 로드 의무화**: 목적이 `팩트체크` / `리서치/조사` / `분석/리서치`로 감지되면 Step 2에서 `skills/prompt-engineering-guide/references/full.md` + `skills/prompt-engineering-guide/references/full.md` + `skills/prompt-engineering-guide/references/full.md`를 Read로 로드하여 IFCN 기반 베이스 템플릿(LoopFactChecker_UI_v1.2 / QuickFactCheck / StructuredResearch_v1.0 / MarketResearchPrompt / CompetitiveAnalysisPrompt / AcademicResearchPrompt) 채택 후 사용자 주제로 placeholder 치환하는 절차 필수화
+  - **[MAJOR] skills/prompt-engineering-guide/references/full.md 자동 로드 의무화**: 목적이 `팩트체크` / `리서치/조사` / `분석/리서치`로 감지되면 Step 2에서 단일 `skills/prompt-engineering-guide/references/full.md`에서 목적별 섹션을 부분 Read로 로드하여 IFCN 기반 베이스 템플릿(LoopFactChecker_UI_v1.2 / QuickFactCheck / StructuredResearch_v1.0 / MarketResearchPrompt / CompetitiveAnalysisPrompt / AcademicResearchPrompt) 채택 후 사용자 주제로 placeholder 치환하는 절차 필수화
   - **Step 1 목적 감지 테이블 확장**: "필수 베이스 스킬" 컬럼 추가, 리서치/팩트체크 키워드 확장(market research, 시장 조사, 경쟁사, 학술, Chain-of-Verification, 교차검증)
   - **Step 1.7 글쓰기/리서치 개요 생성 강화**: 분석/리서치/팩트체크 시 일반 개요 대신 skills/prompt-engineering-guide/references/full.md의 4-stage 워크플로우를 베이스로 사용하도록 명시
   - **Step 2 「리서치/팩트체크 템플릿 자동 로드」 신설**: Step 2-A(서브파일 로드) → Step 2-B(베이스 템플릿 선택) → Step 2-C(커스터마이징) → Step 2-D(검증) 4단계 절차 추가, IFCN 5대 원칙·RecencyPolicy·CountrySourcePolicy 보존 의무화
