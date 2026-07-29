@@ -2,7 +2,7 @@
 # export-knowledge.sh — GPTs/Gems Knowledge 업로드 번들 생성
 #
 # Why: 웹 UI 지식 파일은 **basename 이 참조 계약**이다 — Instructions(GPTs/Gems)가
-#      번들 파일명(`prompt-engineering-guide.md` 등)으로 참조하고, 기존 배포된 GPTs/Gems 의
+#      번들 파일명(`prompt-engineering-guide.md` 등)으로 참조하고,  # knowledge-bundle-name 기존 배포된 GPTs/Gems 의
 #      지식 파일명과도 호환돼야 한다. 저장소 정본은 P5 분할(2026-07-29) 이후
 #      `skills/<이름>/references/full.md` 이므로, 업로드 직전 이 스크립트로
 #      업로드 계약 basename(`<이름>.md`)으로 복사해 번들을 만든다.
@@ -14,7 +14,7 @@ OUT="${1:-/tmp/pes-knowledge}"
 # 비어있지 않은 출력 폴더는 거부 (기본 경로가 고정이라 반복 실행 시 실제로 닿는 경계)
 if [ -d "$OUT" ] && [ -n "$(ls -A "$OUT" 2>/dev/null)" ]; then
   echo "FAIL: 출력 폴더가 비어있지 않음 ($OUT) — 순수 번들 보장을 위해 빈/신규 폴더만 허용."
-  echo "      지우고 재실행: rm -rf '$OUT' && bash scripts/export-knowledge.sh '$OUT'"
+  echo "      새 빈 경로를 지정해 재실행하세요. 예: bash scripts/export-knowledge.sh /tmp/pes-knowledge-2"
   exit 1
 fi
 mkdir -p "$OUT"

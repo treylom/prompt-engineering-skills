@@ -35,6 +35,20 @@ count_refs() { # $1=basename → 레포 내 참조 행 수 (자기 자신 파일
     | grep -v "^\./skills/$1" | grep -v "^\./skills/$1/" | wc -l | tr -d ' '
 }
 
+bare_scan() { # $1=basename → bare 운영 경로 잔존 행 수
+  # 🚨 verify 와 selftest 가 반드시 이 함수 하나를 공유한다 (5차 리뷰: selftest 가
+  #    raw regex 만 시험하고 production 필터 체인을 안 태우면 필터 예외 구멍을 영구 은폐 —
+  #    fixture 는 production 표현형과 일치해야 함).
+  # 제외 계약: instructions/(지식 파일명 계약 표면) · image-prompt-kit(vendor) · CHANGELOG(역사)
+  #    · scripts/fixtures/(동결 실출력) · `knowledge-bundle-name` 마커 줄(업로드 번들 문맥 —
+  #    구 `grep -v '번들'` 단어 휴리스틱을 명시 계약 마커로 교체: 마커 없는 '번들' 문장의
+  #    stale 경로도 이제 검출됨) · 검증기 자신(selftest 합성 문자열 보유).
+  grep -rnE -e "\./$1\.md" -e "(^|[^/])$1\.md" . --include='*.md' --include='*.sh' \
+    --exclude-dir=.git --exclude-dir=instructions --exclude-dir=image-prompt-kit 2>/dev/null \
+    | grep -v CHANGELOG | grep -v 'scripts/fixtures/' \
+    | grep -v 'knowledge-bundle-name' | grep -v 'scripts/p5-ref-verify.sh' | wc -l | tr -d ' '
+}
+
 case "${1:-}" in
   snapshot)
     : > "$SNAP"
@@ -56,12 +70,9 @@ case "${1:-}" in
       #      제외: instructions/ = 지식 파일명 계약 표면(basename 이 업로드 계약 —
       #            scripts/export-knowledge.sh 가 그 basename 을 실물로 공급, (1c)가 그 계약을 검사)
       #            + CHANGELOG(역사)·fixtures(동결 실출력)·image-prompt-kit(vendor).
-      #      추가 예외: '번들' 문맥 줄 — 업로드 번들에서는 bare basename 이 계약상 정답 표기
-      #      (README 단일/분할 모드 표·export 설명 — 5차 수리에서 Instructions 실표기와 정렬)
-      bare=$(grep -rnE -e "\./$t\.md" -e "(^|[^/])$t\.md" . --include='*.md' --include='*.sh' \
-              --exclude-dir=.git --exclude-dir=instructions --exclude-dir=image-prompt-kit 2>/dev/null \
-              | grep -v CHANGELOG | grep -v 'scripts/fixtures/' | grep -v '번들' \
-              | grep -v 'scripts/p5-ref-verify.sh' | wc -l | tr -d ' ')  # 자기 제외: selftest 합성 fixture 보유
+      #      추가 예외: `knowledge-bundle-name` 마커 줄 — 업로드 번들 문맥에서는 bare basename 이
+      #      계약상 정답 표기 (6차 수리: 구 '번들' 단어 휴리스틱 → 명시 마커. 판정 = bare_scan 단일 함수)
+      bare=$(bare_scan "$t")
       # (1c) 지식 업로드 계약 — exporter DIRS 배열의 실멤버십 검사
       #      (v2 — 구판은 이스케이프된 리터럴 '$t' 문자열을 grep 해 generic 루프 줄에 전 타겟 동일 매치
       #       = false PASS. 4차 리뷰 변이 시험[DIRS 삭제해도 PASS]으로 적발, 실멤버십으로 교체)
@@ -97,10 +108,21 @@ case "${1:-}" in
     TMP=$(mktemp -d); sed 's/^DIRS=(prompt-engineering-guide /DIRS=(/' scripts/export-knowledge.sh > "$TMP/mut.sh"
     if awk '/^DIRS=\(/,/\)$/' "$TMP/mut.sh" | grep -qw "prompt-engineering-guide"; then
       echo "SELFTEST FAIL: (1c) 변이 미검출"; ng=$((ng+1)); else ok=$((ok+1)); fi
-    # (b) (1b) 합성: bare 언급 파일 → 검출돼야 함
-    echo '가이드는 `prompt-engineering-guide.md` 를 읽는다' > "$TMP/synth.md"
-    if grep -qE "(^|[^/])prompt-engineering-guide\.md" "$TMP/synth.md"; then ok=$((ok+1)); else
-      echo "SELFTEST FAIL: (1b) 합성 bare 미검출"; ng=$((ng+1)); fi
+    # (b) (1b) 합성 — production 체인(bare_scan) 그대로 경유해 검출 확인
+    #     (6차 수리 — 5차 리뷰: raw regex 단독 시험은 필터 예외 구멍을 못 본다. fixture 는
+    #      레포 스캔 범위 안에 실파일로 심고 verify 와 동일 함수로 계수 변화를 판정)
+    SYNTH=".p5-selftest-synth-$$.md"; trap 'rm -f "$SYNTH"' EXIT
+    base=$(bare_scan "prompt-engineering-guide")
+    echo '가이드는 `prompt-engineering-guide.md` 를 읽는다' > "$SYNTH"
+    after1=$(bare_scan "prompt-engineering-guide")
+    # (b2) '번들' 단어가 있어도 마커가 없으면 검출돼야 함 — 5차 적발 구멍(단어 휴리스틱 통과)의 회귀 fixture
+    echo '번들 아닌 실행 경로: `prompt-engineering-guide.md` 를 레포에서 직접 읽는다' >> "$SYNTH"
+    after2=$(bare_scan "prompt-engineering-guide")
+    rm -f "$SYNTH"
+    if [ "$after1" = "$((base+1))" ]; then ok=$((ok+1)); else
+      echo "SELFTEST FAIL: (1b) 합성 bare 미검출 — production 체인 (base=$base after=$after1)"; ng=$((ng+1)); fi
+    if [ "$after2" = "$((base+2))" ]; then ok=$((ok+1)); else
+      echo "SELFTEST FAIL: (1b) '번들'+stale 합성 미검출 — 필터 예외 과광폭 (base=$base after=$after2)"; ng=$((ng+1)); fi
     # (c) exporter 경계: 비어있지 않은 출력 폴더 → 거부돼야 함
     mkdir -p "$TMP/out"; touch "$TMP/out/obsolete-guide.md"
     if bash scripts/export-knowledge.sh "$TMP/out" >/dev/null 2>&1; then
