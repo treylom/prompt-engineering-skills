@@ -1,6 +1,6 @@
 # 변주 예시 모음 (Before/After)
 
-> 🆕 세대 안내 (2026-07-21): GPT 예시는 구 5.2 XML 세대 스타일로 표기 — 현행 GPT-5.6 Sol 디폴트는 Markdown lean outcome-first(`skills/gpt-5.6-prompt-enhancement.md`). Claude 예시는 현행(Opus 4.8 · Fable 5)에도 유효, Gemini 는 3.1 기준.
+> 🆕 세대 안내 (2026-07-21): GPT 예시는 구 5.2 XML 세대 스타일로 표기 — 현행 GPT-5.6 Sol 디폴트는 Markdown lean outcome-first(`skills/gpt-5.6-prompt-enhancement/references/full.md`). Claude 예시는 현행(Opus 4.8 · Fable 5)에도 유효, Gemini 는 3.1 기준.
 
 3가지 직업군 × 4개 모델 × 3가지 난이도 = 완전한 예시 세트.
 

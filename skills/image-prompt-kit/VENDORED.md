@@ -6,4 +6,4 @@
 - **포함**: `KIT-SKILL.md`(원본 `skills/image-prompt/SKILL.md` — 플러그인 스킬 자동 등록을 피하려고 파일명만 변경, 내용 무수정) · `references/`(라우터·패턴 전체) · `scripts/`(check_prompt.mjs 검증기 + fixtures) · `examples/`(완성 예시 txt·jsonl — 이미지 갤러리 PNG 제외) · `LICENSE`.
 - **수정 금지 원칙**: vendored 파일은 원문 그대로 유지합니다. 규칙 변경은 upstream에서 pull 하여 반영합니다.
 - **재sync 절차**: upstream clone에서 `git pull` → 본 디렉터리에 동일 rsync(PNG 제외) → `node scripts/check_prompt.mjs --test` green 확인 → 이 파일의 리비전 갱신.
-- **진입점**: 플러그인의 이미지 프롬프트 정본 계약은 `skills/image-prompt-guide.md`가 요약 전사하며, 상세 라우팅·패턴은 이 디렉터리의 파일을 그대로 읽습니다.
+- **진입점**: 플러그인의 이미지 프롬프트 정본 계약은 `skills/image-prompt-guide/references/full.md`가 요약 전사하며, 상세 라우팅·패턴은 이 디렉터리의 파일을 그대로 읽습니다.

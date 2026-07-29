@@ -1,0 +1,10 @@
+prompt-engineering-guide	153
+image-prompt-guide	52
+gemini-3.1-prompt-strategies	16
+claude-4.7-prompt-strategies	11
+gpt-5.6-prompt-enhancement	39
+expert-domain-priming	14
+research-prompt-guide	26
+# 재기준선 2026-07-29 12:5x (카파시): claude-4.7 13→11 · expert-domain-priming 16→14
+#   귀속 = stale skills/prompt-engineering-guide/{SKILL.md,references/techniques.md} 삭제분 각 -2
+#   (git grep HEAD 실측 — 설계 doc 옵션 C "구 stale references 제거" 계획분. 치환 누락 아님)

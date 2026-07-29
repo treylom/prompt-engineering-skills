@@ -23,11 +23,11 @@ commands/prompt.md 파일 업데이트를 위한 서브 스킬입니다.
 
 | 수정 유형 | 참조 스킬 파일 |
 |----------|---------------|
-| 이미지 생성 관련 | `.claude/skills/image-prompt-guide.md` |
-| 리서치/팩트체크 | `.claude/skills/research-prompt-guide.md` |
-| 모델별 전략 | `.claude/skills/prompt-engineering-guide.md` |
-| GPT 최적화 (5.6 Sol + legacy) | `.claude/skills/gpt-5.6-prompt-enhancement.md` |
-| Gemini 최적화 | `.claude/skills/gemini-3.1-prompt-strategies.md` |
+| 이미지 생성 관련 | `.claude/skills/image-prompt-guide/references/full.md` |
+| 리서치/팩트체크 | `.claude/skills/research-prompt-guide/references/full.md` |
+| 모델별 전략 | `.claude/skills/prompt-engineering-guide/references/full.md` |
+| GPT 최적화 (5.6 Sol + legacy) | `.claude/skills/gpt-5.6-prompt-enhancement/references/full.md` |
+| Gemini 최적화 | `.claude/skills/gemini-3.1-prompt-strategies/references/full.md` |
 | Claude 최적화 (Fable 5·Opus 4.8·Sonnet 5) | `.claude/skills/claude-fable-5-prompt-strategies.md` |
 | CE 원칙 | `.claude/skills/context-engineering-collection.md` |
 
@@ -42,11 +42,11 @@ commands/prompt.md 파일 업데이트를 위한 서브 스킬입니다.
 - prompt-engineering-skills/commands/prompt.md (전체)
 
 선택적 읽기 (변경 유형에 따라):
-- .claude/skills/image-prompt-guide.md
-- .claude/skills/research-prompt-guide.md
-- .claude/skills/prompt-engineering-guide.md
-- .claude/skills/gpt-5.6-prompt-enhancement.md
-- .claude/skills/gemini-3.1-prompt-strategies.md
+- .claude/skills/image-prompt-guide/references/full.md
+- .claude/skills/research-prompt-guide/references/full.md
+- .claude/skills/prompt-engineering-guide/references/full.md
+- .claude/skills/gpt-5.6-prompt-enhancement/references/full.md
+- .claude/skills/gemini-3.1-prompt-strategies/references/full.md
 - .claude/skills/claude-fable-5-prompt-strategies.md
 ```
 

@@ -2,7 +2,7 @@
 
 Claude Code, ChatGPT GPTs, Gemini Gems에서 함께 쓰는 프롬프트 엔지니어링 스킬 저장소입니다. 모델별 전략, 이미지/동영상, 리서치/팩트체크, 슬라이드, 전문가 도메인 프라이밍, Context Engineering 원칙을 모두 다룹니다.
 
-> **운영 구조**: 단일 권원 통합본(`skills/prompt-engineering-guide.md`) + 영역별 분할 가이드(`skills/*.md`) + Skills 2.0 분할 모듈(`skills/<name>/`) + 플랫폼별 헬퍼 커맨드를 모두 동봉합니다. 사용자 환경에 맞춰 필요한 자산만 선택해 설치하세요.
+> **운영 구조**: 단일 권원 통합본(`skills/prompt-engineering-guide/references/full.md`) + 영역별 분할 가이드(`skills/*.md`) + Skills 2.0 분할 모듈(`skills/<name>/`) + 플랫폼별 헬퍼 커맨드를 모두 동봉합니다. 사용자 환경에 맞춰 필요한 자산만 선택해 설치하세요.
 
 ## 바로 사용하기
 
@@ -29,14 +29,14 @@ codex plugin add prompt-engineering-skills@tofukyung-plugins
 
 | 영역 | 통합본 위치 | 분할본 파일 |
 |------|------------|-----------|
-| GPT 5.x (**5.6 Sol = 기본**) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement.md` (5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
+| GPT 5.x (**5.6 Sol = 기본**) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement/references/full.md` (5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
 | **Claude Opus 5 (디폴트) / Fable 5 / Opus 4.8** | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
-| Claude 4.x (구세대) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-4.7-prompt-strategies.md` |
-| Gemini / Veo | `prompt-engineering-guide.md` 통합 부록 | `skills/gemini-3.1-prompt-strategies.md` |
-| 이미지 프롬프트 | `prompt-engineering-guide.md` 이미지 부록 | `skills/image-prompt-guide.md` |
-| 리서치 / 팩트체크 | `prompt-engineering-guide.md` 리서치 부록 | `skills/research-prompt-guide.md` |
+| Claude 4.x (구세대) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-4.7-prompt-strategies/references/full.md` |
+| Gemini / Veo | `prompt-engineering-guide.md` 통합 부록 | `skills/gemini-3.1-prompt-strategies/references/full.md` |
+| 이미지 프롬프트 | `prompt-engineering-guide.md` 이미지 부록 | `skills/image-prompt-guide/references/full.md` |
+| 리서치 / 팩트체크 | `prompt-engineering-guide.md` 리서치 부록 | `skills/research-prompt-guide/references/full.md` |
 | 슬라이드 / PPT | `prompt-engineering-guide.md` 슬라이드 부록 | `skills/slide-prompt-guide.md` |
-| 전문가 프라이밍 | `prompt-engineering-guide.md` Expert Domain Priming | `skills/expert-domain-priming.md` |
+| 전문가 프라이밍 | `prompt-engineering-guide.md` Expert Domain Priming | `skills/expert-domain-priming/references/full.md` |
 | Context Engineering | `prompt-engineering-guide.md` CE 부록 | `skills/context-engineering-collection.md` |
 | 프롬프트 변형 | — | `skills/prompt-variation-guide/` (Skills 2.0 분할) |
 
@@ -113,7 +113,7 @@ prompt-engineering-skills/
 ```bash
 git clone https://github.com/treylom/prompt-engineering-skills.git /tmp/pes
 mkdir -p ~/.claude/skills ~/.claude/commands
-cp /tmp/pes/skills/prompt-engineering-guide.md ~/.claude/skills/
+cp /tmp/pes/skills/prompt-engineering-guide/references/full.md ~/.claude/skills/
 cp /tmp/pes/commands/*.md ~/.claude/commands/
 rm -rf /tmp/pes
 ```
@@ -154,7 +154,7 @@ Remove-Item -Recurse -Force "$env:TEMP\pes"
 
 | 운영 모드 | 업로드할 Knowledge 파일 | Instructions |
 |----------|---------------------|-------------|
-| **단일 파일 모드** (간단) | `skills/prompt-engineering-guide.md` 1개 | `instructions/GPTs-Prompt-Generator.md` 또는 `instructions/Gems-Prompt-Generator.md` |
+| **단일 파일 모드** (간단) | `skills/prompt-engineering-guide/references/full.md` 1개 | `instructions/GPTs-Prompt-Generator.md` 또는 `instructions/Gems-Prompt-Generator.md` |
 | **분할 파일 모드** (영역별 분리) | `skills/*.md` 중 필요한 분할 가이드 다수 | 동일 (Instructions가 분할 파일을 참조) |
 
 GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드가 필요하면 핵심만 선택 업로드하거나 통합본을 사용하세요. Gems는 첨부 한도가 다르므로 분할 파일 전체 업로드도 가능합니다.
@@ -163,7 +163,7 @@ GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드�
 
 | 상황 | 권장 자산 |
 |------|----------|
-| Claude Code 신규 사용자, 빠른 설치 | 통합본 1개 (`skills/prompt-engineering-guide.md`) + commands |
+| Claude Code 신규 사용자, 빠른 설치 | 통합본 1개 (`skills/prompt-engineering-guide/references/full.md`) + commands |
 | Claude Code 고급 사용자, Skills 2.0 분할 활용 | 통합본 + `skills/prompt-engineering-guide/` 분할 모듈 |
 | GPTs Knowledge 한도 빡빡함 | 통합본 1개만 업로드 |
 | GPTs에서 이미지·리서치만 별도 운영 | `image-prompt-guide.md` + `research-prompt-guide.md` 만 업로드 |
@@ -171,13 +171,13 @@ GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드�
 
 ## 운영 규칙
 
-- 통합본(`skills/prompt-engineering-guide.md`)을 권원으로 유지하고, 영역별 분할 가이드는 각 영역의 깊이 있는 참조용으로 동봉합니다.
+- 통합본(`skills/prompt-engineering-guide/references/full.md`)을 권원으로 유지하고, 영역별 분할 가이드는 각 영역의 깊이 있는 참조용으로 동봉합니다.
 - 모델별·영역별 업데이트는 통합본과 해당 분할 가이드를 함께 갱신합니다.
 - `/prompt-sync` 및 `commands/sync/` 헬퍼는 권원 파일을 미러 경로와 배포 저장소로 동기화하는 용도로 사용합니다.
 
 ## English Summary
 
-This repository ships both a canonical merged skill (`skills/prompt-engineering-guide.md`) and per-area split guides (`skills/*.md`) plus Skills 2.0 split-module directories. Pick the assets matching your environment: Claude Code installs prefer the merged file, GPTs Knowledge can use either the merged file or a curated subset of split guides, Gems can carry the full split set.
+This repository ships both a canonical merged skill (`skills/prompt-engineering-guide/references/full.md`) and per-area split guides (`skills/*.md`) plus Skills 2.0 split-module directories. Pick the assets matching your environment: Claude Code installs prefer the merged file, GPTs Knowledge can use either the merged file or a curated subset of split guides, Gems can carry the full split set.
 
 ## License
 

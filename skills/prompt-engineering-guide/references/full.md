@@ -555,7 +555,7 @@ Fonts: San Serif, Inter, Geist, Mona Sans, IBM Plex Sans, Manrope
 
 ### GPT-5.5 (Outcome-First Markdown — 2026-04 공식)
 
-> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07). 최신 프롬프팅 규칙(lean·7블록·PTC·xhigh/max effort) = `skills/gpt-5.6-prompt-enhancement.md`. 아래 GPT-5.5 내용은 계보 보존.
+> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07). 최신 프롬프팅 규칙(lean·7블록·PTC·xhigh/max effort) = `skills/gpt-5.6-prompt-enhancement/references/full.md`. 아래 GPT-5.5 내용은 계보 보존.
 
 GPT-5.5는 **outcome-first markdown 6섹션** 구조를 권장합니다. GPT-5.4의 process-heavy XML 12블록 stack과 다른 패턴이며, 모델이 이미 효율적인 추론·도구 사용·검증을 내장하고 있어 짧은 destination + success criteria 만으로 충분합니다.
 
@@ -1954,7 +1954,7 @@ operation = client.models.generate_videos(
 
 ### GPT-5.5 프롬프트 향상 스킬 (Outcome-First + Legacy XML)
 
-> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
+> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
 > **Version**: 1.1.0 | **Updated**: 2026-04-30
 > **Source**: [OpenAI GPT-5.5 Prompt Guidance (2026-04)](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5)
 > **Scope**: GPT 5.x 구세대 통합 — outcome-first markdown(5.5) + legacy XML stack(5.4/5.2 명시 시). GPTs/Gems 첨부파일 10개 한도 대응으로 단일 파일에 통합.
