@@ -348,7 +348,7 @@ ln -s ~/vendor/gongnyang-prompt-kit/skills/image-prompt ~/.claude/skills/image-p
 
 ## 참고
 
-- 전체 이미지 가이드: `prompt-engineering-guide.md`
-- Veo 상세 문서: `prompt-engineering-guide.md` (Veo 섹션)
-- Context Engineering: `prompt-engineering-guide.md`
+- 전체 이미지 가이드: `skills/prompt-engineering-guide/references/full.md`
+- Veo 상세 문서: `skills/prompt-engineering-guide/references/full.md` (Veo 섹션)
+- Context Engineering: `skills/prompt-engineering-guide/references/full.md`
 - gpt-image-2 프롬프트 컴파일: 위 §9 공냥 프롬프트 킷 (원본 연동)

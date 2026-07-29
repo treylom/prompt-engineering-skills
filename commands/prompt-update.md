@@ -51,16 +51,18 @@ $ARGUMENTS
 
 ## 수정 대상 파일
 
-| 파일 | 위치 |
+| 파일 | 위치 (P5 분할 2026-07-29 — 대형 가이드 = 디렉터리형, 본문은 references/full.md) |
 |------|------|
-| claude-fable-5-prompt-strategies.md | prompt-engineering-skills/skills/ |
-| gpt-5.6-prompt-enhancement.md | prompt-engineering-skills/skills/ |
-| gemini-3.1-prompt-strategies.md | prompt-engineering-skills/skills/ |
-| prompt-engineering-guide.md | prompt-engineering-skills/skills/ |
-| image-prompt-guide.md | prompt-engineering-skills/skills/ |
-| prompt.md | prompt-engineering-skills/commands/ |
+| claude-fable-5-prompt-strategies.md | prompt-engineering-skills/skills/ (flat 유지) |
+| references/full.md | prompt-engineering-skills/skills/gpt-5.6-prompt-enhancement/ |
+| references/full.md | prompt-engineering-skills/skills/gemini-3.1-prompt-strategies/ |
+| references/full.md | prompt-engineering-skills/skills/prompt-engineering-guide/ |
+| references/full.md | prompt-engineering-skills/skills/image-prompt-guide/ |
+| prompt.md | prompt-engineering-skills/commands/ (cmp 쌍: skills/prompt/references/prompt-command.md 동시 패치) |
 | GPTs-Prompt-Generator.md | prompt-engineering-skills/instructions/ |
 | Gems-Prompt-Generator.md | prompt-engineering-skills/instructions/ |
+
+> 본문 수정 = `references/full.md` 에만 (각 디렉터리 SKILL.md 는 섹션 맵 인덱스 — 내용 복제 ❌). GPTs/Gems 지식 재업로드는 `scripts/export-knowledge.sh` 번들로.
 
 ## 사본 동기화 대상
 

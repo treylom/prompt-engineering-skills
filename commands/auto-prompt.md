@@ -14,7 +14,7 @@ K-AI 스테이션 양식에 호환되는 AI 프롬프트를 자동 생성합니�
 - **참조 스킬**:
   - `.claude/skills/xlsx.md` (Excel 생성)
   - `.claude/skills/gpt-5.6-prompt-enhancement/references/full.md` (GPT 스타일 — 5.6 Sol 기본 + 5.5/5.4/5.2 legacy)
-  - `.claude/skills/claude-fable-5-prompt-strategies.md` (Claude 스타일 — Fable 5·Opus 4.8·Sonnet 5, 구세대는 `claude-4.7-prompt-strategies.md`)
+  - `.claude/skills/claude-fable-5-prompt-strategies.md` (Claude 스타일 — Fable 5·Opus 4.8·Sonnet 5, 구세대는 `skills/claude-4.7-prompt-strategies/references/full.md`)
   - `.claude/skills/gemini-3.1-prompt-strategies/references/full.md` (Gemini 스타일)
   - `.claude/skills/research-prompt-guide/references/full.md` (Perplexity 검색 스타일)
 

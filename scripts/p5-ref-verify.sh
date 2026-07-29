@@ -50,12 +50,18 @@ case "${1:-}" in
       # (1) 옛 flat 경로 문자열(skills/<t>.md) 잔존 참조 — 이동 후 0 이어야 함
       old=$(grep -rn "skills/$t\.md" . --include='*.md' --include='*.json' --include='*.sh' \
               --exclude-dir=.git 2>/dev/null | grep -v 'CHANGELOG' | wc -l | tr -d ' ')
-      # (1b) bare 운영 경로 잔존 — `./<t>.md` 상대 링크·`](<t>.md)` md 링크 (2026-07-29 손석희 재리뷰 지적:
-      #      skills/ 접두 검사만으론 stub 링크·라우터 지시·설치 명령의 bare 소비 경로를 못 봄.
-      #      instructions/ 는 웹 UI 붙여넣기 표면의 의미 라벨이라 제외)
-      bare=$(grep -rn -e "\./$t\.md" -e "]($t\.md)" . --include='*.md' --include='*.sh' \
-              --exclude-dir=.git --exclude-dir=instructions 2>/dev/null \
+      # (1b) bare 운영 경로 잔존 (2026-07-29 손석희 3차 리뷰로 2단 보강):
+      #      v1: `./<t>.md`·`](<t>.md)` 만 → README 표·백틱 언급을 놓침(3차 FAIL 4군의 사각).
+      #      v2: `/` 비선행 `<t>.md` 전부 — 백틱·표 셀·공백 뒤 언급 포함.
+      #      제외: instructions/ = 지식 파일명 계약 표면(basename 이 업로드 계약 —
+      #            scripts/export-knowledge.sh 가 그 basename 을 실물로 공급, (1c)가 그 계약을 검사)
+      #            + CHANGELOG(역사)·fixtures(동결 실출력)·image-prompt-kit(vendor).
+      bare=$(grep -rnE -e "\./$t\.md" -e "(^|[^/])$t\.md" . --include='*.md' --include='*.sh' \
+              --exclude-dir=.git --exclude-dir=instructions --exclude-dir=image-prompt-kit 2>/dev/null \
               | grep -v CHANGELOG | grep -v 'scripts/fixtures/' | wc -l | tr -d ' ')
+      # (1c) 지식 업로드 계약 — instructions/ 의 bare basename 이 유효하려면 export 번들이 공급해야 함
+      grep -q "\"skills/\$t/references/full.md\"" scripts/export-knowledge.sh 2>/dev/null \
+        || { grep -q "$t" scripts/export-knowledge.sh 2>/dev/null || { echo "FAIL(1c): export-knowledge.sh 에 $t 누락"; fail=1; }; }
       # (2) 새 위치 실재
       newf="skills/$t/references/full.md"
       # (3) 참조 총계 보존 (스냅샷 대비 감소 = 치환 누락 의심, 증가만 허용)

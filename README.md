@@ -29,15 +29,15 @@ codex plugin add prompt-engineering-skills@tofukyung-plugins
 
 | 영역 | 통합본 위치 | 분할본 파일 |
 |------|------------|-----------|
-| GPT 5.x (**5.6 Sol = 기본**) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement/references/full.md` (5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
-| **Claude Opus 5 (디폴트) / Fable 5 / Opus 4.8** | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
-| Claude 4.x (구세대) | `prompt-engineering-guide.md` 모델별 섹션 | `skills/claude-4.7-prompt-strategies/references/full.md` |
-| Gemini / Veo | `prompt-engineering-guide.md` 통합 부록 | `skills/gemini-3.1-prompt-strategies/references/full.md` |
-| 이미지 프롬프트 | `prompt-engineering-guide.md` 이미지 부록 | `skills/image-prompt-guide/references/full.md` |
-| 리서치 / 팩트체크 | `prompt-engineering-guide.md` 리서치 부록 | `skills/research-prompt-guide/references/full.md` |
-| 슬라이드 / PPT | `prompt-engineering-guide.md` 슬라이드 부록 | `skills/slide-prompt-guide.md` |
-| 전문가 프라이밍 | `prompt-engineering-guide.md` Expert Domain Priming | `skills/expert-domain-priming/references/full.md` |
-| Context Engineering | `prompt-engineering-guide.md` CE 부록 | `skills/context-engineering-collection.md` |
+| GPT 5.x (**5.6 Sol = 기본**) | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement/references/full.md` (5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
+| **Claude Opus 5 (디폴트) / Fable 5 / Opus 4.8** | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
+| Claude 4.x (구세대) | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/claude-4.7-prompt-strategies/references/full.md` |
+| Gemini / Veo | `skills/prompt-engineering-guide/references/full.md` 통합 부록 | `skills/gemini-3.1-prompt-strategies/references/full.md` |
+| 이미지 프롬프트 | `skills/prompt-engineering-guide/references/full.md` 이미지 부록 | `skills/image-prompt-guide/references/full.md` |
+| 리서치 / 팩트체크 | `skills/prompt-engineering-guide/references/full.md` 리서치 부록 | `skills/research-prompt-guide/references/full.md` |
+| 슬라이드 / PPT | `skills/prompt-engineering-guide/references/full.md` 슬라이드 부록 | `skills/slide-prompt-guide.md` |
+| 전문가 프라이밍 | `skills/prompt-engineering-guide/references/full.md` Expert Domain Priming | `skills/expert-domain-priming/references/full.md` |
+| Context Engineering | `skills/prompt-engineering-guide/references/full.md` CE 부록 | `skills/context-engineering-collection.md` |
 | 프롬프트 변형 | — | `skills/prompt-variation-guide/` (Skills 2.0 분할) |
 
 ## 저장소 구조
@@ -149,9 +149,11 @@ Remove-Item -Recurse -Force "$env:TEMP\pes"
 | 운영 모드 | 업로드할 Knowledge 파일 | Instructions |
 |----------|---------------------|-------------|
 | **단일 파일 모드** (간단) | `skills/prompt-engineering-guide/references/full.md` 1개 | `instructions/GPTs-Prompt-Generator.md` 또는 `instructions/Gems-Prompt-Generator.md` |
-| **분할 파일 모드** (영역별 분리) | `skills/*.md` 중 필요한 분할 가이드 다수 | 동일 (Instructions가 분할 파일을 참조) |
+| **분할 파일 모드** (영역별 분리) | `bash scripts/export-knowledge.sh` 산출 번들(기본 `/tmp/pes-knowledge/`)에서 필요한 가이드 선택 | 동일 (Instructions가 번들 파일명을 참조) |
 
 GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드가 필요하면 핵심만 선택 업로드하거나 통합본을 사용하세요. Gems는 첨부 한도가 다르므로 분할 파일 전체 업로드도 가능합니다.
+
+> **업로드 번들이 왜 필요한가** — 웹 UI 지식 파일은 **파일명이 참조 계약**입니다(Instructions 가 `pes-knowledge/prompt-engineering-guide.md` 같은 번들 파일명으로 참조, 기존 배포 GPTs/Gems 와 호환). 저장소 정본은 P5 분할(2026-07-29) 이후 `skills/<이름>/references/full.md` 이므로, 업로드 직전 `bash scripts/export-knowledge.sh` 로 업로드 계약 basename 번들을 생성해 그 파일들을 업로드합니다.
 
 ## 사용 시나리오별 선택 가이드
 
@@ -160,7 +162,7 @@ GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드�
 | Claude Code 신규 사용자, 빠른 설치 | 통합본 1개 (`skills/prompt-engineering-guide/references/full.md`) + commands |
 | Claude Code 고급 사용자, Skills 2.0 분할 활용 | 통합본 + `skills/prompt-engineering-guide/` 분할 모듈 |
 | GPTs Knowledge 한도 빡빡함 | 통합본 1개만 업로드 |
-| GPTs에서 이미지·리서치만 별도 운영 | `image-prompt-guide.md` + `research-prompt-guide.md` 만 업로드 |
+| GPTs에서 이미지·리서치만 별도 운영 | export 번들의 `pes-knowledge/image-prompt-guide.md` + `pes-knowledge/research-prompt-guide.md` 만 업로드 |
 | Gems에 풍부한 분할 자산 모두 활용 | 분할 가이드 8개 + Instructions 분할 모듈 |
 
 ## 운영 규칙

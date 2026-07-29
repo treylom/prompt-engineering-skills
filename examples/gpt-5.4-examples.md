@@ -194,6 +194,6 @@ response = client.responses.create(
 
 ## 참고
 
-- 전체 XML 블록 목록: `prompt-engineering-guide.md`
-- 모델별 비교: `prompt-engineering-guide.md`
-- Context Engineering 원칙: `prompt-engineering-guide.md`
+- 전체 XML 블록 목록: `skills/prompt-engineering-guide/references/full.md`
+- 모델별 비교: `skills/prompt-engineering-guide/references/full.md`
+- Context Engineering 원칙: `skills/prompt-engineering-guide/references/full.md`

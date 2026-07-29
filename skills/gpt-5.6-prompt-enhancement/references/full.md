@@ -722,7 +722,7 @@ Ask only for the smallest missing input if blocked.
 
 - [GPT-5.6 Sol Prompt Guidance (공식)](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)
 - [GPT-5.5 Prompt Guidance (공식)](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5)
-- `prompt-engineering-guide.md` — 모델별 통합 전략
+- `skills/prompt-engineering-guide/references/full.md` — 모델별 통합 전략
 - vault MOC: `020-Library/Research/Prompt-Guidance/05-GPT-5.6-Sol-Prompting/` (GPT-5.6 가이드 2티어)
 
 ---

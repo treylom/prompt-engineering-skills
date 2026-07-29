@@ -90,8 +90,8 @@ GPT-5.2에서 자주 사용하는 XML 태그들:
 | `<tool_persistence>` | 도구 실패 시 재시도 규칙 | GPT-5.4 에이전트 |
 | `<eagerness_control>` | 탐색 적극성 양방향 제어 | GPT-5.4 에이전트 |
 
-> **Claude 4.5/4.6 XML 구조 상세**: `prompt-engineering-guide.md` 스킬의 Part 12 참조
-> **GPT-5.4 에이전틱 패턴 상세**: `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 참조
+> **Claude 4.5/4.6 XML 구조 상세**: `skills/prompt-engineering-guide/references/full.md` 스킬의 Part 12 참조
+> **GPT-5.4 에이전틱 패턴 상세**: `skills/prompt-engineering-guide/references/full.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 참조
 
 ---
 
@@ -143,8 +143,8 @@ Step 1: 도메인 식별 → Step 2: 전문가 2-3명 조회 → Step 3: 핵심 
 
 | 스킬 | 내용 | 사용 시점 |
 |------|------|----------|
-| `prompt-engineering-guide.md` | 전문가 DB (12도메인, 60+명) + 프라이밍 가이드 | 전문가 활용 시 |
-| `prompt-engineering-guide.md` | 슬라이드/PPT 프롬프트 가이드 | 슬라이드 제작 시 |
+| `skills/prompt-engineering-guide/references/full.md` | 전문가 DB (12도메인, 60+명) + 프라이밍 가이드 | 전문가 활용 시 |
+| `skills/prompt-engineering-guide/references/full.md` | 슬라이드/PPT 프롬프트 가이드 | 슬라이드 제작 시 |
 
 ---
 
@@ -560,7 +560,7 @@ Fonts: San Serif, Inter, Geist, Mona Sans, IBM Plex Sans, Manrope
 GPT-5.5는 **outcome-first markdown 6섹션** 구조를 권장합니다. GPT-5.4의 process-heavy XML 12블록 stack과 다른 패턴이며, 모델이 이미 효율적인 추론·도구 사용·검증을 내장하고 있어 짧은 destination + success criteria 만으로 충분합니다.
 
 > **공식 출처**: [Prompt guidance for GPT-5.5](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) (2026-04)
-> **상세 패치 스킬**: `prompt-engineering-guide.md` (v1.0.0)
+> **상세 패치 스킬**: `skills/prompt-engineering-guide/references/full.md` (v1.0.0)
 
 #### 핵심 행동 차이점 (vs GPT-5.4)
 
@@ -2201,7 +2201,7 @@ Quietly improve clarity, flow, and correctness.
 
 #### Legacy GPT-5.2/5.4 XML Stack (참조용 — "5.4 XML 스타일" 명시 시 사용)
 
-GPT-5.4 이하 모델 또는 사용자가 "legacy XML 스타일" 명시 시 다음 12 블록을 적용합니다. (이전 별도 파일 `prompt-engineering-guide.md`를 본 섹션으로 통합 — 2026-04-30 v1.1.0)
+GPT-5.4 이하 모델 또는 사용자가 "legacy XML 스타일" 명시 시 다음 12 블록을 적용합니다. (이전 별도 파일 `skills/prompt-engineering-guide/references/full.md`를 본 섹션으로 통합 — 2026-04-30 v1.1.0)
 
 ##### 1. `<output_verbosity_spec>` — 장황함 제어 (항상 포함)
 
@@ -2403,7 +2403,7 @@ Ask only for the smallest missing input if blocked.
 #### 참고 자료
 
 - [GPT-5.5 Prompt Guidance (공식)](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5)
-- `prompt-engineering-guide.md` — 모델별 통합 전략
+- `skills/prompt-engineering-guide/references/full.md` — 모델별 통합 전략
 
 ---
 
@@ -5178,7 +5178,7 @@ Dialogue - {Character}: ({English emotion/manner descriptor} in {Target Language
 
 프레젠테이션 슬라이드를 AI 이미지로 생성할 때의 가이드.
 
-> **상세 가이드**: `prompt-engineering-guide.md` 스킬 파일 참조
+> **상세 가이드**: `skills/prompt-engineering-guide/references/full.md` 스킬 파일 참조
 
 ##### 17.1 슬라이드 이미지 필수 규칙
 
@@ -5240,7 +5240,7 @@ Style Rules: Do [가이드라인] / Don't [안티패턴]
 </STYLE_INSTRUCTIONS>
 ```
 
-> **27개 비주얼 스타일과 7개 내러티브 모드 상세**: `prompt-engineering-guide.md` 참조
+> **27개 비주얼 스타일과 7개 내러티브 모드 상세**: `skills/prompt-engineering-guide/references/full.md` 참조
 
 ---
 

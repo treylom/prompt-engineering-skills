@@ -385,7 +385,7 @@ references:
 
 ## 3. 모델별 최적화
 
-> 🆕 **현행 라인업 (2026-07)**: 팩트체크 고정 = **GPT-5.6 Thinking** · 웹 리서치 1순위 = **Claude Opus 4.8 Search**. GPT 현행 디폴트(GPT-5.6 Sol)는 lean outcome-first Markdown — 전체 블록 구조는 `gpt-5.6-prompt-enhancement.md` 참조.
+> 🆕 **현행 라인업 (2026-07)**: 팩트체크 고정 = **GPT-5.6 Thinking** · 웹 리서치 1순위 = **Claude Opus 4.8 Search**. GPT 현행 디폴트(GPT-5.6 Sol)는 lean outcome-first Markdown — 전체 블록 구조는 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조.
 
 ### 3.1 GPT 최적화 (구 GPT-5.2 XML 스타일 — 참고 보존)
 

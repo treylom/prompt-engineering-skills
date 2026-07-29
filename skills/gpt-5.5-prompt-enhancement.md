@@ -1,6 +1,6 @@
 ---
 name: gpt-5-5-prompt-enhancement
-description: Use when a prompt explicitly requests GPT-5.5 style — pointer stub. 실제 내용은 gpt-5.6-prompt-enhancement.md의 LEGACY 섹션으로 통합·보존됨.
+description: Use when a prompt explicitly requests GPT-5.5 style — pointer stub. 실제 내용은 skills/gpt-5.6-prompt-enhancement/references/full.md의 LEGACY 섹션으로 통합·보존됨.
 disable-model-invocation: true
 ---
 
