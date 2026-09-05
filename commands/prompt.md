@@ -122,7 +122,7 @@ $ARGUMENTS
 
 ---
 
-## 🤖 BATCH 모드 (프로그래밍 호출 — /deep-research, /tofu-at 워커용)
+## 🤖 BATCH 모드 (프로그래밍 호출 — /searchflow, /tofu-at 워커용)
 
 **`$ARGUMENTS`가 `--batch`로 시작하면 인터랙티브 흐름을 전부 우회하고 프롬프트만 직접 출력합니다.**
 
@@ -1424,10 +1424,10 @@ Style Rules:
 
 > **GPT 모델 라우팅**: 미지정 GPT → **GPT-5.6 Sol lean outcome-first 디폴트**. `GPT-5.5` 명시 → 5.5 outcome-first(legacy). `GPT-5.4 / 5.2 / legacy XML` 명시 시에만 XML stack 적용.
 
-**📚 리서치/팩트체크 템플릿 자동 로드 (CRITICAL — /deep-research 통합 핵심)**
+**📚 리서치/팩트체크 템플릿 자동 로드 (CRITICAL — /searchflow 통합 핵심)**
 
 > 목적이 `팩트체크`, `리서치/조사`, `분석/리서치`로 감지되면 **반드시 다음 절차**를 따릅니다.
-> 일반 XML 프롬프트로 대체 생성 금지. 누락 시 `/deep-research` 워커 품질이 격하됩니다.
+> 일반 XML 프롬프트로 대체 생성 금지. 누락 시 `/searchflow` 워커 품질이 격하됩니다.
 
 **Step 2-A: 단일 스킬 로드** (플러그인 루트 기준 상대 경로)
 
