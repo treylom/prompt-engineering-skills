@@ -12,8 +12,8 @@ updated: 2026-07-29
 
 # research-prompt-guide — 라우팅 인덱스
 
-> **정본 본문 = [references/full.md](references/full.md)** (약 650줄). 내용 수정은 full.md 에만.
-> ⚠️ /prompt 팩트체크·리서치 게이트의 **베이스 템플릿 정본은 prompt-engineering-guide** 쪽(LoopFactChecker·QuickFactCheck·StructuredResearch_v1.0 — [../prompt-engineering-guide/references/full.md](../prompt-engineering-guide/references/full.md)). 본 파일은 워크플로·출력 형식 보조.
+> **전체 본문 = [references/full.md](references/full.md)** (약 650줄). 내용 수정은 full.md 에만.
+> ⚠️ /prompt 팩트체크·리서치 게이트의 **베이스 템플릿 기준 파일은 prompt-engineering-guide** 쪽(LoopFactChecker·QuickFactCheck·StructuredResearch_v1.0 — [../prompt-engineering-guide/references/full.md](../prompt-engineering-guide/references/full.md)). 본 파일은 워크플로·출력 형식 보조.
 
 ## 섹션 맵 (grep 앵커 — 줄번호는 as-of 2026-07-29 참고값)
 

@@ -7,11 +7,11 @@
     (2026-07-29 실측. python `len()` 과 `LC_ALL=C.UTF-8 wc -m` 두 경로 일치.
      여유를 남긴 이유: 8,000이라는 상한 자체가 이번 작업에서 재확인되지 않은 전달값이고,
      플랫폼이 문자 대신 토큰으로 셀 가능성도 배제하지 못해 안전폭을 둡니다.)
-  · 파생 정본: instructions/GPTs-Prompt-Generator.md (v3.1.0) — 이 파일은 그 압축본입니다.
-    정본에서 제거한 것: changelog 전문 · 모델 라우팅 상세표 · 추천모델 중복 문단 · 템플릿 코드블록
-    정본에서 그대로 유지한 것: 5가지 옵션 워크플로 전건 · 🏛️ 대원칙 불변 조항 · CRITICAL WORKFLOW
+  · 파생 원본 지침: instructions/GPTs-Prompt-Generator.md (v3.1.0) — 이 파일은 그 압축본입니다.
+    원본 지침에서 제거한 것: changelog 전문 · 모델 라우팅 상세표 · 추천모델 중복 문단 · 템플릿 코드블록
+    원본 지침에서 그대로 유지한 것: 5가지 옵션 워크플로 전건 · 🏛️ 대원칙 불변 조항 · CRITICAL WORKFLOW
   · 상세 규격은 지식 파일(prompt-engineering-guide.md 등)에 있으며 본문이 그것을 참조합니다.
-  · 갱신 규약: 정본을 고치면 이 파일도 같은 편집에서 재생성하고 위 글자수를 다시 실측하세요.
+  · 갱신 규약: 원본 지침을 고치면 이 파일도 같은 편집에서 재생성하고 위 글자수를 다시 실측하세요.
     실측 = `LC_ALL=C.UTF-8 wc -m` (환경 미선언 `wc -m` 은 로케일에 따라 바이트가 나옵니다.)
 -->
 
@@ -157,7 +157,7 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 지�
 
 ## 이미지 프롬프트 구조
 
-> 🔀 **먼저 타겟을 판정하세요 (대원칙 §2)**. ChatGPT 안에서 gpt-image로 바로 생성 = **웹 UI 경로 → 아래 JSON**. 사용자가 **gpt-image-2 API·Codex `$imagegen`·배치(jsonl)** 로 쓸 프롬프트를 요청 = **공냥 킷 포맷이 정본** → 포맷 A(라벨 6섹션) 또는 포맷 B(화보 콤마형 단문) **본문 + 끝 `AR x:y` 토큰**, 네거티브는 전면 긍정형. 두 경로를 뭉뚱그리지 마세요.
+> 🔀 **먼저 타겟을 판정하세요 (대원칙 §2)**. ChatGPT 안에서 gpt-image로 바로 생성 = **웹 UI 경로 → 아래 JSON**. 사용자가 **gpt-image-2 API·Codex `$imagegen`·배치(jsonl)** 로 쓸 프롬프트를 요청 = **공냥 킷 포맷이 원본** → 포맷 A(라벨 6섹션) 또는 포맷 B(화보 콤마형 단문) **본문 + 끝 `AR x:y` 토큰**, 네거티브는 전면 긍정형. 두 경로를 뭉뚱그리지 마세요.
 
 ```json
 { "target_model": "gpt-image-2", "expert_anchor": "", "subject": "", "style": "", "mood": "", "composition": "", "lighting": "", "details": "", "text_language": "Korean", "aspect_ratio": "16:9" }

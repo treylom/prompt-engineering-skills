@@ -1,6 +1,6 @@
 ---
 name: claude-4-7-prompt-strategies
-description: Use when the user explicitly targets Claude Opus 4.7 or earlier (구세대 first-class 지원) — legacy Claude 프롬프트 전략 레퍼런스의 라우팅 인덱스. 최신 모델(Opus 5·Fable 5·4.8·Sonnet 5)은 claude-fable-5-prompt-strategies.md가 정본. 본문 = references/full.md.
+description: Use when the user explicitly targets Claude Opus 4.7 or earlier (구세대 first-class 지원) — legacy Claude 프롬프트 전략 레퍼런스의 라우팅 인덱스. 최신 모델(Opus 5·Fable 5·4.8·Sonnet 5)은 claude-fable-5-prompt-strategies.md가 기준 파일. 본문 = references/full.md.
 disable-model-invocation: true
 version: 3.3.0
 updated: 2026-07-29
@@ -8,7 +8,7 @@ updated: 2026-07-29
 
 # claude-4.7-prompt-strategies — 라우팅 인덱스
 
-> **정본 본문 = [references/full.md](references/full.md)** (약 900줄). 내용 수정은 full.md 에만.
+> **전체 본문 = [references/full.md](references/full.md)** (약 900줄). 내용 수정은 full.md 에만.
 
 ## 섹션 맵 (grep 앵커 — 줄번호는 as-of 2026-07-29 참고값)
 

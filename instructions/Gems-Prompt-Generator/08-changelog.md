@@ -17,7 +17,7 @@
 - **[MAJOR] 이미지 절 = 타겟 경로 분기** → `06-gemini-guide-json-structures.md`. 기본 타겟 = Gemini Image(JSON) ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`. **킷 규격을 Gemini Image·Seedream에 강제 금지** 명시
 - **[MAJOR] JSON 필드 신설** → 이미지 `target_model`·`expert_anchor` / 동영상 `cinematographer`(실존 1인 지명)
 - **[MEDIUM] FINAL REMINDER 대원칙 2줄 추가** → `07-references-final-reminder.md` (Lost-in-Middle 방지 반복)
-- **[PATCH] 버전 표기 통일**: 2.2.0 → 3.1.0. 정본 버전에 맞춰 단일 파일판·디렉터리판 번호를 일치시켜, 앞으로 "이 판이 정본 몇 버전을 반영했는지"가 번호만으로 보이게 했습니다(과거엔 단일판 2.6.0 / 디렉터리판 2.2.0 으로 어긋나 있었습니다).
+- **[PATCH] 버전 표기 통일**: 2.2.0 → 3.1.0. 원본 지침 버전에 맞춰 단일 파일판·디렉터리판 번호를 일치시켜, 앞으로 "이 판이 원본 지침 몇 버전을 반영했는지"가 번호만으로 보이게 했습니다(과거엔 단일판 2.6.0 / 디렉터리판 2.2.0 으로 어긋나 있었습니다).
 - **5가지 옵션 워크플로는 무수정 유지** — 기존 절 삭제·축소 ❌
 
 **Version**: 2.2.0 | **Updated**: 2026-03-08

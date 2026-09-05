@@ -16,7 +16,7 @@
 | 5 | `context-engineering-collection.md` | CE 원칙 | 권장 |
 | 6 | `research-prompt-guide.md` | 팩트체크/리서치 가이드 | 팩트체크/리서치 시 필수 |
 
-> 파일명 = **업로드 번들 계약** (`scripts/export-knowledge.sh` 산출 — 대형 가이드의 저장소 정본은 `skills/<이름>/references/full.md`, P5 분할 2026-07-29).
+> 파일명 = **업로드 번들 계약** (`scripts/export-knowledge.sh` 산출 — 대형 가이드의 저장소 원본은 `skills/<이름>/references/full.md`, P5 분할 2026-07-29).
 
 ---
 

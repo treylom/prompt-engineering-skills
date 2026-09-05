@@ -8,8 +8,8 @@ updated: 2026-07-29
 
 # prompt-engineering-guide — 라우팅 인덱스
 
-> **정본 본문 = [references/full.md](references/full.md)** (약 7,000줄 — **전체 통독 ❌**).
-> 이 SKILL.md 는 내용을 복제하지 않는 얇은 인덱스다(이중 표현 stale 방지 — 2026-03 구 분할본이 flat 정본과 갈라져 썩었던 회귀의 구조적 차단). 내용 수정은 항상 references/full.md 에만.
+> **전체 본문 = [references/full.md](references/full.md)** (약 7,000줄 — **전체 통독 ❌**).
+> 이 SKILL.md 는 내용을 복제하지 않는 얇은 인덱스다(이중 표현 stale 방지 — 2026-03 구 분할본이 flat 기준 파일과 갈라져 썩었던 회귀의 구조적 차단). 내용 수정은 항상 references/full.md 에만.
 
 ## 로드 방법 (/prompt 템플릿 로드 게이트)
 
@@ -18,7 +18,7 @@ grep -n "<앵커 문자열>" skills/prompt-engineering-guide/references/full.md
 → 해당 offset 부분 Read
 ```
 
-## 섹션 맵 (grep 앵커 — 줄번호는 as-of 2026-07-29 참고값, 앵커 문자열이 정본)
+## 섹션 맵 (grep 앵커 — 줄번호는 as-of 2026-07-29 참고값, 앵커 문자열이 기준)
 
 | 목적 | grep 앵커 | 위치(참고) |
 |---|---|---|
@@ -36,6 +36,6 @@ grep -n "<앵커 문자열>" skills/prompt-engineering-guide/references/full.md
 
 ## 관련 스킬
 
-- 이미지 = [../image-prompt-guide/](../image-prompt-guide/SKILL.md) (공냥 킷 v4 정본)
+- 이미지 = [../image-prompt-guide/](../image-prompt-guide/SKILL.md) (공냥 킷 v4 원본)
 - 모델별 상세 = ../claude-fable-5-prompt-strategies.md · [../gpt-5.6-prompt-enhancement/](../gpt-5.6-prompt-enhancement/SKILL.md) · [../gemini-3.1-prompt-strategies/](../gemini-3.1-prompt-strategies/SKILL.md)
 - 전문가 DB = [../expert-domain-priming/](../expert-domain-priming/SKILL.md) · 리서치 = [../research-prompt-guide/](../research-prompt-guide/SKILL.md)

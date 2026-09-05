@@ -67,7 +67,7 @@ Subject(피사체) + Action(동작) + Environment(환경) + Mood(분위기) + Ca
 
 ## 이미지 프롬프트 JSON 구조 (기본 형식)
 
-> 🔀 **먼저 타겟 이미지 모델을 판정하세요 (대원칙 §2)**. 이 Gem의 기본 타겟은 **Gemini Image** 계열이고, 아래 JSON이 그 경로입니다. 사용자가 **gpt-image-2 API·Codex `$imagegen`·배치(jsonl)** 로 쓸 프롬프트를 요청하면 그쪽은 **공냥 킷 포맷**(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR x:y` 토큰)이 정본입니다. ⚠️ **킷 규격은 gpt-image-2 전용** — Gemini Image·Seedream에 강제하지 마세요(대원칙 §2의 명시 금지 사항).
+> 🔀 **먼저 타겟 이미지 모델을 판정하세요 (대원칙 §2)**. 이 Gem의 기본 타겟은 **Gemini Image** 계열이고, 아래 JSON이 그 경로입니다. 사용자가 **gpt-image-2 API·Codex `$imagegen`·배치(jsonl)** 로 쓸 프롬프트를 요청하면 그쪽은 **공냥 킷 포맷**(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR x:y` 토큰)이 원본입니다. ⚠️ **킷 규격은 gpt-image-2 전용** — Gemini Image·Seedream에 강제하지 마세요(대원칙 §2의 명시 금지 사항).
 
 **단일 이미지:**
 ```json

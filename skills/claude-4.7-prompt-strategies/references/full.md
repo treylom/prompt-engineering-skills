@@ -1,6 +1,6 @@
 ---
 name: claude-4-7-prompt-strategies
-description: Use when the user explicitly targets Claude Opus 4.7 or earlier (구세대 first-class 지원) — legacy Claude 프롬프트 전략 레퍼런스. 최신 모델(Opus 5·Fable 5·4.8·Sonnet 5)은 claude-fable-5-prompt-strategies.md가 정본.
+description: Use when the user explicitly targets Claude Opus 4.7 or earlier (구세대 first-class 지원) — legacy Claude 프롬프트 전략 레퍼런스. 최신 모델(Opus 5·Fable 5·4.8·Sonnet 5)은 claude-fable-5-prompt-strategies.md가 기준 파일.
 disable-model-invocation: true
 ---
 

@@ -682,7 +682,7 @@ Subject(피사체) + Action(동작) + Environment(환경) + Mood(분위기) + Ca
 
 ## 이미지 프롬프트 JSON 구조 (기본 형식)
 
-> 🔀 **먼저 타겟 이미지 모델을 판정하세요 (대원칙 §2)**. 이 Gem의 기본 타겟은 **Gemini Image** 계열이고, 아래 JSON이 그 경로입니다. 사용자가 **gpt-image-2 API·Codex `$imagegen`·배치(jsonl)** 로 쓸 프롬프트를 요청하면 그쪽은 **공냥 킷 포맷**(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR x:y` 토큰)이 정본입니다. ⚠️ **킷 규격은 gpt-image-2 전용** — Gemini Image·Seedream에 강제하지 마세요(대원칙 §2의 명시 금지 사항). 두 경로를 뭉뚱그리지 않습니다.
+> 🔀 **먼저 타겟 이미지 모델을 판정하세요 (대원칙 §2)**. 이 Gem의 기본 타겟은 **Gemini Image** 계열이고, 아래 JSON이 그 경로입니다. 사용자가 **gpt-image-2 API·Codex `$imagegen`·배치(jsonl)** 로 쓸 프롬프트를 요청하면 그쪽은 **공냥 킷 포맷**(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR x:y` 토큰)이 원본입니다. ⚠️ **킷 규격은 gpt-image-2 전용** — Gemini Image·Seedream에 강제하지 마세요(대원칙 §2의 명시 금지 사항). 두 경로를 뭉뚱그리지 않습니다.
 
 **단일 이미지:**
 ```json
@@ -857,7 +857,7 @@ Subject(피사체) + Action(동작) + Environment(환경) + Mood(분위기) + Ca
 ---
 
 **Version**: 3.3.1 | **Updated**: 2026-09-05
-**Changes v3.1.0** (2026-07-29): **정본(`commands/prompt.md` v3.1.0) 미전파 수리 — 지침 파일이 v2.12.0 시점에 멈춰 있던 sibling 갭 해소.**
+**Changes v3.1.0** (2026-07-29): **원본 지침(`commands/prompt.md` v3.1.0) 미전파 수리 — 지침 파일이 v2.12.0 시점에 멈춰 있던 sibling 갭 해소.**
 - **[CRITICAL] 🏛️ 대원칙 불변 조항 신설**: Constraints 최상단 직하에 전문가 프롬프팅 + 모델별 라우팅·자동 탐지를 전 목적·전 모델 상위 조항으로 명문화. FINAL REMINDER에도 2줄 요약 반복(Lost-in-Middle 방지)
 - **[MAJOR] 이미지 절 = 타겟 경로 분기**: 이 Gem 기본 타겟 = Gemini Image(아래 JSON) ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`. **킷 규격을 Gemini Image·Seedream에 강제 금지** 명시(대원칙 §2가 수리한 v3.0.0 batch 라우팅 결함의 지침판)
 - **[MAJOR] JSON 필드 신설**: 이미지 = `target_model`·`expert_anchor` / 동영상 = `cinematographer`(실존 1인 지명)

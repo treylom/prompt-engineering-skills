@@ -1,6 +1,6 @@
 ---
 name: image-prompt-guide
-description: Use when generating AI image prompts — 정본 = 공냥 프롬프트 킷 v4(gpt-image-2 텍스트 프롬프트 계약 — 포맷 A/B·철칙·jsonl·검증기, skills/image-prompt-kit/ vendor 원문). 웹 UI(ChatGPT/Gemini) JSON 간이 경로는 legacy 부록. /prompt 커맨드가 이미지 타겟 감지 시 전체 로드.
+description: Use when generating AI image prompts — 원본 = 공냥 프롬프트 킷 v4(gpt-image-2 텍스트 프롬프트 계약 — 포맷 A/B·철칙·jsonl·검증기, skills/image-prompt-kit/ vendor 원문). 웹 UI(ChatGPT/Gemini) JSON 간이 경로는 legacy 부록. /prompt 커맨드가 이미지 타겟 감지 시 전체 로드.
 disable-model-invocation: true
 references:
   - prompt-engineering-guide
@@ -18,11 +18,11 @@ source_credits:
 
 # AI 이미지 프롬프트 마스터 가이드
 
-> **자료 출처**: 정본 계약은 공냥이(@specal1849)님의 [공냥 프롬프트 킷 v4](https://github.com/gongnyang/gongnyang-prompt-kit)(MIT — 원문 사본 `skills/image-prompt-kit/`)를 따릅니다. 후반부 일반 이론·웹 UI 경로는 같은 저자의 "이미지 프롬프트 101" 슬라이드와 "PRO 이미지 프롬프트" Notion 문서 기반입니다.
+> **자료 출처**: 원본 계약은 공냥이(@specal1849)님의 [공냥 프롬프트 킷 v4](https://github.com/gongnyang/gongnyang-prompt-kit)(MIT — 원문 사본 `skills/image-prompt-kit/`)를 따릅니다. 후반부 일반 이론·웹 UI 경로는 같은 저자의 "이미지 프롬프트 101" 슬라이드와 "PRO 이미지 프롬프트" Notion 문서 기반입니다.
 
 ---
 
-## 0. Codex `/prompt` 적용 계약 (v2.0.0 — 공냥 킷 v4 정본)
+## 0. Codex `/prompt` 적용 계약 (v2.0.0 — 공냥 킷 v4 원본)
 
 Codex의 `prompt` 스킬이 이미지 목적을 감지하면 이 파일을 **직접 전체 로드**한 뒤 아래 계약을 우선 적용합니다.
 
@@ -37,7 +37,7 @@ Codex의 `prompt` 스킬이 이미지 목적을 감지하면 이 파일을 **직
 
 ---
 
-## K. 공냥 프롬프트 킷 v4 — 정본 계약 (vendor: `skills/image-prompt-kit/`)
+## K. 공냥 프롬프트 킷 v4 — 원본 계약 (vendor: `skills/image-prompt-kit/`)
 
 > 원문 전체 = `skills/image-prompt-kit/KIT-SKILL.md` + `references/` (MIT, © 공냥이 @specal1849, rev `fb5f75f`). 아래는 그 핵심의 충실 전사 — 충돌 시 vendor 원문이 우선.
 
@@ -60,7 +60,7 @@ Codex의 `prompt` 스킬이 이미지 목적을 감지하면 이 파일을 **직
    |---|---|---|
    | Tier-0 기본 | 항상 | all-positive, 부정문 0개 |
    | Tier-1 텍스트 가드 | 렌더 텍스트 있을 때만 | 화이트리스트 7종: `no extra words` · `no duplicate text` · `no invented glyphs` · `no watermark` · `no logo` · `no extra text` · `verbatim, no extra characters` |
-   | Tier-2 화보 레인 | 명시 선언 시만(휴리스틱 승격 금지) | SAFETY_ASSERT(긍정형, 피사체절)+NEGATIVE_TAIL(AR 직전 1회) **페어** — 정본 `references/editorial-hwabo.md` §3 |
+   | Tier-2 화보 레인 | 명시 선언 시만(휴리스틱 승격 금지) | SAFETY_ASSERT(긍정형, 피사체절)+NEGATIVE_TAIL(AR 직전 1회) **페어** — 기준 파일 `references/editorial-hwabo.md` §3 |
 
    Tier-1 결합 공식(유일 방출형): `All text appears once, perfectly legible — no duplicate text, no extra words, no invented glyphs, no watermark.` `Negative:` 라벨은 전 티어 금지(`E-NEG-SECTION`).
 3. **SD-era 폐기 어휘 금지.** `masterpiece/best quality/8k/4k/uhd/trending on artstation/ultra-detailed/highly detailed/sharp focus`, 가중치 `(word:1.3)`, `--ar/--v`, 본문 `§`, 빈 형용사(멋지게/감성적으로/고급스럽게/세련되게/beautiful/stunning). 무대 지정("어워드 수준/전문가처럼/최고급")도 동급 — 수치(여백 %·60/30/10·위계 단수)·몸 반응·구체 예시로 환원(`references/concept-axes.md` §죽은 단어 환원).
@@ -791,7 +791,7 @@ Create high-quality, vertical layout infographic
 
 | 상황 | 권장 형식 |
 |------|----------|
-| **gpt-image-2 / Codex `$imagegen` (정본)** | **킷 텍스트 프롬프트** — 포맷 A 라벨 6섹션 / 포맷 B 콤마형 + 끝 `AR` (§K) · 배치 = jsonl |
+| **gpt-image-2 / Codex `$imagegen` (원본)** | **킷 텍스트 프롬프트** — 포맷 A 라벨 6섹션 / 포맷 B 콤마형 + 끝 `AR` (§K) · 배치 = jsonl |
 | 기본 이미지 생성 (웹 UI 간이 경로) | JSON (구조화된 속성 + 유연한 자연어 details) |
 | 구분된 섹션/인포그래픽 | **XML** 또는 **Markdown** |
 | 연결된 느낌/타임라인 | **JSON** 또는 **YAML** |
@@ -1072,7 +1072,7 @@ Style Rules: Do [가이드라인] / Don't [안티패턴]
 **Author**: Claude Code (공냥이(@specal1849)님 자료 기반)
 **Last Updated**: 2026-07-29
 **Changes v2.0.0** (2026-07-29):
-- **[MAJOR] 정본 계약 교체 — 공냥 프롬프트 킷 v4 이식**: gpt-image-2/`$imagegen` 산출 = 킷 텍스트 프롬프트(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR`), 배치 = jsonl 레코드. 구 JSON 골격(6키 purpose/hero/… 및 subject/style JSON)은 웹 UI 간이 경로 legacy로 강등(§0·§K 배너)
+- **[MAJOR] 원본 계약 교체 — 공냥 프롬프트 킷 v4 이식**: gpt-image-2/`$imagegen` 산출 = 킷 텍스트 프롬프트(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR`), 배치 = jsonl 레코드. 구 JSON 골격(6키 purpose/hero/… 및 subject/style JSON)은 웹 UI 간이 경로 legacy로 강등(§0·§K 배너)
 - **[MAJOR] §K 신설**: 킷 핵심 충실 전사 — 워크플로우·철칙 9(티어드 네거티브: 기본 전면 긍정형+Tier-1 화이트리스트 7종+Tier-2 페어)·포맷 A/B·사이즈 락 6종·텍스트 렌더 요점·라우팅 표(C1~C12/P1~P12/TP1~TP17/L1~L9/M·R·X·T축)·jsonl 스키마·검증기(check_prompt.mjs)·완성 예시
 - **[MAJOR] 킷 원문 vendor**: `skills/image-prompt-kit/`(KIT-SKILL.md·references 전체·검증기+fixtures·examples txt/jsonl·LICENSE, rev fb5f75f, MIT) — 외부 스킬 우회 금지 원칙 유지하며 내부 동봉으로 해소
 - 계기: 이미지 생성 막힘 — 구 JSON 계약·네거티브 스택이 킷 규칙(전면 긍정형·SD어휘 금지)과 상충 (재경님 2026-07-28 지시 "킷을 최대한 가져오기")

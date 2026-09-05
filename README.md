@@ -50,12 +50,12 @@ prompt-engineering-skills/
 |-- skills/
 |   |-- prompt-engineering-guide/             # 단일 권원 통합본 (P5 분할 2026-07-29)
 |   |   |-- SKILL.md                          #   SKILL.md = 얇은 라우팅 인덱스(섹션 맵·grep 앵커)
-|   |   `-- references/full.md                #   full.md = 본문 정본 (Claude Code 기본 설치 대상)
+|   |   `-- references/full.md                #   full.md = 본문 기준 파일 (Claude Code 기본 설치 대상)
 |   |
 |   |-- claude-4.7-prompt-strategies/         # 구세대 Claude first-class      } 대형 가이드 공통 구조:
 |   |-- gpt-5.6-prompt-enhancement/           # GPT 5.x 통합 (5.6 Sol 디폴트)  } SKILL.md 인덱스
 |   |-- gemini-3.1-prompt-strategies/         # Gemini 3/3.1·Veo·NB2           } + references/full.md
-|   |-- image-prompt-guide/                   # 이미지 정본 = 공냥 킷 v4 계약   }
+|   |-- image-prompt-guide/                   # 이미지 원본 = 공냥 킷 v4 계약   }
 |   |-- expert-domain-priming/                # 전문가 DB 12도메인              }
 |   |-- research-prompt-guide/                # IFCN 팩트체크·리서치            }
 |   |
@@ -153,7 +153,7 @@ Remove-Item -Recurse -Force "$env:TEMP\pes"
 
 GPTs는 Knowledge 파일 10개 한도가 있으므로, 모든 분할 가이드가 필요하면 핵심만 선택 업로드하거나 통합본을 사용하세요. Gems는 첨부 한도가 다르므로 분할 파일 전체 업로드도 가능합니다.
 
-> **업로드 번들이 왜 필요한가** — 웹 UI 지식 파일은 **파일명이 참조 계약**입니다(Instructions 가 `prompt-engineering-guide.md` 같은 번들 파일명으로 참조, 기존 배포 GPTs/Gems 와 호환). 저장소 정본은 P5 분할(2026-07-29) 이후 `skills/<이름>/references/full.md` 이므로, 업로드 직전 `bash scripts/export-knowledge.sh` 로 업로드 계약 basename 번들을 생성해 그 파일들을 업로드합니다. <!-- knowledge-bundle-name -->
+> **업로드 번들이 왜 필요한가** — 웹 UI 지식 파일은 **파일명이 참조 계약**입니다(Instructions 가 `prompt-engineering-guide.md` 같은 번들 파일명으로 참조, 기존 배포 GPTs/Gems 와 호환). 저장소 원본은 P5 분할(2026-07-29) 이후 `skills/<이름>/references/full.md` 이므로, 업로드 직전 `bash scripts/export-knowledge.sh` 로 업로드 계약 basename 번들을 생성해 그 파일들을 업로드합니다. <!-- knowledge-bundle-name -->
 
 ## 사용 시나리오별 선택 가이드
 

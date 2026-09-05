@@ -23,26 +23,26 @@ GitHub의 GPTs/Gems 최신본을 Obsidian vault에 동기화합니다.
 3. **변경 사항 식별**: 버전, 섹션별 차이점 파악
 4. **업데이트 적용**: Edit 도구 (surgical edit) → CLI read-modify-overwrite → Write 도구 fallback
 
-### Obsidian 도구 우선순위 (3-Tier Fallback)
+### Obsidian 도구 우선순위 (2-Tier Fallback)
 
 ```bash
 OBSIDIAN_CLI="/mnt/c/Program Files/Obsidian/Obsidian.com"
 ```
 
-| 작업 | Tier 1: CLI | Tier 2: MCP | Tier 3: Raw |
-|------|------------|-------------|-------------|
-| 읽기 | `"$OBSIDIAN_CLI" read path="{path}"` | `mcp__obsidian__read_note` | `Read(file_path)` |
-| Surgical edit | read-modify-overwrite 로 우회 | 해당 MCP 도구는 현재 없음 | `Edit(file_path)` (아래 참조) |
-| 전체 교체 | `"$OBSIDIAN_CLI" create path="{path}" content="{new}"` | 해당 MCP 도구는 현재 없음 | `Write(file_path)` |
+| 작업 | Tier 1: CLI | Tier 2: 파일 도구 |
+|------|------------|-------------------|
+| 읽기 | `"$OBSIDIAN_CLI" read path="{path}"` | `Read(file_path)` |
+| Surgical edit | read-modify-overwrite 로 우회 | `Edit(file_path)` (아래 참조) |
+| 전체 교체 | `"$OBSIDIAN_CLI" create path="{path}" content="{new}"` | `Write(file_path)` |
 
-> **Note**: surgical text replacement(oldText→newText)용 MCP 도구는 현재 없음 — Obsidian CLI/파일 쓰기로 대체. 부분 수정은 `Edit` 도구가 1순위이고, CLI는 read-modify-overwrite 패턴으로 우회합니다.
+> **Note**: 이 플러그인은 surgical text replacement(oldText→newText)용 MCP 도구를 사용하지 않음 — Obsidian CLI/파일 쓰기로 대체. 부분 수정은 `Edit` 도구가 1순위이고, CLI는 read-modify-overwrite 패턴으로 우회합니다.
 
 ## 동기화 패턴 (CRITICAL)
 
 ### Surgical Edit: Edit 도구 방식 (1순위)
 
 노트 히스토리 보존을 위해 변경 사항만 적용합니다.
-해당 MCP 도구는 현재 없음 — Obsidian CLI/파일 쓰기로 대체.
+이 플러그인은 Obsidian MCP 도구를 사용하지 않음 — Obsidian CLI/파일 쓰기로 대체.
 
 ```
 1. Read("<vault>/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md")
@@ -95,7 +95,7 @@ Write(file_path="<vault>/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.m
 
 ### 적용 전 확인
 
-적용 전 확신이 안 서면 Read로 현재 내용을 먼저 확인(Edit 도구는 dryRun 미지원 — old_string 유일 매칭 여부를 직접 확인).
+적용 전 Read로 현재 내용을 확인한다(Edit 도구는 dryRun 미지원 — old_string 유일 매칭 여부를 직접 확인).
 
 ## 주의사항
 

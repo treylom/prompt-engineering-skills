@@ -1,6 +1,6 @@
 ---
 name: claude-fable-5-prompt-strategies
-description: Use when composing prompts targeting Claude Opus 5 (Claude 디폴트), Fable 5, Opus 4.8, or Sonnet 5 — 최신 Claude 프롬프트 전략 레퍼런스(/prompt Claude 타겟의 정본). thinking·effort·breaking change·미지원 기능 분기 포함.
+description: Use when composing prompts targeting Claude Opus 5 (Claude 디폴트), Fable 5, Opus 4.8, or Sonnet 5 — 최신 Claude 프롬프트 전략 레퍼런스(/prompt Claude 타겟의 기준 파일). thinking·effort·breaking change·미지원 기능 분기 포함.
 disable-model-invocation: true
 ---
 

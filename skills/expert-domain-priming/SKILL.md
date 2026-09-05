@@ -11,7 +11,7 @@ updated: 2026-07-29
 
 # expert-domain-priming — 라우팅 인덱스
 
-> **정본 본문 = [references/full.md](references/full.md)** (약 670줄). 내용 수정은 full.md 에만.
+> **전체 본문 = [references/full.md](references/full.md)** (약 670줄). 내용 수정은 full.md 에만.
 
 ## 섹션 맵 (grep 앵커 — 줄번호는 as-of 2026-07-29 참고값)
 

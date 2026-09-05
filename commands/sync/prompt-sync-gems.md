@@ -58,7 +58,7 @@ Gems-Prompt-Generator.md 파일 업데이트를 위한 서브 스킬입니다.
 
 ### 5. Obsidian 동기화
 
-해당 MCP 도구는 현재 없음 — Obsidian CLI/파일 쓰기로 대체.
+이 플러그인은 Obsidian MCP 도구를 사용하지 않음 — Obsidian CLI/파일 쓰기로 대체.
 
 ```
 1. Read("<vault>/Prompt-Engineering/Gems-Prompt-Generator-Instructions.md")
@@ -66,7 +66,7 @@ Gems-Prompt-Generator.md 파일 업데이트를 위한 서브 스킬입니다.
 3. Edit(file_path=위 경로, old_string="변경 전 섹션", new_string="변경 후 섹션")
 ```
 
-적용 전 확신이 안 서면 Read로 현재 내용을 먼저 확인(Edit 도구는 dryRun 미지원 — old_string 유일 매칭 여부를 직접 확인).
+적용 전 Read로 현재 내용을 확인한다(Edit 도구는 dryRun 미지원 — old_string 유일 매칭 여부를 직접 확인).
 
 ## Gems 전용 주의사항 (CRITICAL)
 
