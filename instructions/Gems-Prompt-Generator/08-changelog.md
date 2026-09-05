@@ -1,6 +1,7 @@
 ## Version History
 
-**Version**: 3.3.0 | **Updated**: 2026-07-29
+**Version**: 3.3.1 | **Updated**: 2026-09-05
+**Changes v3.3.1** (2026-09-05): **/searchflow 명칭 정합 + prompt-sync MCP 도구명 정정** — /deep-research→/searchflow 명칭 치환 3줄, prompt-sync(Gems·GPTs) 안내가 존재하지 않는 MCP 도구를 가리키던 문제 수정. 웹 UI 지침 내용 무변경(버전 동기화만).
 **Changes v3.3.0** (2026-07-29): **P5 대형 가이드 분할** — 참조 가이드 7건을 SKILL.md 라우팅 인덱스 + references/full.md 구조로 재배치(내용 무변경·경로만 이동). 웹 UI 지침 내용 무변경(버전 동기화만).
 **Changes v3.2.2** (2026-07-29): **Codex 표면 2건 수리(재경님 ChatGPT Works 실증 재현)** — ① `.codex-plugin/plugin.json` 2.12.0→현행(5회 bump 동안 방치돼 Works가 옛 판을 캐시하던 root cause, A5 검사 6표면 확장으로 재발 차단) ② `skills/prompt/SKILL.md`(Works 로드 표면) 이미지 선행 게이트에 **산출 후 5옵션 메뉴 verbatim 의무 절 + 자가검사 ④타겟 표기·⑤전문가 앵커** 신설 — 이미지 경로에서 references 보충이 스킵돼 메뉴·타겟이 누락되던 약문장 수리. 지침 내용 무변경(버전 동기화만).
 

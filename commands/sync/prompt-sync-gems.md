@@ -58,32 +58,15 @@ Gems-Prompt-Generator.md 파일 업데이트를 위한 서브 스킬입니다.
 
 ### 5. Obsidian 동기화
 
-`update_note` 방식으로 변경 사항만 업데이트합니다.
+해당 MCP 도구는 현재 없음 — Obsidian CLI/파일 쓰기로 대체.
 
-```javascript
-mcp__obsidian__update_note({
-  path: "Prompt-Engineering/Gems-Prompt-Generator-Instructions.md",
-  edits: [
-    {
-      oldText: "> **Version**: 이전버전",
-      newText: "> **Version**: 새버전"
-    },
-    {
-      oldText: "변경 전 섹션",
-      newText: "변경 후 섹션"
-    }
-  ]
-})
+```
+1. Read("<vault>/Prompt-Engineering/Gems-Prompt-Generator-Instructions.md")
+2. Edit(file_path=위 경로, old_string="> **Version**: 이전버전", new_string="> **Version**: 새버전")
+3. Edit(file_path=위 경로, old_string="변경 전 섹션", new_string="변경 후 섹션")
 ```
 
-**dryRun 테스트** (매칭 불확실 시):
-```javascript
-mcp__obsidian__update_note({
-  path: "...",
-  edits: [...],
-  dryRun: true
-})
-```
+적용 전 확신이 안 서면 Read로 현재 내용을 먼저 확인(Edit 도구는 dryRun 미지원 — old_string 유일 매칭 여부를 직접 확인).
 
 ## Gems 전용 주의사항 (CRITICAL)
 
