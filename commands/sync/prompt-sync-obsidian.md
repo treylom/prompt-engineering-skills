@@ -21,7 +21,7 @@ GitHub의 GPTs/Gems 최신본을 Obsidian vault에 동기화합니다.
 1. **GitHub 최신본 읽기**: Read 도구로 원본 파일 읽기
 2. **Obsidian 기존본 읽기**: Obsidian CLI read → MCP fallback → Read 도구 fallback
 3. **변경 사항 식별**: 버전, 섹션별 차이점 파악
-4. **업데이트 적용**: MCP update_note (surgical edit) → CLI read-modify-overwrite → Write 도구 fallback
+4. **업데이트 적용**: Edit 도구 (surgical edit) → CLI read-modify-overwrite → Write 도구 fallback
 
 ### Obsidian 도구 우선순위 (3-Tier Fallback)
 
@@ -32,36 +32,25 @@ OBSIDIAN_CLI="/mnt/c/Program Files/Obsidian/Obsidian.com"
 | 작업 | Tier 1: CLI | Tier 2: MCP | Tier 3: Raw |
 |------|------------|-------------|-------------|
 | 읽기 | `"$OBSIDIAN_CLI" read path="{path}"` | `mcp__obsidian__read_note` | `Read(file_path)` |
-| Surgical edit | MCP 우선 (아래 참조) | `mcp__obsidian__update_note` | `Edit(file_path)` |
-| 전체 교체 | `"$OBSIDIAN_CLI" create path="{path}" content="{new}"` | MCP update_note (전체 oldText→newText) | `Write(file_path)` |
+| Surgical edit | read-modify-overwrite 로 우회 | 해당 MCP 도구는 현재 없음 | `Edit(file_path)` (아래 참조) |
+| 전체 교체 | `"$OBSIDIAN_CLI" create path="{path}" content="{new}"` | 해당 MCP 도구는 현재 없음 | `Write(file_path)` |
 
-> **Note**: `update_note`의 surgical text replacement(oldText→newText)는 MCP가 1순위입니다. CLI는 read-modify-overwrite 패턴으로 우회해야 하므로 이 경우 MCP를 먼저 사용합니다.
+> **Note**: surgical text replacement(oldText→newText)용 MCP 도구는 현재 없음 — Obsidian CLI/파일 쓰기로 대체. 부분 수정은 `Edit` 도구가 1순위이고, CLI는 read-modify-overwrite 패턴으로 우회합니다.
 
 ## 동기화 패턴 (CRITICAL)
 
-### Surgical Edit: MCP update_note 방식 (1순위)
+### Surgical Edit: Edit 도구 방식 (1순위)
 
-노트 히스토리 보존을 위해 `update_note`로 변경 사항만 적용합니다.
-Surgical text replacement는 MCP가 가장 적합합니다.
+노트 히스토리 보존을 위해 변경 사항만 적용합니다.
+해당 MCP 도구는 현재 없음 — Obsidian CLI/파일 쓰기로 대체.
 
-```javascript
-// 부분 업데이트 (권장)
-mcp__obsidian__update_note({
-  path: "Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
-  edits: [
-    {
-      oldText: "> **Version**: 3.8.1",
-      newText: "> **Version**: 4.0.0"
-    },
-    {
-      oldText: "이전 섹션 내용",
-      newText: "새로운 섹션 내용"
-    }
-  ]
-})
+```
+1. Read("<vault>/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md")
+2. Edit(file_path=위 경로, old_string="> **Version**: 3.8.1", new_string="> **Version**: 4.0.0")
+3. Edit(file_path=위 경로, old_string="이전 섹션 내용", new_string="새로운 섹션 내용")
 ```
 
-### MCP 실패 시: CLI read-modify-overwrite 패턴 (2순위)
+### CLI read-modify-overwrite 패턴 (2순위)
 
 ```bash
 OBSIDIAN_CLI="/mnt/c/Program Files/Obsidian/Obsidian.com"
@@ -77,11 +66,11 @@ OBSIDIAN_CLI="/mnt/c/Program Files/Obsidian/Obsidian.com"
 
 ```
 # 부분 수정
-Edit(file_path="<wsl-home>/Documents/Obsidian/Second_Brain/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
+Edit(file_path="<vault>/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
      old_string="...", new_string="...")
 
 # 전체 교체
-Write(file_path="<wsl-home>/Documents/Obsidian/Second_Brain/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
+Write(file_path="<vault>/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
       content="[새로운 전체 내용]")
 ```
 
@@ -89,17 +78,10 @@ Write(file_path="<wsl-home>/Documents/Obsidian/Second_Brain/Prompt-Engineering/G
 
 구조가 크게 변경되어 부분 업데이트가 어려운 경우:
 
-**방법 1: MCP 전체 내용을 oldText/newText로 지정**
-```javascript
-mcp__obsidian__update_note({
-  path: "Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
-  edits: [
-    {
-      oldText: "[기존 전체 내용]",
-      newText: "[새로운 전체 내용]"
-    }
-  ]
-})
+**방법 1: Write 도구로 전체 덮어쓰기**
+```
+Write(file_path="<vault>/Prompt-Engineering/GPTs-Prompt-Generator-Instructions.md",
+      content="[새로운 전체 내용]")
 ```
 
 **방법 2: CLI create로 덮어쓰기**
@@ -111,16 +93,9 @@ mcp__obsidian__update_note({
 - 헤더 기준으로 섹션 분리
 - 각 섹션을 개별 edit으로 적용
 
-### dryRun으로 테스트 (MCP 사용 시)
+### 적용 전 확인
 
-매칭이 불확실할 때 먼저 테스트:
-```javascript
-mcp__obsidian__update_note({
-  path: "...",
-  edits: [...],
-  dryRun: true  // 실제 적용 없이 미리보기
-})
-```
+적용 전 확신이 안 서면 Read로 현재 내용을 먼저 확인(Edit 도구는 dryRun 미지원 — old_string 유일 매칭 여부를 직접 확인).
 
 ## 주의사항
 

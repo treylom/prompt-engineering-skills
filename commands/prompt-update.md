@@ -1,6 +1,6 @@
 ---
 description: 프롬프트 엔지니어링 통합 업데이트 (tofu-at 생성 — /prompt-update)
-allowedTools: Task, Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion, TeamCreate, TeamDelete, TaskCreate, TaskUpdate, TaskList, SendMessage, ToolSearch, Skill, WebFetch, WebSearch, Agent, mcp__obsidian__create_note, mcp__obsidian__update_note, mcp__obsidian__read_note, mcp__obsidian__search_vault, mcp__obsidian__list_notes
+allowedTools: Task, Read, Write, Edit, Bash, Glob, Grep, AskUserQuestion, TeamCreate, TeamDelete, TaskCreate, TaskUpdate, TaskList, SendMessage, ToolSearch, Skill, WebFetch, WebSearch, Agent, mcp__obsidian__create_note, mcp__obsidian__read_note, mcp__obsidian__search_vault, mcp__obsidian__list_notes
 ---
 
 # /prompt-update
