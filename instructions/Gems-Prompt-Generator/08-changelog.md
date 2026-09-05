@@ -1,18 +1,18 @@
 ## Version History
 
-**Version**: 3.3.1 | **Updated**: 2026-09-05
+**Version**: 3.3.2 | **Updated**: 2026-09-05
 **Changes v3.3.1** (2026-09-05): **/searchflow 명칭 정합 + prompt-sync MCP 도구명 정정** — /deep-research→/searchflow 명칭 치환 3줄, prompt-sync(Gems·GPTs) 안내가 존재하지 않는 MCP 도구를 가리키던 문제 수정. 웹 UI 지침 내용 무변경(버전 동기화만).
 **Changes v3.3.0** (2026-07-29): **P5 대형 가이드 분할** — 참조 가이드 7건을 SKILL.md 라우팅 인덱스 + references/full.md 구조로 재배치(내용 무변경·경로만 이동). 웹 UI 지침 내용 무변경(버전 동기화만).
-**Changes v3.2.2** (2026-07-29): **Codex 표면 2건 수리(재경님 ChatGPT Works 실증 재현)** — ① `.codex-plugin/plugin.json` 2.12.0→현행(5회 bump 동안 방치돼 Works가 옛 판을 캐시하던 root cause, A5 검사 6표면 확장으로 재발 차단) ② `skills/prompt/SKILL.md`(Works 로드 표면) 이미지 선행 게이트에 **산출 후 5옵션 메뉴 verbatim 의무 절 + 자가검사 ④타겟 표기·⑤전문가 앵커** 신설 — 이미지 경로에서 references 보충이 스킵돼 메뉴·타겟이 누락되던 약문장 수리. 지침 내용 무변경(버전 동기화만).
+**Changes v3.2.2** (2026-07-29): **Codex 표면 2건 수리(ChatGPT Works 실증 재현)** — ① `.codex-plugin/plugin.json` 2.12.0→현행(5회 bump 동안 방치돼 Works가 옛 판을 캐시하던 root cause, A5 검사 6표면 확장으로 재발 차단) ② `skills/prompt/SKILL.md`(Works 로드 표면) 이미지 선행 게이트에 **산출 후 5옵션 메뉴 verbatim 의무 절 + 자가검사 ④타겟 표기·⑤전문가 앵커** 신설 — 이미지 경로에서 references 보충이 스킵돼 메뉴·타겟이 누락되던 약문장 수리. 지침 내용 무변경(버전 동기화만).
 
 **Version**: 3.2.1 | **Updated**: 2026-07-29
 **Changes v3.2.1** (2026-07-29): **게이트 A4 오탐 수리** — 실전 1호 판정(GD 실출력, 인간 판정 3축 전건 PASS)이 A4 FAIL로 갈린 오탐의 원인 2개 수리: ①검사 범위 = 문서 tail → `extractPromptBlock()`(```text 우선 → 마지막 펜스 → 문서 tail fallback) ②`AR_TAIL_RE` 줄시작 앵커 제거(킷 포맷 B 콤마형은 문단 끝에 이어 붙음 — 절반 수리가 여전히 FAIL임을 회귀 3단으로 실측). A4 출력에 검사 범위 표기 추가. fixture에 GD 실출력을 `pass/interactive-image.md`로 승격(관측된 양성도 fixture 밖에 있으면 통과가 정보를 안 줌) — 셀프테스트 8/8, 기존 음성 검출력 보존. 지침 내용 무변경(버전 표기 동기화만).
 
 **Version**: 3.2.0 | **Updated**: 2026-07-29
-**Changes v3.2.0** (2026-07-29): **산출 코드 게이트 신설** — `scripts/prompt-output-gate.mjs`(리포 정본 측 도구·의존성 0). /prompt 산출 텍스트를 기계 판정: A1 5옵션 전부(라벨 기준) · A2 전문가 앵커(text=`<role>` 정규 패턴 / image=Director signature·Lens character 또는 Camera·Lighting·Color grading 슬롯 — 구조만 판정, 실존 인물 여부 등 의미 축은 UNMEASURED 고지) · A3 `타겟:` 모델 표기 · A4 image+gpt-image 시 끝 `AR` · A5 `--check-versions` 버전 표기 5표면 정합. exit 0=PASS/1=FAIL/2=UNMEASURED(통과 취급 금지). fixture 7종(축 격리) 셀프테스트 = `--test`. 첫 실행에서 Gems 단일판 헤더 버전 잔존(2.6.0)을 실적발·수리. Gems 지침 내용 변경 없음(버전 표기 동기화만).
+**Changes v3.2.0** (2026-07-29): **산출 코드 게이트 신설** — `scripts/prompt-output-gate.mjs`(리포 측 도구·의존성 0). /prompt 산출 텍스트를 기계 판정: A1 5옵션 전부(라벨 기준) · A2 전문가 앵커(text=`<role>` 정규 패턴 / image=Director signature·Lens character 또는 Camera·Lighting·Color grading 슬롯 — 구조만 판정, 실존 인물 여부 등 의미 축은 UNMEASURED 고지) · A3 `타겟:` 모델 표기 · A4 image+gpt-image 시 끝 `AR` · A5 `--check-versions` 버전 표기 5표면 정합. exit 0=PASS/1=FAIL/2=UNMEASURED(통과 취급 금지). fixture 7종(축 격리) 셀프테스트 = `--test`. 첫 실행에서 Gems 단일판 헤더 버전 잔존(2.6.0)을 실적발·수리. Gems 지침 내용 변경 없음(버전 표기 동기화만).
 
 **Version**: 3.1.0 | **Updated**: 2026-07-29
-**Changes v3.1.0** (2026-07-29): **정본(`commands/prompt.md` v3.1.0) 미전파 수리 — 이 디렉터리판이 v2.2.0(2026-03-08) 시점에 멈춰 있던 sibling 갭 해소.** 단일 파일판(`instructions/Gems-Prompt-Generator.md`)과 동일 내용을 분할 배치했습니다.
+**Changes v3.1.0** (2026-07-29): **기준 파일(`commands/prompt.md` v3.1.0) 미전파 수리 — 이 디렉터리판이 v2.2.0(2026-03-08) 시점에 멈춰 있던 sibling 갭 해소.** 단일 파일판(`instructions/Gems-Prompt-Generator.md`)과 동일 내용을 분할 배치했습니다.
 - **[CRITICAL] 🏛️ 대원칙 불변 조항 신설** → `01-mindset-constraints.md` Constraints 최상단 직하. 전문가 프롬프팅 + 모델별 라우팅·자동 탐지를 전 목적·전 모델 상위 조항으로 명문화
 - **[MAJOR] 이미지 절 = 타겟 경로 분기** → `06-gemini-guide-json-structures.md`. 기본 타겟 = Gemini Image(JSON) ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`. **킷 규격을 Gemini Image·Seedream에 강제 금지** 명시
 - **[MAJOR] JSON 필드 신설** → 이미지 `target_model`·`expert_anchor` / 동영상 `cinematographer`(실존 1인 지명)

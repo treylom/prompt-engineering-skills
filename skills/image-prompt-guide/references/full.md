@@ -1075,7 +1075,7 @@ Style Rules: Do [가이드라인] / Don't [안티패턴]
 - **[MAJOR] 원본 계약 교체 — 공냥 프롬프트 킷 v4 이식**: gpt-image-2/`$imagegen` 산출 = 킷 텍스트 프롬프트(포맷 A 라벨 6섹션 / 포맷 B 화보 콤마형 + 끝 `AR`), 배치 = jsonl 레코드. 구 JSON 골격(6키 purpose/hero/… 및 subject/style JSON)은 웹 UI 간이 경로 legacy로 강등(§0·§K 배너)
 - **[MAJOR] §K 신설**: 킷 핵심 충실 전사 — 워크플로우·철칙 9(티어드 네거티브: 기본 전면 긍정형+Tier-1 화이트리스트 7종+Tier-2 페어)·포맷 A/B·사이즈 락 6종·텍스트 렌더 요점·라우팅 표(C1~C12/P1~P12/TP1~TP17/L1~L9/M·R·X·T축)·jsonl 스키마·검증기(check_prompt.mjs)·완성 예시
 - **[MAJOR] 킷 원문 vendor**: `skills/image-prompt-kit/`(KIT-SKILL.md·references 전체·검증기+fixtures·examples txt/jsonl·LICENSE, rev fb5f75f, MIT) — 외부 스킬 우회 금지 원칙 유지하며 내부 동봉으로 해소
-- 계기: 이미지 생성 막힘 — 구 JSON 계약·네거티브 스택이 킷 규칙(전면 긍정형·SD어휘 금지)과 상충 (재경님 2026-07-28 지시 "킷을 최대한 가져오기")
+- 계기: 이미지 생성 막힘 — 구 JSON 계약·네거티브 스택이 킷 규칙(전면 긍정형·SD어휘 금지)과 상충 (2026-07-28 사용자 지시 "킷을 최대한 가져오기")
 **Changes v1.10.0** (2026-05-02):
 - **[NEW] 비영어 대사 자연스럽게 만들기 섹션 추가** (15.6): 언어 표시 + 영어 감정/말투 메타 지시 패턴. Seedance·Veo·Sora·Kling 공통 적용
 - **5개 시나리오 예시 추가**: 한/일/스페인/중국어 + 감정 키워드 사전(8 감정)

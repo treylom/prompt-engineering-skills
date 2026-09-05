@@ -1,6 +1,6 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 3.3.1 | **Updated**: 2026-09-05 — 🆕 v3.3.1: /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정. 지난 판 변경 이력 = 아래 `## Metadata`.
+> **Version**: 3.3.2 | **Updated**: 2026-09-05 — 🆕 **v3.3.2: 사용자 대면 문안 4건 치환**(Gem 분할 모듈 changelog 3·업로드 번들 image-prompt-guide 1 — 도달면 기준 재분류, 검사원 F1·글재경 41). 이전: v3.3.1: /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정. 지난 판 변경 이력 = 아래 `## Metadata`.
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스 (원본 킷)**: **공냥 프롬프트 킷 v4** — [gongnyang/gongnyang-prompt-kit](https://github.com/gongnyang/gongnyang-prompt-kit) (MIT, 원문 vendor `skills/image-prompt-kit/` · 계약 전사 `skills/image-prompt-guide/references/full.md` §0·§K). 보조: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 — 충돌 시 킷 우선)
 > **Opus 5 공식 소스 (현행 디폴트)**: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) + [What's new in Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) — thinking 기본 ON · `disabled`+effort `xhigh|max`=400 · **web fetch·Priority Tier 미지원**(그 경우 4.8 명시)
@@ -1866,7 +1866,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 3.3.1
+- **Version**: 3.3.2
 - **Updated**: 2026-09-05
 - **Changes v3.3.1** (2026-09-05): /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정
 - **Changes v3.3.0** (2026-07-29): P5 대형 가이드 분할(500줄 초과 참조 가이드 7건[prompt-engineering-guide·image-prompt-guide·gemini-3.1·claude-4.7·gpt-5.6·expert-domain-priming·research-prompt-guide]을 flat md → 디렉터리형[SKILL.md 얇은 라우팅 인덱스 + references/full.md 본문, git rename 내용 diff 0]으로 재배치. 2026-03 stale 분할본 제거 = 이중 표현 해소. 참조 치환 = 레포 11+vault 13+codex 1파일, p5-ref-verify.sh 4축 PASS[옛 경로 잔존 0·신규 실재·참조 계수 보존·레포 밖 0]. 소비 계약 불변 — 게이트는 경로만 갱신).
