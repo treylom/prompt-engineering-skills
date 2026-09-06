@@ -6,9 +6,9 @@ disable-model-invocation: true
 
 # GPT-5.6 Sol 프롬프트 향상 스킬 (Lean Outcome-First + Legacy)
 
-> **Version**: 1.2.0 | **Updated**: 2026-07-11
-> **Source**: [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)
-> **Scope**: GPT 5.x 통합 — **GPT-5.6 Sol = 기본(default) 모델** (2026-07 기준). lean outcome-first(5.6/5.5) + 하단 legacy(5.5 outcome-first / 5.4·5.2 XML stack) 보존. GPTs/Gems 첨부 10개 한도 대응으로 단일 파일 통합.
+> **Version**: 1.3.0 | **Updated**: 2026-09-06 (GPT-6 Astra 절 신설 — `none` 미지원·`configuration_update`·행동 성향 5가지 교정 프롬프트. 공식 가이드 대조.) | 이전: 1.2.0 · 2026-07-11
+> **Source**: [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) · [Using GPT-6 Astra](https://developers.openai.com/api/docs/guides/latest-model)
+> **Scope**: GPT 5.x~6 통합 — **GPT-6 Astra = 최신 세대**, GPT-5.6 Sol = 직전 기본(default) 모델 (2026-07 기준). GPT-6 Astra 절 + lean outcome-first(5.6/5.5) + 하단 legacy(5.5 outcome-first / 5.4·5.2 XML stack) 보존. GPTs/Gems 첨부 10개 한도 대응으로 단일 파일 통합.
 
 ---
 
@@ -271,6 +271,60 @@ Plain Markdown. Show edited files, then the validation outcome.
 # Stop Rules
 Run the most relevant validation (test/type/lint/build/smoke). Stop when success criteria are met; ask only for the smallest missing input if blocked.
 ```
+
+---
+
+## GPT-6 Astra (2026-09-01~, GPT-5.6 Sol 다음 세대)
+
+> **공식 출처**: [Using GPT-6 Astra](https://developers.openai.com/api/docs/guides/latest-model) — 접근일 2026-09-05
+> 모델 ID = `gpt-6-astra`(스냅샷·별칭 1개) · context 1,050,000(최대 입력 922,000) · 최대 출력 128,000 · reasoning.effort "`low` · `medium` · `high` · `xhigh` · `max` — 🔴 **`none` 미지원**" · 장문 할증: "**272K 입력 초과 요청은 전체 요청에 입력·캐시 2배, 출력 1.5배**" · 추론 모델은 Responses API 사용 권장
+
+### 트리거 조건
+
+- 사용자가 "GPT-6", "Astra", "gpt-6-astra" 명시
+- 모델 미지정이어도 GPT 기본 모델이 Astra 로 전환된 이후 시점이면 이 절 우선(전환 시점은 재경님 확인 필요 `[미검증]` — 그 전까지는 위 GPT-5.6 Sol 절이 기본)
+
+### 마이그레이션 필수 3건 (5.6 → Astra)
+
+- effort `none`/`minimal` → **`low`** 로 교체 — "effort `none`/`minimal` → **`low`** 로 교체 (`none` 미지원)"
+- 대화 중 추론 강도 변경은 요청 재전송 대신 `configuration_update` 항목으로 — "요청 수준 effort 변경 대신 **`configuration_update` 항목** 적용" (요청 수준 `reasoning.effort` 는 그대로 두어 "요청 수준 `reasoning.effort` 는 그대로 두므로 **프롬프트 접두부 캐시가 유지**된다.")
+- Chat Completions 은 `temperature`·`top_p`·`top_logprobs`(+`logprobs`) 제거, 도구 호출은 **Responses API** 사용 권장
+
+### 행동 성향 5가지 — 공식 교정 프롬프트
+
+Astra 는 GPT-5.6 Sol 과 **반대 방향** 튜닝이 필요하다. Sol 은 「간결하게」 광범위 지시를 눌러 앉혀야 했다면(위 Anti-Patterns 표), Astra 는 **과잉 승인 요청·과잉 포맷팅·과잉 테스트**를 눌러 앉혀야 한다.
+
+| 성향 | 공식 서술 | 교정 프롬프트 요지 |
+|---|---|---|
+| 주도성·완수 | 입력이 결과를 실질적으로 바꿀 수 있으면 **질문한다** → 사용자가 「알아서 가정하고 계속하길」 기대할 때 멈춘다 | 되돌릴 수 있는 작업은 승인 없이 진행 — "unless they are clearly destructive or irreversible." 만 예외 |
+| 승인 순서 | 🔴 승인은 **마지막 단계**로 | "The user should be approving a concrete, reviewable result." — 배포·PR 머지·게시 전 필요한 작업을 다 끝내 놓고 승인만 남긴다 |
+| 지시 따르기 | skills·`AGENTS.md` 등 파일 안 지시에 더 민감 | "auditing skills and other files accessible to your model for instructions that could influence its behavior." (strongly recommend) |
+| 지시 따르기(투명성) | 스킬이 확인·중단을 유발하면 출처 명시 | "name and link to the exact SKILL.md file you read, quote the relevant instruction, and briefly explain how it applies." |
+| 성격·문체 | 상세·포맷팅된 응답으로 기운다 — **산문 쪽으로 눌러야** | "Use lists only when the information is genuinely parallel, sequential, or easier to compare" |
+| 상투어(slop) 차단 | 금지 어휘가 구체적 | "Avoid using slop words or phrases like "Bottom Line:" in conclusions, "delve," "foster," "leverage,"" 등 |
+
+```text
+You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
+```
+
+```text
+Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result.
+```
+
+⚠️ **계보 간 충돌** — 위 성격·문체 교정(산문 쪽으로 누르기)은 Sol 절의 Anti-Patterns("간결하게/짧게" 광범위 지시 역효과)와 방향이 같다. 단 Claude 계열 Fable 5.1(`claude-fable-5-prompt-strategies.md` Part 2.6.3)은 **정반대**(안티-포맷팅 규칙 제거)를 요구한다 — 모델 계열이 다르면 같은 규칙을 이식하지 말 것.
+
+### 서브에이전트 위임 · 테스트·검증
+
+- 위임: "If at any point you can parallelize work by delegating tasks to another agent (no matter if you are the root or subagent), you should do so using collaboration tools if it could save time or improve quality."
+- 에이전트 간 메시지: "Messages that you send to other agents and your final answer may be read by a human, so ensure they are legible."
+- 테스트: "Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation."
+
+### 새 기능 3+1 (프롬프트 설계에 영향)
+
+- **비동기 도구 호출**(`async: true`) — 호출 대기 없이 다른 도구·추론 계속, 결과는 같은 `call_id` 로 나중 반환
+- **턴 중간 조종(mid-turn steering)** — WebSocket 으로 작업 중 추가 지시, 완료된 작업은 보존
+- **대화 중 추론 강도 변경** — `configuration_update`, `gpt-6-astra` 표준 단일 에이전트 모드에서만 지원
+- 비동기 오정렬 모니터링
 
 ---
 
@@ -729,11 +783,14 @@ Ask only for the smallest missing input if blocked.
 
 ## Metadata
 
-- **Version**: 1.2.0
+- **Version**: 1.3.0
 - **Created**: 2026-07-11
-- **Updated**: 2026-07-11
-- **Source**: OpenAI GPT-5.6 Sol Prompt Guidance (2026-07) + preserved GPT-5.5/5.4/5.2 legacy patterns
+- **Updated**: 2026-09-06
+- **Source**: OpenAI GPT-5.6 Sol Prompt Guidance (2026-07) + OpenAI Using GPT-6 Astra (2026-09) + preserved GPT-5.5/5.4/5.2 legacy patterns
 - **Author**: konan(research/draft) + karpathy(co-lead 결정/검토), knowledge-manager pipeline
+- **Changes v1.3.0** (2026-09-06):
+  - [NEW] GPT-6 Astra 절 신설 — 모델 스펙(`none` 미지원·272K 장문 할증)·마이그레이션 3건·행동 성향 5가지 공식 교정 프롬프트·새 기능 3+1(비동기 도구·mid-turn steering·configuration_update).
+  - [NOTE] Fable 5.1(Claude 계열)과 포맷팅 축 정반대 — 교차 이식 금지 표기.
 - **Changes v1.2.0** (2026-07-11):
   - [MAJOR] GPT-5.6 Sol을 기본(default) 모델로 승격. lean 우선 철학 + 7블록 구조 도입.
   - [NEW] `tools_and_ptc`(프로그래매틱 도구 호출 경계) + `authorization_boundaries`(자율성 승인 3단) 블록.

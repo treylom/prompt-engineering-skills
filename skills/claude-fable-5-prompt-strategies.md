@@ -1,12 +1,12 @@
 ---
 name: claude-fable-5-prompt-strategies
-description: Use when composing prompts targeting Claude Opus 5 (Claude 디폴트), Fable 5, Opus 4.8, or Sonnet 5 — 최신 Claude 프롬프트 전략 레퍼런스(/prompt Claude 타겟의 기준 파일). thinking·effort·breaking change·미지원 기능 분기 포함.
+description: Use when composing prompts targeting Claude Opus 5 (Claude 디폴트), Fable 5, Fable 5.1, Opus 4.8, or Sonnet 5 — 최신 Claude 프롬프트 전략 레퍼런스(/prompt Claude 타겟의 기준 파일). thinking·effort·breaking change·미지원 기능 분기 포함.
 disable-model-invocation: true
 ---
 
 # Claude Opus 5 · Fable 5 · Opus 4.8 · Sonnet 5 프롬프트 전략
 
-> **Version**: 1.3.0 | **Updated**: 2026-07-28 (Part 2.5 Opus 5 신설 — **Claude 디폴트 = Opus 5**. breaking 2건·검증지시 제거·서브에이전트 억제·미지원 회귀 2건. 공식 3문서 대조.) | 이전: 1.2.1 · 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)
+> **Version**: 1.4.0 | **Updated**: 2026-09-06 (Part 2.6 Fable 5.1 신설 — breaking 3건·진행 보고 요청 필요·채팅 포맷팅 재역전·작업 완주 프롬프트. vault 공식 가이드 대조.) | 이전: 1.3.0 · 2026-07-28 (Part 2.5 Opus 5 신설 — **Claude 디폴트 = Opus 5**. breaking 2건·검증지시 제거·서브에이전트 억제·미지원 회귀 2건. 공식 3문서 대조.) | 이전: 1.2.1 · 2026-07-17 (§5.2 정정: Sonnet 5는 `budget_tokens` 제거됨 — 400 경고 추가, 구 해결책을 [Sonnet 4.5/Haiku 4.5 이하 전용]으로 재분류, Sonnet 5+ 정답 규칙(adaptive+effort) 신설, `effort`/`thinking` 축 혼동 정정. 이전: 1.2.0 · 2026-07-05.)
 > **Source**: Anthropic 공식 문서 및 실전 벤치마크
 > **Covers**: **Claude Opus 5** (**현행 디폴트**, 2026-07-28~), **Fable 5 / Mythos 5**, **Opus 4.8**, **Sonnet 5**. 4.7 이하 모델군은 `claude-4.7-prompt-strategies/references/full.md` 참조 (first-class 유지 — 마이그레이션 강요 금지).
 
@@ -166,6 +166,64 @@ asked for, say so instead of guessing. Do not include internal or system XML tag
 | **Priority Tier** | 지원 | **미지원** | Priority Tier 커밋 조직은 용량 계획 별도 |
 
 그 외: 프롬프트 캐시 최소 길이가 **1,024 → 512 토큰**으로 완화(코드 변경 불요) · Fast mode 는 Claude API 한정.
+
+## Part 2.6: Fable 5.1 핵심 패턴 (2026-09-01~)
+
+> **공식 출처**: [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) · [What's new in Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1) — 접근일 2026-09-05
+> 모델 ID = `claude-fable-5-1`(Mythos = `claude-mythos-5-1`, Project Glasswing 한정) · 1M context(기본=최대) · 128k max output · 캐시 읽기 $0.25(타 Claude 모델의 1/4) · thinking = "**adaptive 상시 on** — `enabled`+`budget_tokens` 도 `disabled` 도 400" · 공식 권고: 대부분 작업엔 여전히 **Opus 5 를 먼저** 쓰고, Fable 5.1 은 까다로운 추론·장기 agentic 작업 또는 Opus 5 를 높은 effort 로도 부족할 때의 선택지
+
+이번 세대 튜닝 포인트는 "**덜 말하고·덜 꾸미고·덜 나눠 부르는 쪽**으로 기울었다" — 마이그레이션의 본체는 추가가 아니라 이전 모델을 억제하려고 넣어둔 지시의 **제거**.
+
+### 2.6.1 🔴 Breaking change 3건
+
+| # | 변경 | 조치 |
+|---|------|------|
+| 1 | **강제 도구 사용 미지원** — `tool_choice: {"type":"any"}` · `{"type":"tool", "name":"…"}` → **400 `invalid_request_error`**(`auto`·`none` 은 유지) | 스키마 강제는 `strict: true` 또는 structured outputs 로 옮기고, 도구 호출은 프롬프트로 조건을 명시(*"Use the `get_weather` tool to answer"*) |
+| 2 | **thinking 블록 보존은 한 방향** — "보존은 **한 방향**이다. Fable 5.1 은 이전 모델의 thinking 을 읽지만, 그 반대는 안 된다." | 라우터·폴백으로 모델을 갈아타면 API 가 블록을 조용히 버림 — `thinking-binding-controls-2026-08-01` 베타 헤더로만 보고됨 |
+| 3 | **이전 턴 편집 시 thinking 무효화** — `system`·`tools`·앞선 메시지를 바꾸면 다음 요청이 400(2026-08-31 이후 계정 강제) | "대응은 하나다. **대화를 append-only 로 다룬다.**" — 클라이언트측 compaction 은 전체를 요약 1개 + 새 사용자 턴으로 갈아치우고 아무것도 replay 하지 않는다 |
+
+### 2.6.2 검증·진행 보고 — 2.5.2 「출력 형식 계약」 판별법과 정합
+
+Part 2.5.2 의 3축 판별법(ⓐ 대상=자기 답 ⓑ 시점=완성 뒤 ⓒ 극성=재검증 요구 → 제거·출력 형식 계약으로 전환, 아니면 과업 절차로 유지)은 5.1 에도 그대로 적용된다. 5.1 고유의 추가 사항은 **사용자 대상 진행 보고 자체가 기본값에서 더 준다**(effort 가 높을수록 심해짐)는 것 — 처리 순서:
+
+1. 클라이언트가 thinking 블록(진행 보고가 실리는 자리)을 실제로 받고 있는지 확인 — 기본값 `"omitted"` 에서는 빈 블록
+2. 억제 지시 감사 — *"hold all findings for the final response"* 류가 남아 있으면 제거(이 축이 곧 2.5.2 의 「자기검증 지시 제거」와 같은 구조 — 답을 만들기 «전»에 진행을 알리라는 것이지 답 완성 뒤 재검증이 아니다)
+3. 그 다음에만 추가:
+
+```text
+Before you start, say in a line what you're about to do; brief updates while you work help the user follow along. Close with a short recap that stands on its own — what you found, what you did, and what's next — so a reader who only sees the last message has the full picture.
+```
+
+### 2.6.3 🔴 채팅 포맷팅 — 방향이 또 뒤집혔다
+
+5.1 은 볼드·헤더·목록에 **더 손을 덜 댄다**. 안티-포맷팅 규칙이 오히려 필요한 구조까지 누른다:
+
+> If your prompt contains anti-formatting language, "remove it or replace it with a rule that says when specific formatting is appropriate."
+
+```text
+Use lists and bullet points when asked to, or when the content is multifaceted enough that they help with clarity. If the person explicitly requests minimal formatting, always format your responses without bullet points, headers, lists, or bold emphasis, as requested. In conversational, personal, or emotional exchanges, keep to plain prose.
+```
+
+⚠️ Part 1 결정표나 하네스 레벨의 산문화 규칙(모델 축 구분 없이 하나로 적용되는 것)을 5.1 대상 프롬프트에 그대로 얹으면 이 항목과 충돌 소지 — 판정은 이 스킬 범위 밖, 대조만 표기.
+
+### 2.6.4 작업을 끝까지 끝내게 하라 (자율성)
+
+```text
+You are operating autonomously. The user is not watching in real time and cannot answer questions mid-task, so asking 'Want me to…?' or 'Shall I…?' will block the work. For reversible actions that follow from the original request, proceed without asking. Stop only for destructive actions or genuine scope changes the user must decide.
+```
+
+`# Delivering work` 핵심 문장 — *"A step you have decided on is something to run, not to announce"* · 범위 축소는 사용자 판단이지 모델 판단이 아니다: *"This is about extras only: implement every behavior the task asks for, completely."* ⚠️ 문서 스스로 트레이드오프를 명시한다 — 이 블록은 모호한 요청에도 덜 묻게 만들 수 있다.
+
+### 2.6.5 effort·병렬·긴 출력
+
+- **effort 전 레벨 재스윕 필수** — Fable 5 에서 이미 쓸어봤어도 다시: *"effort level names don't correspond to the same amount of thinking across models."*
+- **독립 도구 호출 묶기** — 요청이 명시하면 병렬, 코딩·computer-use 루프의 암시적 다음 호출은 턴 한정 시스템 메시지로 매 턴 재부착(지우거나 고치면 2.6.1 ③의 「이전 턴 편집」에 해당해 thinking 이 무효화된다)
+- **`xhigh`·`max` 에서 긴 산출물은 자리 남기기** — "긴 산출물 요청은 **`high` 로 돌리고**, 품질 향상을 측정한 경우에만 올린다."
+- **리드 에이전트를 서브에이전트 대기로 묶지 않기** — 서브에이전트 시작 도구는 즉시 반환, 결과는 나중에 `user` 메시지로 전달, 기다리고 싶을 때 부를 별도 도구를 준다
+
+### 2.6.6 Fable 5 대비 「저절로 달라지는」 7가지 (코드 변경 없이 관측)
+
+병렬 도구 호출 들쭉날쭉 · 진행 보고 감소 · `low` 에서 기억으로 답하기 · 산문 밀도 상승 · 채팅 포맷팅 감소 · 요약 시 인용 미표시 · 작은 변경에 전체 재작성.
 
 ## Part 3: Fable 5 핵심 패턴
 
