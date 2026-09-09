@@ -282,7 +282,7 @@ Run the most relevant validation (test/type/lint/build/smoke). Stop when success
 ### 트리거 조건
 
 - 사용자가 "GPT-6", "Astra", "gpt-6-astra" 명시
-- 모델 미지정이어도 GPT 기본 모델이 Astra 로 전환된 이후 시점이면 이 절 우선(전환 시점은 재경님 확인 필요 `[미검증]` — 그 전까지는 위 GPT-5.6 Sol 절이 기본)
+- 모델 미지정이어도 GPT 기본 모델이 Astra 로 전환된 이후 시점이면 이 절 우선(전환 시점은 운영자 확인 필요 `[미검증]` — 그 전까지는 위 GPT-5.6 Sol 절이 기본)
 
 ### 마이그레이션 필수 3건 (5.6 → Astra)
 
