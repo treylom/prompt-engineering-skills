@@ -29,8 +29,8 @@ codex plugin add prompt-engineering-skills@tofukyung-plugins
 
 | 영역 | 통합본 위치 | 분할본 파일 |
 |------|------------|-----------|
-| GPT 5.x (**5.6 Sol = 기본**) | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement/references/full.md` (5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
-| **Claude Opus 5 (디폴트) / Fable 5 / Opus 4.8** | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
+| GPT 5.x~6 (**GPT-6 Sol = 기본**, 2026-09-22~ · Astra·Luna 포함) | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/gpt-5.6-prompt-enhancement/references/full.md` (GPT-6 절 + GPT-5.6 본문, 5.5/5.4 legacy 포함, 구 `gpt-5.5-…`는 stub) |
+| **Claude Opus 5.5 (디폴트, 2026-09-22~) / Fable 5.1 / Opus 5 / Fable 5 / Opus 4.8** | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/claude-fable-5-prompt-strategies.md` |
 | Claude 4.x (구세대) | `skills/prompt-engineering-guide/references/full.md` 모델별 섹션 | `skills/claude-4.7-prompt-strategies/references/full.md` |
 | Gemini / Veo | `skills/prompt-engineering-guide/references/full.md` 통합 부록 | `skills/gemini-3.1-prompt-strategies/references/full.md` |
 | 이미지 프롬프트 | `skills/prompt-engineering-guide/references/full.md` 이미지 부록 | `skills/image-prompt-guide/references/full.md` |
@@ -53,13 +53,13 @@ prompt-engineering-skills/
 |   |   `-- references/full.md                #   full.md = 본문 기준 파일 (Claude Code 기본 설치 대상)
 |   |
 |   |-- claude-4.7-prompt-strategies/         # 구세대 Claude first-class      } 대형 가이드 공통 구조:
-|   |-- gpt-5.6-prompt-enhancement/           # GPT 5.x 통합 (5.6 Sol 디폴트)  } SKILL.md 인덱스
+|   |-- gpt-5.6-prompt-enhancement/           # GPT 5.x~6 통합 (GPT-6 Sol 디폴트)  } SKILL.md 인덱스
 |   |-- gemini-3.1-prompt-strategies/         # Gemini 3/3.1·Veo·NB2           } + references/full.md
 |   |-- image-prompt-guide/                   # 이미지 원본 = 공냥 킷 v4 계약   }
 |   |-- expert-domain-priming/                # 전문가 DB 12도메인              }
 |   |-- research-prompt-guide/                # IFCN 팩트체크·리서치            }
 |   |
-|   |-- claude-fable-5-prompt-strategies.md   # Opus 5·Fable 5·Opus 4.8 전략 (flat, 2026-07-28)
+|   |-- claude-fable-5-prompt-strategies.md   # Opus 5.5·Fable 5.1·Opus 5·Fable 5·Opus 4.8 전략 (flat, 2026-09-27)
 |   |-- gpt-5.5-prompt-enhancement.md         # → stub (5.6로 이관)
 |   |-- slide-prompt-guide.md
 |   |-- context-engineering-collection.md

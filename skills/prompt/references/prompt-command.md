@@ -1,12 +1,15 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 3.3.2 | **Updated**: 2026-09-05 — 🆕 **v3.3.2: 사용자 대면 문안 4건 치환**(Gem 분할 모듈 changelog 3·업로드 번들 image-prompt-guide 1 — 도달면 기준 재분류, 검사원 F1·글재경 41). 이전: v3.3.1: /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정. 지난 판 변경 이력 = 아래 `## Metadata`.
+> **Version**: 3.4.0 | **Updated**: 2026-09-27 — 🆕 **v3.4.0: Claude 디폴트 = Opus 5.5 · GPT 디폴트 = GPT-6 Sol**(2026-09-22 출시 · 공식 문서 대조, 접근 2026-09-27 — 머리 소스 줄·Claude/GPT 라우팅 표·batch 1번째 토큰·모델별 필수 블록·AskUserQuestion 모델 옵션 갱신). 이전: v3.3.2: 사용자 대면 문안 4건 치환(Gem 분할 모듈 changelog 3·업로드 번들 image-prompt-guide 1 — 사용자에게 보이는 면 기준 재분류). v3.3.1: /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정. 지난 판 변경 이력 = 아래 `## Metadata`.
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스 (원본 킷)**: **공냥 프롬프트 킷 v4** — [gongnyang/gongnyang-prompt-kit](https://github.com/gongnyang/gongnyang-prompt-kit) (MIT, 원문 vendor `skills/image-prompt-kit/` · 계약 전사 `skills/image-prompt-guide/references/full.md` §0·§K). 보조: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 — 충돌 시 킷 우선)
-> **Opus 5 공식 소스 (현행 디폴트)**: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) + [What's new in Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) — thinking 기본 ON · `disabled`+effort `xhigh|max`=400 · **web fetch·Priority Tier 미지원**(그 경우 4.8 명시)
-> **Opus 4.8 / Fable 5 공식 소스 (구세대 first-class)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 5** (2026-07-28). 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.5
+> **Opus 5.5 공식 소스 (현행 디폴트, 2026-09-22 출시 · `claude-opus-5-5`)**: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5) + [What's new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5) + [Migrating to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) (접근 2026-09-27) — effort 기본 `medium`(Opus 5 = `high`) → 명시·재측정 · Fable 5.1 과 같이 thinking 항상 켜짐(끄기 불가)·강제 `tool_choice` 불가 · 1M context. 선택 기준 원문: *"If you're unsure which model to use, start with Claude Opus 5.5 for most workloads."* · Fable 5.1 은 Opus 5.5 모델 개요 비교표에서 Latency «Slower»(Opus 5.5 = «Moderate») · 가격 입력/출력 100만 토큰당 $10 / $50(Opus 5.5 = $4 / $20) · 기본 effort `high` — «최고난도 추론·장기 에이전트용» 은 이 문서의 분류([Opus 5.5 overview](https://platform.claude.com/docs/en/models/opus-5-5/overview)) ([Models overview](https://platform.claude.com/docs/en/models/overview)). 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.7
+> **Fable 5.1 공식 소스 (최고난도 추론·장기 에이전트)**: [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) — 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.6
+> **Opus 5 공식 소스 (직전 디폴트)**: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) + [What's new in Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) — thinking 기본 ON · `disabled`+effort `xhigh|max`=400 · **web fetch·Priority Tier 미지원**(그 경우 4.8 명시)
+> **Opus 4.8 / Fable 5 공식 소스 (구세대 first-class)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 5.5** (2026-09-27 반영 · 직전 디폴트 Opus 5 = 2026-07-28~). 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.7 (Opus 5 = Part 2.5)
 > **Opus 4.7 / 4.6 공식 소스 (구세대 first-class)**: [platform.claude.com/docs — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) — 사용자 명시 시 4.7/4.6 코드 패턴 적용
-> **GPT 공식 가이드 (디폴트 = GPT-5.6 Sol, 2026-07)**: [Prompting guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) — lean outcome-first. 상세: `skills/gpt-5.6-prompt-enhancement/references/full.md`. 5.5 outcome-first(6섹션)·5.4 XML 12블록 stack은 legacy — 모델별 라우팅 적용.
+> **GPT 공식 가이드 (디폴트 = GPT-6 Sol, 2026-09-22 출시 · `gpt-6-sol`)**: [Using GPT-6](https://developers.openai.com/api/docs/guides/latest-model) (접근 2026-09-27) — GPT-6 패밀리 가이드 1페이지(GPT-6 Sol·GPT-6 Luna 전용 프롬프트 가이드 = 확인 범위 내 미발견). 용도 원문: *"Use gpt-6-astra for our highest level of capability, gpt-6-sol for strong reasoning on demanding tasks, or gpt-6-luna for efficient, repeatable work at scale."* 가이드의 예시 프롬프트 = GPT-6 Astra 관찰 기반 출발점 · GPT-6 Sol/Luna 는 자기 워크로드로 평가. 상세: `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절 (GPT-6 Astra = 같은 파일 «GPT-6 Astra» 절)
+> **GPT-5.6 공식 가이드 (직전 디폴트 = GPT-5.6 Sol, 2026-07)**: [Prompting guidance for GPT-5.6](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) — lean outcome-first. 상세: `skills/gpt-5.6-prompt-enhancement/references/full.md`. 5.5 outcome-first(6섹션)·5.4 XML 12블록 stack은 legacy — 모델별 라우팅 적용.
 
 > 🔗 **이중 관리 쌍 (바이트 동일)** — 기준 파일 = `commands/prompt.md` · 사본 = `skills/prompt/references/prompt-command.md`.
 > **두 파일은 바이트까지 같아야 합니다.** 한쪽만 고치지 마세요 — 동시 패치 후
@@ -137,7 +140,7 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
 | 위치 | 값 예시 | 설명 |
 |------|--------|------|
 | `--batch` | (필수 플래그) | 인터랙티브 우회 신호 |
-| 1번째 토큰 | `Claude` / `GPT-5.2` / `GPT-5.4` / `GPT-5.5` / `GPT-5.6` / `Gemini` / `gpt-image` / `Gemini-Image` / `Seedream` | 타겟 모델 (모델별 최적화 블록 결정). `Claude`는 **Opus 5 기본**(thinking 기본 ON·`disabled`+`xhigh|max`=400; 4.8/4.7/4.6/Fable 5는 명시 시), GPT 미지정·`GPT-5.6`은 **GPT-5.6 Sol 기본**(lean outcome-first — `skills/gpt-5.6-prompt-enhancement/references/full.md`), 5.5/5.4/5.2는 legacy 명시 시. 이미지 모델 지정 시 Step 5의 텍스트 모델 블록은 스킵하고 모델별 라우팅: `gpt-image` = `skills/image-prompt-guide/references/full.md` §0·§K 킷 계약(텍스트 프롬프트, 웹 UI만 JSON legacy) / `Gemini-Image`·`Seedream` = 킷 보편 원칙(구체 시각어·전면 긍정형·전문가 시각 언어)만 공유, gpt-image-2 전용 규격(사이즈락·티어 문자열·검증기)은 비적용 — 해당 모델 최적 자연어 서술. 미지정 = 현재 환경 자동 탐지(Step 1 🔀 절) |
+| 1번째 토큰 | `Claude` / `GPT-5.2` / `GPT-5.4` / `GPT-5.5` / `GPT-5.6` / `GPT-6-Sol` / `GPT-6-Luna` / `GPT-6-Astra` / `GPT-6` / `Gemini` / `gpt-image` / `Gemini-Image` / `Seedream` | 타겟 모델 (모델별 최적화 블록 결정). `Claude`는 **Opus 5.5 기본**(effort 기본 `medium` → 명시; Fable 5.1 과 같이 thinking 항상 켜짐·`disabled`/`budget_tokens`=400·강제 `tool_choice` 불가 — `skills/claude-fable-5-prompt-strategies.md` Part 2.7; Fable 5.1/Opus 5/4.8/4.7/4.6/Fable 5는 명시 시), GPT 미지정·`GPT-6-Sol`은 **GPT-6 Sol 기본**(`skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절), `GPT-6-Luna` = 같은 절(대량·반복·효율), `GPT-6-Astra`·`GPT-6`(변형 미지정) = 같은 파일 «GPT-6 Astra» 절, `GPT-5.6` = GPT-5.6 Sol(직전 디폴트 — 같은 파일 5.6 본문, lean outcome-first), 5.5/5.4/5.2는 legacy 명시 시. 이미지 모델 지정 시 Step 5의 텍스트 모델 블록은 스킵하고 모델별 라우팅: `gpt-image` = `skills/image-prompt-guide/references/full.md` §0·§K 킷 계약(텍스트 프롬프트, 웹 UI만 JSON legacy) / `Gemini-Image`·`Seedream` = 킷 보편 원칙(구체 시각어·전면 긍정형·전문가 시각 언어)만 공유, gpt-image-2 전용 규격(사이즈락·티어 문자열·검증기)은 비적용 — 해당 모델 최적 자연어 서술. 미지정 = 현재 환경 자동 탐지(Step 1 🔀 절) |
 | 2번째 토큰 | `간결` / `보통` / `상세` | 프롬프트 상세도 |
 | 나머지 | 자유 텍스트 | 워커가 수행할 핵심 지시문 (목적 자동 감지) |
 
@@ -152,7 +155,9 @@ Skill("prompt", "--batch GPT-5.2 상세 Chain-of-Verification 핵심 주장 검�
      → 사용자 지시문/주제로 placeholder 치환
 5. 모델별 필수 블록 적용:
      - Claude → <default_to_action>, <use_parallel_tool_calls>
-     - GPT-5.6 Sol(디폴트) → Markdown lean: `# Success Criteria` / `# Stop Rules` / 불확실성 처리 지시 — 상세 `skills/gpt-5.6-prompt-enhancement/references/full.md`
+     - GPT-6 Sol(디폴트) / GPT-6 Luna → `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절 — 패밀리 가이드 예시 프롬프트 = GPT-6 Astra 관찰 기반 출발점(GPT-6 Sol/Luna 는 자기 워크로드로 평가) · 기본 길이 = `text.verbosity` · `reasoning.effort` 명시(기본 `medium`, `none` 지원)
+     - GPT-6 Astra(`GPT-6-Astra`·`GPT-6`) → 같은 파일 «GPT-6 Astra» 절
+     - GPT-5.6 Sol(직전 디폴트, 명시 시) → Markdown lean: `# Success Criteria` / `# Stop Rules` / 불확실성 처리 지시 — 상세 `skills/gpt-5.6-prompt-enhancement/references/full.md`
      - GPT-5.2/5.4(legacy 명시 시) → <output_verbosity_spec>, <web_search_rules>, <uncertainty_and_ambiguity>
      - Gemini 3 → Constraints 최상단
      - `gpt-image` / `Gemini-Image` / `Seedream` (이미지 전용) → 텍스트 모델 블록 스킵. 플러그인 내부 `skills/image-prompt-guide/references/full.md` 전체 Read 후 **모델별 라우팅**: `gpt-image`(gpt-image-2/`$imagegen`) = **킷 계약(§0·§K)** — 포맷 A(라벨 6섹션)/B(화보 콤마형) 텍스트 프롬프트 + 끝 `AR`(배치 = jsonl, 검증 = check_prompt.mjs), 웹 UI 간이 경로만 JSON 골격(§L) / `Gemini-Image`·`Seedream` = **킷 보편 원칙만 공유**(구체 시각어·전면 긍정형·수치·전문가 시각 언어 앵커) — gpt-image-2 전용 규격(사이즈락 6종·Tier-1 고정 문자열·`$imagegen` 규약·검증기 강제) 비적용, 해당 모델 최적 자연어 서술로. 미지정 = 현재 환경 자동 탐지(생성 연계 = gpt-image-2 기본, 산출에 "타겟: <모델>" 1줄). 플러그인 밖 `image-prompt`·`gongnyang-photo` 호출 금지(킷 원문은 내부 `skills/image-prompt-kit/`). 네거티브는 티어드 — 기본 전면 긍정형, 렌더 텍스트 있을 때만 Tier-1 결합 공식 1회(자유 네거티브 스택 ❌). 전문가 프롬프팅 = 실존 전문가 시각 언어 앵커(화보 `Director signature:`·`Lens character:` / 포맷 A Camera·Lighting·Color grading 결과 서술)
@@ -245,21 +250,23 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026년 7월 모델 라인업 반영 (Claude 디폴트 = **Opus 5** / GPT 디폴트 = GPT-5.6 Sol)
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026-09-27 모델 라인업 반영 (Claude 디폴트 = **Opus 5.5** · 최고난도 추론·장기 에이전트 = **Fable 5.1** / GPT 디폴트 = **GPT-6 Sol** · 최고 성능 = GPT-6 Astra · 대량·반복 = GPT-6 Luna). 신모델(2026-09-22 출시) 자리는 공식 문서의 용도 안내(Claude = «대부분 작업은 Opus 5.5 로 시작» · GPT-6 Astra 최고 성능 / GPT-6 Sol 까다로운 추론 / GPT-6 Luna 대량·반복)를 이 표에 옮긴 편집 판단이며, LMArena 재측정 순위도 회사 간 공식 비교도 아닙니다. 직전 디폴트 = Claude Opus 5 · GPT-5.6 Sol.
 
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
-| **코딩/개발** | **Claude Opus 4.8** (2026-05, `xhigh` effort) | GPT-5.6 Sol / GPT-5.5 Codex | **Fable 5** (최고난도·장기 자율) / Opus 4.7 (안정성·기존 코드) |
-| **수학/논리** | GPT-5.2 | Gemini 3 Flash | Claude Opus 4.8 / 4.7 |
-| **글쓰기/창작** | Gemini 3 Pro | Gemini 3 Flash | Claude Opus 4.8 / 4.7 |
-| **종합/분석** | Gemini 3 Pro | Grok 4.1 | Claude Opus 4.8 / 4.7 |
-| **Hard Prompts** | **Claude Opus 4.8** | **Claude Fable 5** (가장 어려운 미해결 문제) | Gemini 3 Pro / Grok 4.1 |
-| **에이전틱 (1M context)** | **Claude Opus 4.8** (1M 기본, adaptive thinking) | **Fable 5** (며칠 단위 자율 run·병렬 서브에이전트) | GPT-5.5 Codex (Browser Use) |
+| **코딩/개발** | **Claude Opus 5.5** (effort 명시) | GPT-6 Sol / GPT-5.5 Codex | Claude Opus 4.8 / 4.7 (기존 코드·구세대) |
+| **수학/논리** | **Claude Opus 5.5** | Gemini 3.1 Pro | GPT-6 Sol / Claude Opus 4.8 |
+| **글쓰기/창작** | Gemini 3.1 Pro | Gemini 3 Pro | Claude Opus 5.5 / 4.8 |
+| **종합/분석** | **Claude Opus 5.5** | Gemini 3.1 Pro | GPT-6 Sol / Claude Opus 4.8 |
+| **최고난도·미해결 문제** | **Claude Fable 5.1** | GPT-6 Astra | Claude Opus 5.5 |
+| **에이전틱 (1M context)** | **Claude Opus 5.5** (1M) | **Claude Fable 5.1** (장기 에이전트) | GPT-6 Sol / GPT-5.5 Codex (Browser Use) |
 | **비전/멀티모달** | Gemini 3 Pro | Gemini 3 Flash | GPT-5.1 |
 | **이미지 생성** | **gpt-image-2** (OpenAI, 2026-04) [⭐ NEW] | Gemini 3.1 Flash Image (NB2) | Gemini 3 Pro Image |
 | **이미지 편집** | **gpt-image-2** (ChatGPT) — identity/geometry/layout 보존 강점 | Gemini 3 Pro Image | Seedream 4.5 |
 | **Text-to-Video** | Veo 3.1 | Sora 2 | Sora 2 Pro |
 | **Image-to-Video** | Veo 3.1 | Wan 2.5 | Kling 2.6 Pro |
+
+> 대량·반복·효율 작업 = **GPT-6 Luna** (공식: «efficient, repeatable work at scale»).
 
 ### 동영상 생성 모델 상세 (생성 길이 비교)
 
@@ -352,17 +359,18 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 > **출처 (신)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
 > **출처 (구)**: [Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4)
-> **적용**: Claude 타겟 감지 시 자동으로 아래 블록을 프롬프트에 반영. **디폴트 = Opus 5**. 구세대(4.7/4.6) first-class 유지 — 사용자 명시 시 해당 코드 패턴 사용 (마이그레이션 강요 금지).
+> **적용**: Claude 타겟 감지 시 자동으로 아래 블록을 프롬프트에 반영. **디폴트 = Opus 5.5**. 구세대(4.7/4.6) first-class 유지 — 사용자 명시 시 해당 코드 패턴 사용 (마이그레이션 강요 금지).
 
-### 🔀 Claude 모델 라우팅 (디폴트: **Opus 5**)
+### 🔀 Claude 모델 라우팅 (디폴트: **Opus 5.5**)
 
 | 사용자 표현 | 적용 모델 | 코드 패턴 |
 |------------|----------|----------|
-| Claude 모델 미지정 + 일반 작업 | **Opus 5** (디폴트) | **thinking 기본 ON**(필드 생략) + effort(low/medium 적극·xhigh 시 `max_tokens` 64k+) + 1M context. **검증·재확인 지시 제거**(과검증) · 간결성 명시 · 서브에이전트 억제 |
-| **web fetch 도구 · Priority Tier 필요** | **Opus 4.8 명시** | Opus 5 **미지원** — 해당 기능 쓰는 프롬프트는 4.8 로 분기 |
-| "Opus 4.8", "claude-opus-4-8" | **Opus 4.8** (구세대 first-class) | adaptive thinking 명시 필요 + effort(xhigh 코딩 기본) + 1M context |
-| "Fable 5", "최신 Claude", "claude-fable-5" | **Fable 5** | adaptive thinking 전용·summarized-only·extended thinking budget ❌ — 최고난도·장기 자율 run·병렬 서브에이전트. `skills/claude-fable-5-prompt-strategies.md` |
-| "Opus 4.8", "claude-opus-4-8" | **Opus 4.8** | 위 디폴트 동일. literal 해석·effort 엄수·코드리뷰 coverage 프롬프트 |
+| Claude 모델 미지정 + 일반 작업 · "Opus 5.5", "claude-opus-5-5", "최신 Claude" | **Opus 5.5** (디폴트) | Fable 5.1 과 같이 **thinking 항상 켜짐(끄기 불가)** — `thinking: {"type": "disabled"}`·`budget_tokens` = 400 · **effort 기본 `medium`**(Opus 5 = `high`) → 명시 + 여러 단계 재측정, 생각을 줄이려면 effort 먼저 · 「응답에 추론을 써라」·"think carefully"·"don't think" 류 지시 제거 · Fable 5.1 과 같이 강제 `tool_choice`(`any`/`tool`) 불가 → 프롬프트에 도구를 쓰는 조건 명시 · 1M context. `skills/claude-fable-5-prompt-strategies.md` Part 2.7 |
+| "Fable 5.1", "claude-fable-5-1", "가장 어려운 추론·장기 에이전트" | **Fable 5.1** | 최고난도 추론·장기 에이전트 작업. thinking 끄기 불가·강제 `tool_choice` 불가·thinking 블록이 모델·대화에 묶임 · effort 기본 `high`. `skills/claude-fable-5-prompt-strategies.md` Part 2.6 |
+| "Opus 5", "claude-opus-5" | **Opus 5** (직전 디폴트) | **thinking 기본 ON**(필드 생략) + effort(low/medium 적극·xhigh 시 `max_tokens` 64k+) + 1M context. **검증·재확인 지시 제거**(과검증) · 간결성 명시 · 서브에이전트 억제. `skills/claude-fable-5-prompt-strategies.md` Part 2.5 |
+| **web fetch 도구 · Priority Tier 필요** | **Opus 4.8 명시** | Opus 5 **미지원** — 해당 기능 쓰는 프롬프트는 4.8 로 분기 (Opus 5.5 지원 여부 = 이번 대조 문서에서 확인 범위 내 미발견) |
+| "Opus 4.8", "claude-opus-4-8" | **Opus 4.8** (구세대 first-class) | adaptive thinking 명시 필요 + effort(xhigh 코딩 기본) + 1M context. literal 해석·effort 엄수·코드리뷰 coverage 프롬프트 |
+| "Fable 5", "claude-fable-5" | **Fable 5** | adaptive thinking 전용·summarized-only·extended thinking budget ❌ — 최고난도·장기 자율 run·병렬 서브에이전트. `skills/claude-fable-5-prompt-strategies.md` |
 | "Opus 4.7", "claude-opus-4-7" | **Opus 4.7** | adaptive thinking + xhigh + task_budget |
 | "Opus 4.6", "이전 Opus", "claude-opus-4-6" | **Opus 4.6** | budget_tokens 사용 가능, temperature/top_p OK, prefill OK |
 | 기존 4.6/4.7 프롬프트 마이그레이션 의뢰 | **현 모델 유지** + 회귀 매트릭스 안내 | 사용자 결정 후 전환 |
@@ -395,7 +403,7 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 **코드 예시 (공식)**:
 ```python
 client.messages.create(
-    model="claude-opus-4-8",   # 디폴트 (4.7 명시 시 claude-opus-4-7)
+    model="claude-opus-4-8",   # 4.8 명시 시 (4.7 명시 시 claude-opus-4-7) · 디폴트 Opus 5.5 = Part 2.7
     max_tokens=64000,
     thinking={"type": "adaptive"},
     output_config={"effort": "xhigh"},
@@ -501,7 +509,7 @@ Your context window will be automatically compacted as it approaches its limit, 
 
 ## 🚀 GPT-5.5 Outcome-First 핵심 (v2.6.0 — 2026-04-30)
 
-> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
+> 🆕 **GPT 기본 모델 = GPT-6 Sol** (2026-09-22 출시): 최신 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절 참조. 직전 디폴트 GPT-5.6 Sol(2026-07, lean outcome-first) = 같은 파일 5.6 본문. 아래 5.5 내용은 legacy 계보 보존.
 > **공식 가이드**: [GPT-5.5 Prompt Guidance](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5) (2026-04 발표)
 > **핵심**: 5.4의 process-heavy XML 12블록 stack 대신 **outcome-first markdown 6섹션** 권장.
 > **상세 스킬**: `skills/prompt-engineering-guide/references/full.md` (블록 정의, 마이그레이션, anti-patterns)
@@ -570,7 +578,10 @@ Role: [1-2 문장. 기능 + 컨텍스트]
 
 | 사용자 명시 | 적용 enhancement |
 |------------|-----------------|
-| `GPT-5.6` / `gpt-5.6` / GPT 모델 미지정 | **`skills/gpt-5.6-prompt-enhancement/references/full.md` (lean outcome-first 디폴트, 2026-07)** |
+| `GPT-6 Sol` / `gpt-6-sol` / GPT 모델 미지정 | **`skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절 (디폴트, 2026-09-22 출시)** — `reasoning.effort` 기본 `medium`(`none` 지원) · 가이드 예시 프롬프트 = GPT-6 Astra 관찰 기반 출발점, GPT-6 Sol 은 자기 워크로드로 평가 |
+| `GPT-6 Luna` / `gpt-6-luna` | `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절 (대량·반복·효율 작업 — *"efficient, repeatable work at scale"*) |
+| `GPT-6 Astra` / `gpt-6-astra` / `GPT-6`(변형 미지정) | `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Astra» 절 (최고 성능 — *"our highest level of capability"*) |
+| `GPT-5.6 Sol` / `GPT-5.6` / `gpt-5.6` | `skills/gpt-5.6-prompt-enhancement/references/full.md` 5.6 본문 (lean outcome-first — 직전 디폴트, 2026-07) |
 | `GPT-5.5` 또는 `gpt-5.5` | `skills/prompt-engineering-guide/references/full.md` (outcome-first 6섹션 — legacy) |
 | `GPT-5.4` / `GPT-5.2` / `GPT-5` | `skills/prompt-engineering-guide/references/full.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 |
 | `legacy XML` / `5.4 스타일` 명시 | `skills/prompt-engineering-guide/references/full.md` 하단 Legacy 섹션 강제 |
@@ -776,10 +787,10 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
     "header": "AI 모델",
     "multiSelect": false,
     "options": [
-      {"label": "Claude Opus 5 (Recommended)", "description": "디폴트 (2026-07-28~), thinking 기본 ON, 1M context, 검증지시 제거"},
+      {"label": "Claude Opus 5.5 (Recommended)", "description": "디폴트 (2026-09-22 출시~), effort 기본 medium → 명시, Fable 5.1 과 같이 thinking 항상 켜짐, 1M context (Opus 5·Fable 5 는 기타로 명시)"},
       {"label": "Claude Opus 4.8", "description": "구세대 first-class — web fetch·Priority Tier 필요 시 필수"},
-      {"label": "Claude Fable 5", "description": "최고난도·장기 자율 run·병렬 서브에이전트 — 프롬프트 다이어트 원칙"},
-      {"label": "GPT-5.6 Sol", "description": "2026-07 GPT 기본 모델, lean outcome-first (5.5/5.4는 legacy 명시 시)"},
+      {"label": "Claude Fable 5.1", "description": "최고난도 추론·장기 에이전트 작업, effort 기본 high"},
+      {"label": "GPT-6 Sol", "description": "2026-09 GPT 기본 모델 (GPT-6 Luna·GPT-6 Astra·GPT-5.6 Sol·5.5/5.4는 기타로 명시)"},
       {"label": "Gemini 3 Pro", "description": "멀티모달 + Grounding Search 강점"}
     ]
   },
@@ -1411,10 +1422,14 @@ Style Rules:
 
 | 모델 | 필수 블록 / 구조 |
 |------|-----------------|
-| **GPT-5.6 Sol (디폴트)** | Markdown lean outcome-first — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조) |
+| **GPT-6 Sol (디폴트)** / GPT-6 Luna | `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절 — 패밀리 가이드 예시 프롬프트(자율 진행·요청을 실행 지시로·문단 위주 문체 등) = GPT-6 Astra 관찰 기반 출발점, GPT-6 Sol/Luna 는 자기 워크로드로 평가 · 기본 길이 = `text.verbosity`(low/medium/high) · `reasoning.effort` 명시(기본 `medium`, `none` 지원) · 추론+도구 = Responses API |
+| GPT-6 Astra | `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Astra» 절 |
+| GPT-5.6 Sol (직전 디폴트) | Markdown lean outcome-first — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조) |
 | GPT-5.5 (legacy outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `skills/prompt-engineering-guide/references/full.md` |
 | GPT-5.2/5.4 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. **상세**: `skills/prompt-engineering-guide/references/full.md` 하단 Legacy 섹션 |
-| **Claude Opus 5 (디폴트)** | 4.8 블록에서 **검증·재확인 지시를 뺀** 형태 + 간결성 명시 + 서브에이전트 위임 기준/상한 + 범위 고정. `thinking` 필드 생략(기본 ON), `effort` low/medium 우선 |
+| **Claude Opus 5.5 (디폴트)** | Opus 5 블록 기반(공식: *"Existing Claude Opus 5 prompts should perform well without changes"*) + `effort` 명시(`medium` 시작·여러 단계 재측정) · 「응답에 추론을 써라」·"think carefully"·"don't think" 류 지시 제거 · 도구를 쓰는 조건을 프롬프트에 명시(Fable 5.1 과 같이 강제 `tool_choice` 불가) · 무인 작업 = 체크리스트 + 이어가기 메시지 · 붙여 넣은 텍스트 = `<pasted_content>` · 진행 표시 = `display: "updates"` · 프론트엔드 = 피할 패턴을 구체적으로. 상세 `skills/claude-fable-5-prompt-strategies.md` Part 2.7 |
+| **Claude Fable 5.1** | 최고난도 추론·장기 에이전트 작업 — `skills/claude-fable-5-prompt-strategies.md` Part 2.6 |
+| Claude Opus 5 (직전 디폴트) | 4.8 블록에서 **검증·재확인 지시를 뺀** 형태 + 간결성 명시 + 서브에이전트 위임 기준/상한 + 범위 고정. `thinking` 필드 생략(기본 ON), `effort` low/medium 우선 |
 | **Claude Opus 4.8 (구세대)** | 4.7 블록 동일 + literal 해석 범위 명시("every section") + 코드리뷰는 coverage/filter 분리 프롬프트 + 디자인은 구체 스펙 또는 "4방향 제안" 패턴. `thinking: {type: "adaptive"}` + `effort: "xhigh"`(코딩) |
 | **Claude Fable 5** | **장문 열거 ❌ — 짧은 지시 1개씩** (brevity·체크포인트·grounding·경계 스니펫은 `skills/claude-fable-5-prompt-strategies.md`). reasoning 재출력 지시 금지(refusal). adaptive thinking 전용 |
 | Claude Opus 4.7 | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<default_to_action>`, `<explicit_scope>` (리터럴 해석 대응), `thinking: {type: "adaptive"}` + `output_config: {effort: "xhigh"}` |
@@ -1422,7 +1437,7 @@ Style Rules:
 | Gemini 3 | Constraints 최상단 |
 | 이미지/동영상 | 주제/스타일/분위기 |
 
-> **GPT 모델 라우팅**: 미지정 GPT → **GPT-5.6 Sol lean outcome-first 디폴트**. `GPT-5.5` 명시 → 5.5 outcome-first(legacy). `GPT-5.4 / 5.2 / legacy XML` 명시 시에만 XML stack 적용.
+> **GPT 모델 라우팅**: 미지정 GPT → **GPT-6 Sol 디폴트**(«GPT-6 Sol · Luna» 절). `GPT-6 Luna` 명시 → 같은 절. `GPT-6 Astra`·`GPT-6`(변형 미지정) → «GPT-6 Astra» 절. `GPT-5.6 Sol` 명시 → 5.6 lean outcome-first(직전 디폴트). `GPT-5.5` 명시 → 5.5 outcome-first(legacy). `GPT-5.4 / 5.2 / legacy XML` 명시 시에만 XML stack 적용.
 
 **📚 리서치/팩트체크 템플릿 자동 로드 (CRITICAL — 배치 모드 핵심)**
 
@@ -1856,7 +1871,7 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 → $ARGUMENTS 분석 후 즉시 프롬프트 생성 + 개선 옵션 제시
 
 /prompt Claude로 블로그 글 작성용 프롬프트 만들어줘
-→ Claude Opus 4.8 (디폴트) + 글쓰기 목적으로 즉시 생성 + 개선 옵션 제시
+→ Claude Opus 5.5 (디폴트) + 글쓰기 목적으로 즉시 생성 + 개선 옵션 제시
 
 /prompt 코딩용 프롬프트 만들어줘
 → LMArena 순위 기반 최적 모델로 즉시 생성 + 개선 옵션 제시
@@ -1866,8 +1881,9 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 3.3.2
-- **Updated**: 2026-09-05
+- **Version**: 3.4.0
+- **Updated**: 2026-09-27
+- **Changes v3.4.0** (2026-09-27): Claude 디폴트 = Opus 5.5(`claude-opus-5-5`, 2026-09-22 출시) · GPT 디폴트 = GPT-6 Sol(`gpt-6-sol`, 2026-09-22 출시). 머리 소스 줄(Opus 5.5·Fable 5.1·GPT-6 신설, Opus 5·GPT-5.6 Sol = 직전 디폴트 표기), Claude 라우팅 표(Opus 5.5 디폴트·Fable 5.1·Opus 5 행 신설, 중복 Opus 4.8 행 병합, "최신 Claude" → Opus 5.5), GPT 라우팅 표(GPT-6 Sol·GPT-6 Luna·GPT-6 Astra·GPT-5.6 Sol 행), `--batch` 1번째 토큰(`GPT-6-Sol`/`GPT-6-Luna`/`GPT-6-Astra`/`GPT-6`), 모델별 필수 블록, 코딩 AskUserQuestion 모델 옵션, 사용 예시 디폴트 표기 갱신. 근거 = Anthropic·OpenAI 공식 문서(접근 2026-09-27). 상세 = `skills/claude-fable-5-prompt-strategies.md` Part 2.7 · `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절.
 - **Changes v3.3.1** (2026-09-05): /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정
 - **Changes v3.3.0** (2026-07-29): P5 대형 가이드 분할(500줄 초과 참조 가이드 7건[prompt-engineering-guide·image-prompt-guide·gemini-3.1·claude-4.7·gpt-5.6·expert-domain-priming·research-prompt-guide]을 flat md → 디렉터리형[SKILL.md 얇은 라우팅 인덱스 + references/full.md 본문, git rename 내용 diff 0]으로 재배치. 2026-03 stale 분할본 제거 = 이중 표현 해소. 참조 치환 = 레포 11+vault 13+codex 1파일, p5-ref-verify.sh 4축 PASS[옛 경로 잔존 0·신규 실재·참조 계수 보존·레포 밖 0]. 소비 계약 불변 — 게이트는 경로만 갱신).
 - **Changes v3.2.2** (2026-07-29): Codex 표면 2건 수리(.codex-plugin 버전 방치 root cause + Codex SKILL.md 이미지 경로 5옵션·타겟·전문가 앵커 의무화 — Works 실증 재현 수리).

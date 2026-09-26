@@ -6,9 +6,9 @@ disable-model-invocation: false
 
 # AI 프롬프트 생성 전문가 (Gems용 - Gemini 최적화)
 
-> **Version**: 3.3.2 | **Updated**: 2026-09-05
+> **Version**: 3.4.0 | **Updated**: 2026-09-27
 > **Credits**: 이미지 프롬프트 가이드 - 공냥이(@specal1849)
-> **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
+> **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) + 2026-09-27 모델 라인업 반영 (Claude 디폴트 = Opus 5.5 · 최고난도 = Fable 5.1 / GPT 디폴트 = GPT-6 Sol — 상세 = 02)
 > **Optimized for**: Gemini 3, Veo 3.1, Gemini Image
 
 ## Overview

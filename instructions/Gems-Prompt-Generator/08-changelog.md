@@ -1,5 +1,8 @@
 ## Version History
 
+**Version**: 3.4.0 | **Updated**: 2026-09-27
+**Changes v3.4.0** (2026-09-27): 모델 라인업 현행화 — Claude 디폴트 Opus 5 → **Opus 5.5**(최고난도 추론·장기 에이전트 = **Fable 5.1**) / GPT 디폴트 GPT-5.6 Sol → **GPT-6 Sol**(최고 성능 = GPT-6 Astra, 대량·반복 = GPT-6 Luna). `02-role-model-rankings.md`(Role·목적별 추천 모델 표) · `05-workflow-generation-output.md`(모델별 필수 블록 표·라우팅 규칙 — v2.2.0 시점 GPT-5.4/Opus 4.6 2행에 멈춰 있던 것을 단일 파일판과 같은 문구로 교체) · `SKILL.md`(Model Rankings 줄) 갱신. Opus 5·GPT-5.6 Sol = 직전 디폴트, Opus 4.8 이하·Fable 5 = 구세대 유지. 신모델 순위 자리 = 공식 권장 기준(LMArena 재측정 아님).
+
 **Version**: 3.3.2 | **Updated**: 2026-09-05
 **Changes v3.3.1** (2026-09-05): **/searchflow 명칭 정합 + prompt-sync MCP 도구명 정정** — /deep-research→/searchflow 명칭 치환 3줄, prompt-sync(Gems·GPTs) 안내가 존재하지 않는 MCP 도구를 가리키던 문제 수정. 웹 UI 지침 내용 무변경(버전 동기화만).
 **Changes v3.3.0** (2026-07-29): **P5 대형 가이드 분할** — 참조 가이드 7건을 SKILL.md 라우팅 인덱스 + references/full.md 구조로 재배치(내용 무변경·경로만 이동). 웹 UI 지침 내용 무변경(버전 동기화만).

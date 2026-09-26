@@ -6,11 +6,11 @@ disable-model-invocation: true
 
 # 프롬프트 생성 다양성 가이드
 
-> **Version**: 1.1.0
-> **Created**: 2026-01-08 | **Updated**: 2026-07-21 — 모델 라인업 현행화 (GPT-5.6 Sol · Claude Opus 4.8/Fable 5 · Gemini 3.1)
+> **Version**: 1.1.1
+> **Created**: 2026-01-08 | **Updated**: 2026-09-27 — 디폴트 표기 갱신(GPT-6 Sol · Claude Opus 5.5). 이전: 2026-07-21 모델 라인업 현행화 (GPT-5.6 Sol · Claude Opus 4.8/Fable 5 · Gemini 3.1)
 > **Purpose**: /auto-prompt 에이전트의 프롬프트 생성 다양성 향상
 >
-> 🆕 **세대 안내**: 본 가이드의 GPT XML 블록 표기(`output_verbosity_spec` 등)는 구 5.2/5.4 세대 스타일 — 사용자가 XML 스타일을 명시할 때만 적용. **현행 GPT-5.6 Sol 디폴트는 Markdown lean outcome-first**(`skills/gpt-5.6-prompt-enhancement/references/full.md`). Claude XML 블록은 현행(Opus 4.8·Fable 5)에도 유효.
+> 🆕 **세대 안내**: 본 가이드의 GPT XML 블록 표기(`output_verbosity_spec` 등)는 구 5.2/5.4 세대 스타일 — 사용자가 XML 스타일을 명시할 때만 적용. **현행 GPT 디폴트 = GPT-6 Sol**(2026-09-22~ · 직전 디폴트 GPT-5.6 Sol = Markdown lean outcome-first) — 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md`. Claude XML 블록은 Opus 4.8·Fable 5 기준(현행 Claude 디폴트 = Opus 5.5 → `skills/claude-fable-5-prompt-strategies.md` Part 2.7).
 
 **이 가이드의 목표**: 동일한 작업이라도 모델별/작업유형별/난이도별로 구조와 표현이 명확히 다른 프롬프트를 생성하는 방법 제공
 

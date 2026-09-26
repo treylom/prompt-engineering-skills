@@ -385,11 +385,11 @@ references:
 
 ## 3. 모델별 최적화
 
-> 🆕 **현행 라인업 (2026-07)**: 팩트체크 고정 = **GPT-5.6 Thinking** · 웹 리서치 1순위 = **Claude Opus 4.8 Search**. GPT 현행 디폴트(GPT-5.6 Sol)는 lean outcome-first Markdown — 전체 블록 구조는 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조.
+> 🆕 **현행 라인업 (2026-07 · 디폴트 표기 2026-09-27 갱신)**: 팩트체크 고정 = **GPT-5.6 Thinking** · 웹 리서치 1순위 = **Claude Opus 4.8 Search**. GPT 현행 디폴트 = GPT-6 Sol(2026-09-22~ · 직전 디폴트 GPT-5.6 Sol = lean outcome-first Markdown) — 블록 구조·GPT-6 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조.
 
 ### 3.1 GPT 최적화 (구 GPT-5.2 XML 스타일 — 참고 보존)
 
-> 아래 XML 템플릿은 5.2 세대 스타일. GPT-5.2 Search 는 검색 용도로 여전히 현역이나, 텍스트 리서치 디폴트는 GPT-5.6 Sol(위 포인터).
+> 아래 XML 템플릿은 5.2 세대 스타일. GPT-5.2 Search 는 검색 용도로 여전히 현역이나, 텍스트 리서치 디폴트는 GPT-6 Sol(위 포인터 · 직전 GPT-5.6 Sol).
 
 ```xml
 <system_prompt>
@@ -445,9 +445,9 @@ references:
 - 한계점 명시
 ```
 
-### 3.3 Claude 최적화 (Opus 4.8 · Fable 5 현행)
+### 3.3 Claude 최적화 (Opus 4.8 · Fable 5 기준 · 현행 기본 Opus 5.5 = `skills/claude-fable-5-prompt-strategies.md` Part 2.7)
 
-> XML 구조 프롬프트는 현행 Claude(Opus 4.8·Fable 5)에도 유효 — 아래 템플릿은 버전 무관하게 그대로 사용 가능.
+> XML 구조 프롬프트는 Claude Opus 4.8·Fable 5 에서 유효— 아래 템플릿은 이 두 모델에서 그대로 사용 가능. Opus 5.5 는 별도 확인 안 함 → 자기 워크로드로 확인 후 사용.
 
 ```xml
 <system_prompt>

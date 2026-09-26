@@ -16,8 +16,22 @@
 | **Gemini 3 Pro/Flash** | Constraints 최상단, 구조화된 출력 | 해당 |
 | **Veo 3.1** | 주제/동작/스타일, 오디오 프롬프트 | 해당 |
 | **Gemini Image** | 주제/스타일/분위기, 시그널 강화 | 해당 |
-| GPT-5.4 | `<output_verbosity_spec>`, `<output_contract>` | |
-| Claude Opus 4.6 | 명시적 지시, `<default_to_action>`, Adaptive Thinking | |
+| **GPT-6 Sol** (디폴트) | 공식 «Using GPT-6» 예시 = 출발점(GPT-6 Astra 관찰 기반 · GPT-6 Sol/Luna 는 자기 워크로드로 평가). `reasoning.effort` `none`~`max`(기본 `medium`) · 추론+도구 = Responses API(Chat Completions 함수 호출은 `reasoning_effort: "none"` 일 때만) · effort≠`none` 이면 `temperature`/`top_p`/logprobs 제거 · 분량 = `text.verbosity` · 기본 문체 = GPT-6 Astra 의 소통 문체(출시 공지 기준) | |
+| GPT-6 Astra (최고 성능) | 같은 가이드 · effort `none` 미지원(→ `low`) · GPT-6 Sol/Luna 용 지시가 GPT-6 Astra 에는 과제약이 될 수 있음(공식 블로그) | |
+| GPT-6 Luna (대량·반복·효율) | GPT-6 Sol 과 같은 가이드·API 규칙(둘을 다르게 쓰라는 절 = 확인 범위 내 미발견, 2026-09-27) | |
+| GPT-5.6 Sol (직전 디폴트, lean outcome-first) | Markdown 간결 구조 — 열거 최소화, 짧고 정확한 지시 (요약 — 전체 블록 구조는 `gpt-5.6-prompt-enhancement.md` 참조). 상세: `prompt-engineering-guide.md` | |
+| GPT-5.5 (outcome-first legacy) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 | |
+| GPT-5.4 / 5.2 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. 상세: `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 | |
+| **Claude Opus 5.5** (디폴트) | effort 명시(기본 `medium` — Opus 5 는 `high`) 후 여러 단계 재측정 · 생각을 줄이려면 effort 먼저 · 응답에 추론을 쓰라는 지시·"think carefully"·"don't think" 류 제거 · Fable 5.1 과 같이 thinking 항상 켜짐(`disabled`·`budget_tokens` = 400)·강제 `tool_choice`(`any`/`tool`) 불가 → 도구를 쓰는 조건을 프롬프트에 명시 · 붙여 넣은 텍스트 = `<pasted_content>` | |
+| **Claude Fable 5.1** (최고난도 추론·장기 에이전트) | 기본 effort `high` · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) | |
+| Claude Opus 5 (직전 디폴트 · legacy) | 검증·재확인 지시 **제거**(스스로 검증 — 남기면 과검증) · **간결성 명시**(기본 응답이 길어짐) · 서브에이전트 위임 억제 · 범위 고정. `effort` low/medium 적극, `xhigh|max` 시 `max_tokens` 64k+ | |
+| **Claude Opus 4.8** (구세대) | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>` (리터럴 해석), `thinking: adaptive` + `effort=xhigh`. verbosity 자동 조정·도구 사용 보수적(effort↑로 보정). **Breaking**: budget_tokens/temperature/prefill 금지 | |
+| Claude Fable 5 (구세대) | **장문 열거 ❌ — 짧은 지시 1개씩** (프롬프트 다이어트). adaptive thinking 전용(`thinking` 생략), reasoning 재출력 지시 금지(refusal 위험) | |
+| Claude Opus 4.7 / 4.6 (명시 시 first-class) | 4.7: adaptive + xhigh (budget_tokens/temperature/prefill 금지) · 4.6: `budget_tokens`/`temperature`/prefill **사용 가능**. 마이그레이션 강요 금지 | |
+
+**GPT 모델 라우팅**: 미지정/일반 GPT 작업 → **GPT-6 Sol 디폴트**. "최고 성능"·"GPT-6 Astra" → GPT-6 Astra. "대량·반복"·"GPT-6 Luna" → GPT-6 Luna. "GPT-5.6 Sol" 명시 → lean outcome-first(직전 디폴트). `GPT-5.5` 명시 → 5.5 outcome-first. `GPT-5.4` / `5.2` / `legacy XML` 명시 시에만 XML stack 적용.
+
+**Claude 모델 라우팅**: 미지정/최신 → **Opus 5.5 디폴트**(effort 기본 `medium` — 명시 후 재측정 · Fable 5.1 과 같이 thinking 항상 켜짐). "Fable 5.1"·"최고난도"·"장기 에이전트" → Fable 5.1. "Opus 5" 명시 → Opus 5(직전 디폴트, thinking 기본 ON · `disabled`+`xhigh|max`=400). web fetch·Priority Tier 필요 → 4.8 명시. "Fable 5" 명시 → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 시 해당 구세대 패턴 (마이그레이션 강요 금지). 구세대→4.8 전환 전 회귀 매트릭스(`prompt-engineering-guide.md` Part 0.5) 통과 필수.
 
 **역할(Role) 직접 전문가 지명 (CRITICAL)**
 

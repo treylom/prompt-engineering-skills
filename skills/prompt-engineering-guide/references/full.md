@@ -19,8 +19,8 @@ updated: 2026-07-21
 
 | 영역 | 이 파일에서 볼 위치 |
 |------|-------------------|
-| GPT 5.x (**5.6 Sol = 기본**) | 모델별 프롬프트 전략 → GPT-5.6 / 5.5 / 5.2 / legacy XML |
-| Claude (**Opus 4.8 = 기본** · Fable 5 · Sonnet 5 / 구세대 4.x) | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
+| GPT 5.x~6 (**GPT-6 Sol = 기본**, 2026-09-22~) | 모델별 프롬프트 전략 → GPT-6 Astra·GPT-6 Sol·GPT-6 Luna / GPT-5.6 / 5.5 / 5.2 / legacy XML — GPT-6 규칙 = `skills/gpt-5.6-prompt-enhancement/references/full.md` GPT-6 절 |
+| Claude (**Opus 5.5 = 기본**, 2026-09-22~ · Fable 5.1 · Opus 5 · Opus 4.8 · Fable 5 · Sonnet 5 / 구세대 4.x) | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
 | Gemini / Veo / 이미지 | Gemini, Nano Banana, 이미지/동영상 통합 부록 |
 | 리서치 / 팩트체크 | 목적별 추가 블록, 글쓰기/리서치 개요, 리서치 통합 부록 |
 | 슬라이드 / PPT | 중간 구조화 워크플로우, 슬라이드 통합 부록 |
@@ -555,7 +555,7 @@ Fonts: San Serif, Inter, Geist, Mona Sans, IBM Plex Sans, Manrope
 
 ### GPT-5.5 (Outcome-First Markdown — 2026-04 공식)
 
-> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07). 최신 프롬프팅 규칙(lean·7블록·PTC·xhigh/max effort) = `skills/gpt-5.6-prompt-enhancement/references/full.md`. 아래 GPT-5.5 내용은 계보 보존.
+> 🆕 **GPT 기본 모델 = GPT-6 Sol** (2026-09-22~ · 직전 기본 = GPT-5.6 Sol). GPT-6 Astra·GPT-6 Sol·GPT-6 Luna와 GPT-5.6 의 최신 프롬프팅 규칙 = `skills/gpt-5.6-prompt-enhancement/references/full.md`. 아래 GPT-5.5 내용은 계보 보존.
 
 GPT-5.5는 **outcome-first markdown 6섹션** 구조를 권장합니다. GPT-5.4의 process-heavy XML 12블록 stack과 다른 패턴이며, 모델이 이미 효율적인 추론·도구 사용·검증을 내장하고 있어 짧은 destination + success criteria 만으로 충분합니다.
 
@@ -650,7 +650,7 @@ Role:
 
 ### Claude 4.5 (Opus/Sonnet/Haiku)
 
-> 🆕 **Claude 기본 모델 = Opus 4.8** (2026-06-10부터) · **최고난도·장기 자율 = Fable 5** · **Sonnet 최신 = Sonnet 5**. 현행 프롬프팅 규칙(짧은 지시 1개씩·프롬프트 다이어트·adaptive thinking 전용·reasoning 재출력 금지) = `skills/claude-fable-5-prompt-strategies.md` + 본 파일 통합 부록 "Claude 프롬프트 전략"의 현행 블록. 아래 Claude 4.5 내용은 계보 보존.
+> 🆕 **Claude 기본 모델 = Opus 5.5** (2026-09-22~ · 규칙 = `skills/claude-fable-5-prompt-strategies.md` Part 2.7 · 직전 기본 Opus 5 → Opus 4.8(2026-06-10~07-28) 순). 아래 줄은 Opus 4.8 기본 시기 기록: **최고난도·장기 자율 = Fable 5** · **Sonnet 최신 = Sonnet 5**. 현행 프롬프팅 규칙(짧은 지시 1개씩·프롬프트 다이어트·adaptive thinking 전용·reasoning 재출력 금지) = `skills/claude-fable-5-prompt-strategies.md` + 본 파일 통합 부록 "Claude 프롬프트 전략"의 현행 블록. 아래 Claude 4.5 내용은 계보 보존.
 
 Claude 4.5 모델군은 **정밀한 지시 따르기**를 위해 훈련되었습니다. 이전 세대보다 더 명시적인 방향 제시가 필요합니다.
 
@@ -1763,8 +1763,8 @@ operation = client.models.generate_videos(
 | `prompt-engineering-guide` | 컨텍스트 엔지니어링 원칙 |
 | `ce-context-fundamentals` | 기본 원칙 (시스템 프롬프트 구조화) |
 | `ce-context-optimization` | 최적화 기법 (토큰 효율성) |
-| `prompt-engineering-guide` | GPT 5.x 통합 — lean outcome-first(**5.6 Sol = 기본**) + outcome-first(5.5) + legacy XML stack(5.4/5.2) |
-| `prompt-engineering-guide` | Claude 프롬프트 전략 — 현행(**Opus 4.8 = 기본** · Fable 5 · Sonnet 5) + 구세대(Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5) |
+| `prompt-engineering-guide` | GPT 5.x~6 통합 — **GPT-6 Sol = 기본**(2026-09-22~) + lean outcome-first(GPT-5.6 Sol, 직전 기본) + outcome-first(5.5) + legacy XML stack(5.4/5.2) |
+| `prompt-engineering-guide` | Claude 프롬프트 전략 — 현행(**Opus 5.5 = 기본** · Fable 5.1 · Opus 5 · Opus 4.8 · Fable 5 · Sonnet 5) + 구세대(Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5) |
 | `prompt-engineering-guide` | Gemini 3 프롬프트 전략 (NB2 포함) |
 | `prompt-engineering-guide` | 이미지 생성 프롬프트 가이드 (공냥이 @specal1849 자료 기반) |
 | `prompt-engineering-guide` | 팩트체크/리서치 프롬프트 가이드 (IFCN 원칙 기반) |
@@ -1954,7 +1954,7 @@ operation = client.models.generate_videos(
 
 ### GPT-5.5 프롬프트 향상 스킬 (Outcome-First + Legacy XML)
 
-> 🆕 **GPT 기본 모델 = GPT-5.6 Sol** (2026-07): lean outcome-first — 최신 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md` 참조. 아래 5.5 내용은 legacy 계보 보존.
+> 🆕 **GPT 기본 모델 = GPT-6 Sol** (2026-09-22~ · 직전 기본 = GPT-5.6 Sol): 최신 규칙은 `skills/gpt-5.6-prompt-enhancement/references/full.md`(GPT-6 절 · 5.6 본문) 참조. 아래 5.5 내용은 legacy 계보 보존.
 > **Version**: 1.1.0 | **Updated**: 2026-04-30
 > **Source**: [OpenAI GPT-5.5 Prompt Guidance (2026-04)](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5)
 > **Scope**: GPT 5.x 구세대 통합 — outcome-first markdown(5.5) + legacy XML stack(5.4/5.2 명시 시). GPTs/Gems 첨부파일 10개 한도 대응으로 단일 파일에 통합.
@@ -2409,10 +2409,12 @@ Ask only for the smallest missing input if blocked.
 
 ---
 
-### Claude 현행 모델 전략 (Fable 5 · Opus 4.8 · Sonnet 5) 🆕
+### Claude 현행 모델 전략 (Opus 5.5 · Fable 5.1 · Fable 5 · Opus 4.8 · Sonnet 5) 🆕
+
+> 🆕 **2026-09-27 갱신 — Claude 기본 모델 = Claude Opus 5.5** (`claude-opus-5-5`, 2026-09-22~). 공식 모델 안내: "If you're unsure which model to use, start with Claude Opus 5.5 for most workloads." · Fable 5.1 은 Opus 5.5 모델 개요 비교표에서 Latency «Slower»(Opus 5.5 = «Moderate») · 가격 입력/출력 100만 토큰당 $10 / $50(Opus 5.5 = $4 / $20) · 기본 effort `high` — «최고난도 추론·장기 에이전트용» 은 이 문서의 분류([Opus 5.5 overview](https://platform.claude.com/docs/en/models/opus-5-5/overview)) ([Models overview](https://platform.claude.com/docs/en/models/overview), 접근일 2026-09-27). Opus 5.5 규칙(effort 기본 `medium`·브레이킹 4건·무인 작업 완주 등) = `skills/claude-fable-5-prompt-strategies.md` **Part 2.7** · Fable 5.1 = **Part 2.6**. 아래 본문은 Opus 5 시기(2026-07)에 쓴 내용으로 계보 보존.
 
 > **Updated**: 2026-07-21 | **Source**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
-> **Covers**: **Claude Opus 5** (Claude 디폴트, 2026-07-28부터), **Fable 5** (최고난도·장기 자율), **Opus 4.8** (구세대 first-class), **Sonnet 5**
+> **Covers**: **Claude Opus 5.5** (Claude 디폴트, 2026-09-22부터 — 규칙은 분할본 Part 2.7), **Fable 5.1** (최고난도 추론·장기 에이전트 — 분할본 Part 2.6), **Claude Opus 5** (직전 디폴트, 2026-07-28~09-22), **Fable 5**, **Opus 4.8** (구세대 first-class), **Sonnet 5**
 
 핵심 철학: 세 모델 모두 **지시 따르기가 강해져 "열거형 장문 프롬프트"가 역효과** — 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방의 다이어트가 마이그레이션의 본체.
 
@@ -2438,7 +2440,7 @@ Ask only for the smallest missing input if blocked.
 
 ### Claude 프롬프트 전략
 
-> **Version**: 3.2.0 | **Updated**: 2026-04-30 | ⚠️ **구세대 참고 문서** — 현행(Fable 5·Opus 4.8·Sonnet 5)은 위 "Claude 현행 모델 전략" 섹션 참조
+> **Version**: 3.2.0 | **Updated**: 2026-04-30 | ⚠️ **구세대 참고 문서** — 현행(Opus 5.5 디폴트·Fable 5.1 · Opus 5·Opus 4.8·Fable 5·Sonnet 5)은 위 "Claude 현행 모델 전략" 섹션 참조
 > **Source**: Anthropic 공식 문서 ([platform.claude.com — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Migration](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) + [Adaptive Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Extended Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking))
 > **Covers**: **Opus 4.7**, **Opus 4.6** (first-class 유지), **Sonnet 4.6** (4.5 대비 effort 기본값 변경), Opus 4.5, Sonnet 4.5, Haiku 4.5
 

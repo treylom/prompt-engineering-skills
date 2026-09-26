@@ -6,7 +6,7 @@ Variation Decision Matrix, Advanced Patterns, Job Adaptability Guide 상세.
 
 ## Part 3: Variation Decision Matrix
 
-> 🆕 GPT 열의 XML 블록은 구 5.2 세대 스타일(명시 요청 시) — 현행 GPT-5.6 Sol 디폴트는 같은 개념을 Markdown 섹션으로 표현(예: verbosity 제어 → `# Output` 간결 지시). Claude 열은 현행(Opus 4.8·Fable 5) 유효.
+> 🆕 GPT 열의 XML 블록은 구 5.2 세대 스타일(명시 요청 시) — GPT-5.6 Sol(직전 디폴트)은 같은 개념을 Markdown 섹션으로 표현(예: verbosity 제어 → `# Output` 간결 지시) · 현행 GPT 디폴트 = GPT-6 Sol(2026-09-22~, `skills/gpt-5.6-prompt-enhancement/references/full.md`). Claude 열은 Opus 4.8·Fable 5 기준(현행 Claude 디폴트 = Opus 5.5 → `skills/claude-fable-5-prompt-strategies.md` Part 2.7).
 
 ### 3.1 Task Type × Model Matrix
 

@@ -2,8 +2,8 @@
 name: prompt-engineering-guide
 description: Use when generating research/factcheck/image/video/slide prompts that need base templates (IFCN·StructuredResearch 등) — 단일 통합 AI 프롬프트 엔지니어링 레퍼런스의 라우팅 인덱스. 본문 전체는 references/full.md(대형 파일 — grep으로 위치 확인 후 부분 Read).
 disable-model-invocation: true
-version: 3.3.0
-updated: 2026-07-29
+version: 3.4.0
+updated: 2026-09-27
 ---
 
 # prompt-engineering-guide — 라우팅 인덱스

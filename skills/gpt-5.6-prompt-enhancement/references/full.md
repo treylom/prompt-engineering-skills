@@ -1,14 +1,14 @@
 ---
 name: gpt-5-6-prompt-enhancement
-description: Use when composing prompts targeting GPT-5.6 Sol (GPT 디폴트) or legacy GPT-5.5/5.4/5.2 — lean outcome-first 7블록 규칙 + LEGACY 섹션(구 XML 스택)을 담은 GPT 프롬프트 전략 레퍼런스. /prompt 커맨드가 GPT 타겟 감지 시 로드.
+description: Use when composing prompts targeting GPT-6 Sol (GPT 디폴트), GPT-6 Astra, GPT-6 Luna, GPT-5.6 Sol (직전 디폴트) or legacy GPT-5.5/5.4/5.2 — lean outcome-first 7블록 규칙 + LEGACY 섹션(구 XML 스택)을 담은 GPT 프롬프트 전략 레퍼런스. /prompt 커맨드가 GPT 타겟 감지 시 로드.
 disable-model-invocation: true
 ---
 
 # GPT-5.6 Sol 프롬프트 향상 스킬 (Lean Outcome-First + Legacy)
 
-> **Version**: 1.3.0 | **Updated**: 2026-09-06 (GPT-6 Astra 절 신설 — `none` 미지원·`configuration_update`·행동 성향 5가지 교정 프롬프트. 공식 가이드 대조.) | 이전: 1.2.0 · 2026-07-11
-> **Source**: [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) · [Using GPT-6 Astra](https://developers.openai.com/api/docs/guides/latest-model)
-> **Scope**: GPT 5.x~6 통합 — **GPT-6 Astra = 최신 세대**, GPT-5.6 Sol = 직전 기본(default) 모델 (2026-07 기준). GPT-6 Astra 절 + lean outcome-first(5.6/5.5) + 하단 legacy(5.5 outcome-first / 5.4·5.2 XML stack) 보존. GPTs/Gems 첨부 10개 한도 대응으로 단일 파일 통합.
+> **Version**: 1.4.0 | **Updated**: 2026-09-27 (GPT-6 Sol·Luna 절 신설 — GPT 디폴트를 GPT-6 Sol 로 전환, `none` 지원·Chat Completions 함수 호출 조건·샘플링 매개변수 제거·출시 공지 기준 문체·GPT-5.6 Sol → GPT-6 Sol/Luna 마이그레이션 체크. 공식 문서 대조.) | 이전: 1.3.0 · 2026-09-06
+> **Source**: [Prompting guidance for GPT-5.6 Sol](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6) · [Using GPT-6](https://developers.openai.com/api/docs/guides/latest-model) (GPT-6 패밀리 가이드 — 구 표기 «Using GPT-6 Astra») · 모델 카드 [gpt-6-sol](https://developers.openai.com/api/docs/models/gpt-6-sol.md) · [gpt-6-luna](https://developers.openai.com/api/docs/models/gpt-6-luna.md) · [출시 공지](https://openai.com/index/introducing-gpt-6-sol-and-luna/) — 접근일 2026-09-27
+> **Scope**: GPT 5.x~6 통합 — **GPT-6 Sol = 현행 GPT 디폴트(2026-09-22~)**, GPT-6 Astra = 최고 성능, GPT-6 Luna = 대량·반복·효율, GPT-5.6 Sol = 직전 디폴트. GPT-6 Sol·Luna 절 + GPT-6 Astra 절 + lean outcome-first(5.6/5.5) + 하단 legacy(5.5 outcome-first / 5.4·5.2 XML stack) 보존. GPTs/Gems 첨부 10개 한도 대응으로 단일 파일 통합.
 
 ---
 
@@ -28,9 +28,9 @@ disable-model-invocation: true
 
 ## 트리거 조건
 
-- 사용자가 "GPT-5.6용 프롬프트", "ChatGPT 5.6", "Codex 5.6", "Sol" 명시
+- 사용자가 "GPT-5.6용 프롬프트", "ChatGPT 5.6", "Codex 5.6", "GPT-5.6 Sol" 명시 (맨 "Sol" 단독은 GPT-6 Sol 과 겹치므로 세대를 확인)
 - Batch 모드에서 첫 토큰이 `GPT-5.6` 일 때
-- **모델 미지정 + 일반 Q&A/단순 작업 = GPT-5.6 lean outcome-first 기본값** (2026-07 기준 GPT 기본 모델 = 5.6)
+- **모델 미지정 = GPT 디폴트 = GPT-6 Sol** (2026-09-22~) → 아래 «GPT-6 Sol · Luna» 절. GPT-5.6 Sol 은 직전 디폴트 — 이 절(5.6 lean outcome-first)은 GPT-5.6 명시 시 적용하며, GPT-6 Sol 절의 출발점 구조로도 쓰인다
 
 > ⚠️ **하위호환**: 사용자가 "5.5", "5.4 XML 스타일", "legacy XML stack" 명시 시 아래 LEGACY 섹션으로 fallback.
 
@@ -282,7 +282,7 @@ Run the most relevant validation (test/type/lint/build/smoke). Stop when success
 ### 트리거 조건
 
 - 사용자가 "GPT-6", "Astra", "gpt-6-astra" 명시
-- 모델 미지정이어도 GPT 기본 모델이 Astra 로 전환된 이후 시점이면 이 절 우선(전환 시점은 운영자 확인 필요 `[미검증]` — 그 전까지는 위 GPT-5.6 Sol 절이 기본)
+- 모델 미지정 = 이 절이 아니라 아래 «GPT-6 Sol · Luna» 절 — GPT 디폴트 = GPT-6 Sol(2026-09-22~), GPT-5.6 Sol = 직전 디폴트. (이전 판의 「GPT 기본 모델이 Astra 로 전환된 이후」 조건은 GPT-6 Sol 출시로 대체)
 
 ### 마이그레이션 필수 3건 (5.6 → Astra)
 
@@ -292,7 +292,7 @@ Run the most relevant validation (test/type/lint/build/smoke). Stop when success
 
 ### 행동 성향 5가지 — 공식 교정 프롬프트
 
-Astra 는 GPT-5.6 Sol 과 **반대 방향** 튜닝이 필요하다. Sol 은 「간결하게」 광범위 지시를 눌러 앉혀야 했다면(위 Anti-Patterns 표), Astra 는 **과잉 승인 요청·과잉 포맷팅·과잉 테스트**를 눌러 앉혀야 한다.
+Astra 는 GPT-5.6 Sol 과 **반대 방향** 튜닝이 필요하다. GPT-5.6 Sol 은 「간결하게」 광범위 지시를 눌러 앉혀야 했다면(위 Anti-Patterns 표), Astra 는 **과잉 승인 요청·과잉 포맷팅·과잉 테스트**를 눌러 앉혀야 한다.
 
 | 성향 | 공식 서술 | 교정 프롬프트 요지 |
 |---|---|---|
@@ -311,7 +311,7 @@ You should infer the user's intent and task scope from the instructions and prio
 Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result.
 ```
 
-⚠️ **계보 간 충돌** — 위 성격·문체 교정(산문 쪽으로 누르기)은 Sol 절의 Anti-Patterns("간결하게/짧게" 광범위 지시 역효과)와 방향이 같다. 단 Claude 계열 Fable 5.1(`claude-fable-5-prompt-strategies.md` Part 2.6.3)은 **정반대**(안티-포맷팅 규칙 제거)를 요구한다 — 모델 계열이 다르면 같은 규칙을 이식하지 말 것.
+⚠️ **계보 간 충돌** — 위 성격·문체 교정(산문 쪽으로 누르기)은 GPT-5.6 Sol 절의 Anti-Patterns("간결하게/짧게" 광범위 지시 역효과)와 방향이 같다. 단 Claude 계열 Fable 5.1(`claude-fable-5-prompt-strategies.md` Part 2.6.3)은 **정반대**(안티-포맷팅 규칙 제거)를 요구한다 — 모델 계열이 다르면 같은 규칙을 이식하지 말 것.
 
 ### 서브에이전트 위임 · 테스트·검증
 
@@ -323,14 +323,162 @@ Before asking the user clarifying questions, you should complete the work that i
 
 - **비동기 도구 호출**(`async: true`) — 호출 대기 없이 다른 도구·추론 계속, 결과는 같은 `call_id` 로 나중 반환
 - **턴 중간 조종(mid-turn steering)** — WebSocket 으로 작업 중 추가 지시, 완료된 작업은 보존
-- **대화 중 추론 강도 변경** — `configuration_update`, `gpt-6-astra` 표준 단일 에이전트 모드에서만 지원
+- **대화 중 추론 강도 변경** — `configuration_update`, GPT-6 패밀리 표준 단일 에이전트 모드에서 지원(reasoning 가이드: "supported by the GPT-6 model family in standard, single-agent mode")
 - 비동기 오정렬 모니터링
+
+---
+
+## GPT-6 Sol · Luna (2026-09-22~, GPT 디폴트 = GPT-6 Sol)
+
+> **공식 출처** (접근일 2026-09-27): [Using GPT-6](https://developers.openai.com/api/docs/guides/latest-model) (GPT-6 패밀리 가이드) · 모델 카드 [gpt-6-sol](https://developers.openai.com/api/docs/models/gpt-6-sol.md) · [gpt-6-luna](https://developers.openai.com/api/docs/models/gpt-6-luna.md) · [출시 공지](https://openai.com/index/introducing-gpt-6-sol-and-luna/) · 매개변수 = [reasoning 가이드](https://developers.openai.com/api/docs/guides/reasoning.md) · [배포 체크리스트](https://developers.openai.com/api/docs/guides/deployment-checklist.md) · [API changelog](https://developers.openai.com/api/docs/changelog.md)
+> 모델 ID = `gpt-6-sol` · `gpt-6-luna` (모델 카드에 스냅샷 각 1개) · API 출시 2026-09-22 — changelog 원문 "Released GPT-6 Sol (`gpt-6-sol`) and GPT-6 Luna (`gpt-6-luna`)." · 지식 컷오프 GPT-6 Sol = Apr 20, 2026 / GPT-6 Luna = May 18, 2026 · 기본 reasoning effort = `medium`
+
+### 공식 출처와 한계
+
+- **GPT-6 Sol·Luna 전용 프롬프트 가이드·쿡북·마이그레이션 가이드 = 확인 범위 내 미발견** (2026-09-27). docs 색인(`llms.txt`)의 GPT-6 항목은 «Using GPT-6» 하나이고, 전용 후보 주소 4곳(`guides/latest-model/gpt-6-sol.md` · `guides/latest-model/gpt-6-luna.md` · `guides/prompt-guidance-gpt-6.md` · `guides/upgrading-to-gpt-6.md`)은 404.
+- 따라서 이 절의 근거 = 패밀리 가이드 «Using GPT-6» + 모델 카드 2 + 출시 공지. GPT-6 Sol 과 GPT-6 Luna 를 **서로 다르게 프롬프트하라는 절은 확인 범위 내 미발견** — 이 절은 둘을 함께 다루고, 차이는 용도·매개변수로만 적는다.
+- 패밀리 가이드의 예시 프롬프트는 스스로 범위를 이렇게 한정한다:
+
+  > "Use the following prompts as a starting point across the GPT-6 model family. They address behavior observed with GPT-6 Astra; evaluate them with your chosen model and workload."
+
+- 연 페이지에서 "breaking change" 표현, GPT-6 Sol·Luna 의 `text.verbosity` 값 변경·폐지 문장 = 확인 범위 내 미발견.
+- ⚠️ `openai/codex` 저장소의 `references/upgrading-to-gpt-6-astra.md` 로컬 사본은 라이브 문서보다 오래되어 빠른/저가 작업을 `gpt-5.6-luna`, 균형 작업을 `gpt-5.6-terra` 로 매핑하고 `gpt-6-sol` 을 적지 않는다. 그 파일 스스로 라이브 문서를 canonical 로 지정하므로 현재 권고로 쓰지 않는다.
+
+### 트리거 조건
+
+- 사용자가 "GPT-6 Sol", "gpt-6-sol", "GPT-6 Luna", "gpt-6-luna" 명시
+- **GPT 모델 미지정 = 이 절** (GPT 디폴트 = GPT-6 Sol). 작업이 대량·반복·효율 위주면 GPT-6 Luna 를 선택지로 제시
+- 🔴 **맨 "Sol" 단독은 트리거로 쓰지 않는다** — GPT-6 Sol 과 GPT-5.6 Sol 이 이름이 겹친다. 세대가 적혀 있지 않으면 어느 쪽인지 확인하고, 산출 프롬프트에도 항상 `GPT-6 Sol` / `GPT-5.6 Sol` 로 세대를 붙인다
+- "GPT-5.6", "GPT-5.6 Sol" 명시 = 위 GPT-5.6 절(직전 디폴트) · "Astra", "gpt-6-astra" 명시 = 위 GPT-6 Astra 절
+
+### 모델 선택 — Astra / GPT-6 Sol / GPT-6 Luna
+
+| 모델 | ID | 패밀리 가이드 원문 | 모델 카드·공지 원문 |
+|---|---|---|---|
+| GPT-6 Astra | `gpt-6-astra` | "Use gpt-6-astra for our highest level of capability" | "GPT-6 Astra continues to be our best model across the board. Choose it when you want the best results and an uncompromising experience." (출시 공지) |
+| **GPT-6 Sol** (디폴트) | `gpt-6-sol` | "gpt-6-sol for strong reasoning on demanding tasks" | "GPT-6 Sol is built for complex coding and agentic workflows." (모델 카드) |
+| GPT-6 Luna | `gpt-6-luna` | "gpt-6-luna for efficient, repeatable work at scale." | "GPT-6 Luna is our most efficient model for focused, high-volume tasks." (모델 카드) |
+
+- 배포 체크리스트 표현: "gpt-6-sol for demanding reasoning and coding, and gpt-6-luna for efficient, repeatable work."
+- 출시 공지의 GPT-6 Sol 서술: "GPT-6 Sol can take on difficult work tasks while giving you more room to iterate with higher usage limits and lower cost"
+- 가용성(출시 공지): "Free and Go users can access GPT-6 Luna in the desktop app. These models are not yet available in Chat. In the OpenAI API, they are available as `gpt-6-sol` and `gpt-6-luna`." — ChatGPT 채팅용 프롬프트를 쓸 때 모델 가용성부터 확인.
+
+### 매개변수
+
+| 항목 | GPT-6 Sol · GPT-6 Luna | GPT-6 Astra (비교) |
+|---|---|---|
+| reasoning effort | `none` · `low` · `medium` · `high` · `xhigh` · `max`, 기본 `medium` | `none` 미지원 (`low`~`max`) |
+| 기존 `minimal` | `low` 로 시작해 대표 작업에서 비교 | 동일 |
+| Chat Completions 함수 호출 | `reasoning_effort: "none"` 일 때만 → 추론+도구 = Responses | Responses 전용 |
+| 샘플링 매개변수 | effort ≠ `none` 이면 제거 | 제거 |
+| 턴 중 effort 변경 | `configuration_update` | `configuration_update` |
+| 출력 상세도 | `text.verbosity` (`low` / `medium` / `high`) | 동일(배포 체크리스트 예제 모델 = GPT-6 Astra · GPT-6 Sol·Luna 별도 표기 없음) |
+
+- effort 원문: "If you omit `reasoning.effort`, GPT-5.6 defaults to `medium` in both modes. GPT-6 Sol and Luna also default to `medium` reasoning effort."
+- 마이그레이션 원문: "Preserve your current effective reasoning effort where supported. GPT-6 Astra does not support `none`; use `low` instead. GPT-6 Sol and Luna support `none`. If your existing request uses `minimal`, start with `low` and compare results on representative tasks."
+- 도구 호출 원문: "GPT-6 Sol and Luna support function calling in Chat Completions only with `reasoning_effort: \"none\"`. Use Responses for reasoning with tools."
+- 샘플링 원문: "When reasoning effort is not `none`, remove `temperature`, `top_p`, and `top_logprobs`. For Chat Completions, also remove `logprobs`. For Responses, remove `message.output_text.logprobs` from `include`."
+- `configuration_update` 원문: "Add a `configuration_update` input item to increase reasoning effort for difficult work or reduce it for routine follow-ups without rewriting the original prompt prefix." · reasoning 가이드: "Configuration updates are supported by the GPT-6 model family in standard, single-agent mode. They change only reasoning effort."
+- `text.verbosity` 원문(배포 체크리스트 — 예제 모델은 `gpt-6-astra`, GPT-6 Sol·Luna 를 따로 적지 않음): "`text.verbosity` is the main lever for balancing brevity against completeness." · "When migrating, check whether broad instructions like \"Be concise\" still help. Prefer `text.verbosity` to control the default level of detail, then use the prompt to specify required content, structure, and length."
+- effort 고르는 방법은 위 «Reasoning Effort 권장값 (5.6 기준)» 을 출발점으로 쓴다 — 현 effort 를 baseline 으로 보존하고 대표 eval 로 비교하는 방향이 위 마이그레이션 원문과 같다.
+
+### 프롬프트 작성
+
+**구조 = 위 GPT-5.6 7블록(Role · Personality · Goal · Success Criteria · Constraints · Tools · Output · Stop Rules)을 그대로 출발점으로.** GPT-5.6 가이드의 simplify prompts first · outcome-first · stopping conditions · tool routing · Programmatic Tool Calling · grounding · suggested prompt structure 는 GPT-6 가이드 Prompting best practices 에 **재수록되지 않았으나 폐지 표기도 없다**(확인 범위 내 미발견). 7블록을 유지하고, 아래 예시 문구를 해당 블록에 필요한 것만 넣는다.
+
+> 🔴 **아래 예시 = Astra 관찰 기반 출발점.** 가이드 원문: "They address behavior observed with GPT-6 Astra; evaluate them with your chosen model and workload." — GPT-6 Sol·Luna 가 같은 성향을 보인다고 문서가 보장하지 않는다. 넣기 전에 GPT-6 Sol·Luna 의 기본 출력을 자기 워크로드로 먼저 평가하고, 실제로 관찰된 문제에 맞는 문구만 추가한다.
+
+가이드가 GPT-5.6 Sol 과 직접 비교한 문장도 Astra 에 대한 것이다: "GPT-6 Astra is generally better than GPT-5.6 Sol and earlier models at staying coherent during long tasks. It is also more likely to ask for clarification where earlier models would make assumptions."
+
+| 예시 문구 | 넣을 블록 위치(7블록 + 필수 블록) | 이 문서의 대응 절(편집 판단) |
+|---|---|---|
+| 자율 진행 | `# Autonomy` | Initiative and follow-through |
+| 요청 = 실행 지시 | `# Autonomy` / `# Stop Rules` | Initiative and follow-through |
+| 승인 전 검토 가능한 결과 | `# Autonomy` | Initiative and follow-through |
+| 스킬보다 사용자 지시 | `# Constraints` | Instruction following |
+| 문단 위주 문체 | `# Output` | Personality and writing style |
+| 테스트 조절 | `# Validation` | Testing and verification |
+
+자율 진행 (원문):
+
+```text
+You should infer the user's intent and task scope from the instructions and prior conversation context. Your job is to bias towards action and carry the user's intended task to completion.
+
+When the user expresses intent to perform new work or fix an existing issue, persist until the user's intended goal is complete. Progress autonomously towards the user's goal (e.g. creating isolated worktrees / checkouts if needed, resolving merge conflicts, read-only actions, creating draft PRs etc.) unless they are clearly destructive or irreversible.
+```
+
+요청을 실행 지시로 다루기 (원문):
+
+```text
+When the user's prompt indicates a request for action, such as "can you...", "I want to...", "help me..." and similar expressions, treat these as instructions to do the work and take action. Do not stop at acknowledging capability (e.g. "Yes…"), proposing a plan, or offering to continue. Do not settle for a partial or "helpful enough" solution that does not fully satisfy the user's task to save time, effort or tokens. If a task requires sustained work, complete all the necessary work until the intended outcome is fulfilled.
+```
+
+승인 전에 검토 가능한 결과까지 (원문):
+
+```text
+Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result. For example, before deploying a change, writing to an external application, merging a PR or publishing a site, do all the required work first so that user approval is the final step. You don't need user permission for reversible tasks, read-only actions, reviews or fixes, or anything for which authorization is provided earlier in the session or strongly implied from the task instruction.
+
+Do not introduce unsolicited warnings, disclaimers, approval flows, or safety/compliance checklists due to hypothetical risk.
+```
+
+스킬보다 사용자 지시 (원문):
+
+```text
+The user's instructions take precedence over guidelines provided in a skill. If explicit user instructions conflict with a skill's instructions, prioritize the user's instructions.
+```
+
+문단 위주 문체 (원문):
+
+```text
+Default to using clear, concise paragraphs, each developing one main idea. Use lists only when the information is genuinely parallel, sequential, or easier to compare, and avoid nested lists unless the hierarchy cannot be expressed clearly in prose. Use plain, simple language: familiar words, concrete examples, and precise verbs. Prefer active voice and direct statements.
+
+Make sure to state the main point clearly and early, then develop it with the explanation and detail the reader needs. Let each sentence build on what came before. Develop the points that matter and provide enough support to be useful.
+```
+
+테스트 조절 (원문):
+
+```text
+Do not write tests for reversible, low-impact changes that mirror the implementation. If you do choose to verify your work with tests, make sure that the tests are meaningful and necessary to verify implementation.
+
+Run tests appropriate to the change and complete required checks. Once those pass, broaden or repeat testing only when new changes, failures, or unresolved concerns justify it; otherwise, continue toward completing the task.
+```
+
+- 상투어 줄이기·서브에이전트 위임 문구는 위 GPT-6 Astra 절에 인용돼 있다. 같은 전제(Astra 관찰 기반 출발점)로 필요할 때만 가져온다.
+- 테스트 조절은 GPT-5.6 필수 블록 `# Validation`(가장 관련 있는 검증 실행)과 방향이 다르다 — GPT-5.6 가이드는 코딩 후 검증을 돌리라고 하고, GPT-6 가이드는 작은 변경에서 테스트가 과해질 수 있다고 적는다(대상 = Astra). 두 문구를 같이 넣을 때는 GPT-6 Sol·Luna 의 실제 테스트 범위를 먼저 확인한다.
+
+### 문체 — 출시 공지 기준
+
+**출시 공지 기준으로, Astra 의 소통 문체가 GPT-6 Sol·Luna 에 적용되었다.** 이것은 프롬프트 가이드가 아니라 제품 공지의 기본 동작 서술이다.
+
+> "We've also brought GPT-6 Astra's improved communication style to Sol and Luna... Expect to see more clarity, less jargon, fewer odd turns of phrase, fewer low-value details, and slightly shorter answers overall without losing substance."
+
+- GPT-5.6 Sol 용으로 쓰던 문체·길이 지시("간결하게" 등)는 GPT-6 Sol·Luna 에서 그대로 필요한지 다시 잰다 — 배포 체크리스트의 "check whether broad instructions like \"Be concise\" still help" 와 같은 방향. 기본 상세도는 `text.verbosity`, 프롬프트는 필수 내용·구조·길이만.
+- 공지의 "verbosity sweeps" 는 사실성 평가 방법이지 매개변수 변경이 아니다: "our verbosity sweeps showed almost no dependence on answer length."
+- **여러 모델이 함께 쓰는 지시문 주의.** 공식 Astra 블로그 글(https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra.md) 원문: "Guidance that helps Sol or Luna may overconstrain GPT-6 Astra, so consider which models will use the instructions you leave behind." — `AGENTS.md`·스킬 파일처럼 GPT-6 Astra 와 GPT-6 Sol·Luna 가 같이 읽는 지시문에 GPT-6 Sol·Luna 용 보강을 넣을 때는 어느 모델이 읽는지 먼저 따진다. 같은 글은 GPT-6 Sol·Luna 용으로 무엇을 새로 넣으라고는 적지 않는다.
+
+### 마이그레이션 체크 (GPT-5.6 Sol → GPT-6 Sol / GPT-6 Luna)
+
+1. 모델명 교체 — `gpt-6-sol`(어려운 추론·코딩·에이전트) 또는 `gpt-6-luna`(대량·반복·효율)
+2. **현 reasoning effort 보존** — "Preserve your current effective reasoning effort where supported." (`none` 은 GPT-6 Sol·Luna 에서 그대로 가능)
+3. `minimal` → **`low`** 로 시작, 대표 작업에서 비교
+4. effort ≠ `none` 이면 `temperature` · `top_p` · `top_logprobs` 제거 / Chat Completions 은 `logprobs` 도 제거 / Responses 는 `include` 에서 `message.output_text.logprobs` 제거
+5. 추론 + 도구 = **Responses 로 전환** — Chat Completions 함수 호출은 `reasoning_effort: "none"` 일 때만
+6. 대화 중 effort 변경 = 요청 수준 `reasoning.effort` 는 두고 `configuration_update` 항목으로 (원래 프롬프트 접두부를 다시 쓰지 않음)
+7. 문체·길이 지시 재평가 → `text.verbosity` 우선 (위 «문체 — 출시 공지 기준»)
+8. Astra 관찰 기반 예시 문구는 GPT-6 Sol·Luna 워크로드 eval 로 확인된 문제에만 추가 · 여러 모델이 공유하는 지시문 점검
+9. 나머지 절차는 위 «마이그레이션 (GPT-5.5 → GPT-5.6)» 원칙 그대로 — 변경 전 대표 eval, 측정된 회귀만 가장 작은 지시로 고치기, 통째 재작성 ❌
+
+Codex 로 옮길 때 (가이드 «Migrate with Codex» 원문):
+
+```text
+$openai-docs migrate this project to the GPT-6 model family
+```
 
 ---
 
 # 📦 LEGACY — GPT-5.5 outcome-first / GPT-5.4·5.2 XML stack (명시 요청 시 fallback)
 
-> 아래는 이전 세대 패턴 보존분이다. 사용자가 "5.5", "5.4 XML 스타일", "legacy XML stack", 또는 GPT-5.5/5.4/5.2/5/4o 이하 모델을 명시할 때만 적용. 그 외 모든 GPT 작업은 위 GPT-5.6 lean outcome-first 사용.
+> 아래는 이전 세대 패턴 보존분이다. 사용자가 "5.5", "5.4 XML 스타일", "legacy XML stack", 또는 GPT-5.5/5.4/5.2/5/4o 이하 모델을 명시할 때만 적용. 그 외 GPT 작업은 위 절 사용 — 모델 미지정 = GPT-6 Sol 절(GPT 디폴트), GPT-5.6 명시 = GPT-5.6 lean outcome-first(직전 디폴트).
 
 ## ▼ GPT-5.5 / 5.4 / 5.2 패턴 (원본 보존)
 
@@ -352,7 +500,7 @@ Before asking the user clarifying questions, you should complete the work that i
 
 - 사용자가 "GPT-5.5용 프롬프트", "ChatGPT GPT-5.5", "Codex GPT-5.5" 명시
 - Batch 모드에서 첫 토큰이 `GPT-5.5` 일 때
-- ⚠️ **5.5 시절 기본값 — 현재 기본은 GPT-5.6**: 모델 미지정 + 일반 Q&A/단순 작업이면 5.5 outcome-first 권장 (legacy 5.4 XML stack은 명시 요청 시만)
+- ⚠️ **5.5 시절 기본값 — 현재 기본은 GPT-6 Sol (GPT-5.6 Sol = 직전 디폴트)**: 모델 미지정 + 일반 Q&A/단순 작업이면 5.5 outcome-first 권장 (legacy 5.4 XML stack은 명시 요청 시만)
 
 > ⚠️ **GPT-5.4 호환**: 사용자가 "5.4 XML 스타일", "legacy XML stack" 등을 명시하면 아래 GPT-5.4/5.2 XML stack 섹션으로 fallback.
 
@@ -774,6 +922,7 @@ Ask only for the smallest missing input if blocked.
 
 ## 참고 자료
 
+- [Using GPT-6 (공식, GPT-6 패밀리 가이드)](https://developers.openai.com/api/docs/guides/latest-model) · 모델 카드 [gpt-6-sol](https://developers.openai.com/api/docs/models/gpt-6-sol.md) · [gpt-6-luna](https://developers.openai.com/api/docs/models/gpt-6-luna.md) · [GPT-6 Sol·Luna 출시 공지](https://openai.com/index/introducing-gpt-6-sol-and-luna/)
 - [GPT-5.6 Sol Prompt Guidance (공식)](https://developers.openai.com/api/docs/guides/prompt-guidance-gpt-5p6)
 - [GPT-5.5 Prompt Guidance (공식)](https://developers.openai.com/api/docs/guides/prompt-guidance?model=gpt-5.5)
 - `skills/prompt-engineering-guide/references/full.md` — 모델별 통합 전략
@@ -783,11 +932,15 @@ Ask only for the smallest missing input if blocked.
 
 ## Metadata
 
-- **Version**: 1.3.0
+- **Version**: 1.4.0
 - **Created**: 2026-07-11
-- **Updated**: 2026-09-06
-- **Source**: OpenAI GPT-5.6 Sol Prompt Guidance (2026-07) + OpenAI Using GPT-6 Astra (2026-09) + preserved GPT-5.5/5.4/5.2 legacy patterns
-- **Author**: konan(research/draft) + karpathy(co-lead 결정/검토), knowledge-manager pipeline
+- **Updated**: 2026-09-27
+- **Source**: OpenAI GPT-5.6 Sol Prompt Guidance (2026-07) + OpenAI Using GPT-6 Astra (2026-09) + OpenAI Using GPT-6 · gpt-6-sol / gpt-6-luna 모델 카드 · GPT-6 Sol·Luna 출시 공지 (접근 2026-09-27) + preserved GPT-5.5/5.4/5.2 legacy patterns
+- **Author**: tofukyung (prompt-engineering-skills maintainers)
+- **Changes v1.4.0** (2026-09-27):
+  - [NEW] GPT-6 Sol · Luna 절 신설 — 공식 출처와 한계(전용 프롬프트 가이드 확인 범위 내 미발견 → 패밀리 가이드 «Using GPT-6» + 모델 카드 2 + 출시 공지), 트리거(맨 "Sol" 단독 ❌), 모델 선택 표(Astra / GPT-6 Sol / GPT-6 Luna 원문), 매개변수(`none`~`max` 기본 `medium` · GPT-6 Sol·Luna `none` 지원 · Chat Completions 함수 호출은 `none` 일 때만 · 샘플링 매개변수 제거 · `configuration_update` · `text.verbosity`), 프롬프트 작성(7블록 출발점 + Astra 관찰 기반 예시 원문 6개), 출시 공지 기준 문체, GPT-5.6 Sol → GPT-6 Sol/Luna 마이그레이션 체크.
+  - [MAJOR] GPT 디폴트 = GPT-6 Sol (2026-09-22~). GPT-5.6 Sol = 직전 디폴트 — 트리거·모델 미지정·LEGACY 안내 문장 갱신. GPT-5.6 트리거의 맨 "Sol" → "GPT-5.6 Sol".
+  - [NOTE] Astra 절의 모델 미지정 조건(「Astra 로 전환된 이후」 `[미검증]`)을 GPT-6 Sol 디폴트로 대체.
 - **Changes v1.3.0** (2026-09-06):
   - [NEW] GPT-6 Astra 절 신설 — 모델 스펙(`none` 미지원·272K 장문 할증)·마이그레이션 3건·행동 성향 5가지 공식 교정 프롬프트·새 기능 3+1(비동기 도구·mid-turn steering·configuration_update).
   - [NOTE] Fable 5.1(Claude 계열)과 포맷팅 축 정반대 — 교차 이식 금지 표기.
