@@ -1,10 +1,11 @@
 # /prompt - AI 프롬프트 생성기
 
-> **Version**: 3.4.0 | **Updated**: 2026-09-27 — 🆕 **v3.4.0: Claude 디폴트 = Opus 5.5 · GPT 디폴트 = GPT-6 Sol**(2026-09-22 출시 · 공식 문서 대조, 접근 2026-09-27 — 머리 소스 줄·Claude/GPT 라우팅 표·batch 1번째 토큰·모델별 필수 블록·AskUserQuestion 모델 옵션 갱신). 이전: v3.3.2: 사용자 대면 문안 4건 치환(Gem 분할 모듈 changelog 3·업로드 번들 image-prompt-guide 1 — 사용자에게 보이는 면 기준 재분류). v3.3.1: /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정. 지난 판 변경 이력 = 아래 `## Metadata`.
+> **Version**: 3.5.0 | **Updated**: 2026-11-10 — 🆕 **v3.5.0: 어려운 추론·장기 에이전트 = Claude Fable 5.2**(2026-11-09 출시 · 공식 문서 대조, 접근 2026-11-10 — Fable 5.2 소스 줄·추천 모델 표·Claude 라우팅 표·Fable 5.2 대상 생성 규칙·모델별 필수 블록·AskUserQuestion 모델 옵션 갱신 · Claude 디폴트는 그대로 Opus 5.5 · Fable 5.1 = 이전 세대). 이전: **v3.4.0: Claude 디폴트 = Opus 5.5 · GPT 디폴트 = GPT-6 Sol**(2026-09-22 출시 · 공식 문서 대조, 접근 2026-09-27 — 머리 소스 줄·Claude/GPT 라우팅 표·batch 1번째 토큰·모델별 필수 블록·AskUserQuestion 모델 옵션 갱신). 이전: v3.3.2: 사용자 대면 문안 4건 치환(Gem 분할 모듈 changelog 3·업로드 번들 image-prompt-guide 1 — 사용자에게 보이는 면 기준 재분류). v3.3.1: /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정. 지난 판 변경 이력 = 아래 `## Metadata`.
 > **Model Rankings**: [LMArena Leaderboard](https://lmarena.ai) (2026년 3월 기준)
 > **이미지 프롬프트 소스 (원본 킷)**: **공냥 프롬프트 킷 v4** — [gongnyang/gongnyang-prompt-kit](https://github.com/gongnyang/gongnyang-prompt-kit) (MIT, 원문 vendor `skills/image-prompt-kit/` · 계약 전사 `skills/image-prompt-guide/references/full.md` §0·§K). 보조: [[OpenAI-gpt-image-2-Prompting-Guide-2026-04]] (쿡북) + [[EvoLinkAI-awesome-gpt-image-2-prompts-2026-04]] (커뮤니티 — 충돌 시 킷 우선)
-> **Opus 5.5 공식 소스 (현행 디폴트, 2026-09-22 출시 · `claude-opus-5-5`)**: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5) + [What's new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5) + [Migrating to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) (접근 2026-09-27) — effort 기본 `medium`(Opus 5 = `high`) → 명시·재측정 · Fable 5.1 과 같이 thinking 항상 켜짐(끄기 불가)·강제 `tool_choice` 불가 · 1M context. 선택 기준 원문: *"If you're unsure which model to use, start with Claude Opus 5.5 for most workloads."* · Fable 5.1 은 Opus 5.5 모델 개요 비교표에서 Latency «Slower»(Opus 5.5 = «Moderate») · 가격 입력/출력 100만 토큰당 $10 / $50(Opus 5.5 = $4 / $20) · 기본 effort `high` — «최고난도 추론·장기 에이전트용» 은 이 문서의 분류([Opus 5.5 overview](https://platform.claude.com/docs/en/models/opus-5-5/overview)) ([Models overview](https://platform.claude.com/docs/en/models/overview)). 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.7
-> **Fable 5.1 공식 소스 (최고난도 추론·장기 에이전트)**: [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) — 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.6
+> **Opus 5.5 공식 소스 (현행 디폴트, 2026-09-22 출시 · `claude-opus-5-5`)**: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5) + [What's new in Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5) + [Migrating to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) (접근 2026-09-27) — effort 기본 `medium`(Opus 5 = `high`) → 명시·재측정 · Fable 5.1 과 같이 thinking 항상 켜짐(끄기 불가)·강제 `tool_choice` 불가 · 1M context. 선택 기준 원문: *"If you're unsure which model to use, start with Claude Opus 5.5 for most workloads."* ([Models overview](https://platform.claude.com/docs/en/models/overview)) · 어려운 추론·장기 에이전트 자리는 2026-11-09 부터 Fable 5.2(아래 줄). 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.7
+> **Fable 5.2 공식 소스 (어려운 추론·장기 에이전트, 2026-11-09 출시 · `claude-fable-5-2`)**: [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2) + [What's new in Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2) + [Models overview](https://platform.claude.com/docs/en/models/overview) (접근 2026-11-10) — 쓰는 때 원문: *"for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short."* · effort 기본 `high`(*"Start at `high`, the default on the Claude API."*) · 가격 입력/출력 100만 토큰당 $8 / $40(Fable 5.1 = $10 / $50) · thinking 항상 켜짐·강제 `tool_choice` 불가 · 1M context. 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.8
+> **Fable 5.1 공식 소스 (이전 세대 — 사용자가 지정하면 그대로)**: [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1) — 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.6
 > **Opus 5 공식 소스 (직전 디폴트)**: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5) + [What's new in Opus 5](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5) — thinking 기본 ON · `disabled`+effort `xhigh|max`=400 · **web fetch·Priority Tier 미지원**(그 경우 4.8 명시)
 > **Opus 4.8 / Fable 5 공식 소스 (구세대 first-class)**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — **Claude 디폴트 = Opus 5.5** (2026-09-27 반영 · 직전 디폴트 Opus 5 = 2026-07-28~). 상세: `skills/claude-fable-5-prompt-strategies.md` Part 2.7 (Opus 5 = Part 2.5)
 > **Opus 4.7 / 4.6 공식 소스 (구세대 first-class)**: [platform.claude.com/docs — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Adaptive thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Migrating to Claude 4](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) — 사용자 명시 시 4.7/4.6 코드 패턴 적용
@@ -250,7 +251,7 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 
 ## 목적별 추천 모델 (LMArena 기준)
 
-> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026-09-27 모델 라인업 반영 (Claude 디폴트 = **Opus 5.5** · 최고난도 추론·장기 에이전트 = **Fable 5.1** / GPT 디폴트 = **GPT-6 Sol** · 최고 성능 = GPT-6 Astra · 대량·반복 = GPT-6 Luna). 신모델(2026-09-22 출시) 자리는 공식 문서의 용도 안내(Claude = «대부분 작업은 Opus 5.5 로 시작» · GPT-6 Astra 최고 성능 / GPT-6 Sol 까다로운 추론 / GPT-6 Luna 대량·반복)를 이 표에 옮긴 편집 판단이며, LMArena 재측정 순위도 회사 간 공식 비교도 아닙니다. 직전 디폴트 = Claude Opus 5 · GPT-5.6 Sol.
+> 출처: [LMArena Leaderboard](https://lmarena.ai) 기준 사용자 투표 순위 + 2026-11-10 모델 라인업 반영 (Claude 디폴트 = **Opus 5.5** · 어려운 추론·장기 에이전트 = **Fable 5.2**(2026-11-09 출시 · Fable 5.1 = 이전 세대) / GPT 디폴트 = **GPT-6 Sol** · 최고 성능 = GPT-6 Astra · 대량·반복 = GPT-6 Luna). 신모델(2026-09-22 · 2026-11-09 출시) 자리는 공식 문서의 용도 안내(Claude = «대부분 작업은 Opus 5.5 로 시작», 어려운 추론·장기 에이전트 = Fable 5.2 · GPT-6 Astra 최고 성능 / GPT-6 Sol 까다로운 추론 / GPT-6 Luna 대량·반복)를 이 표에 옮긴 편집 판단이며, LMArena 재측정 순위도 회사 간 공식 비교도 아닙니다. 직전 디폴트 = Claude Opus 5 · GPT-5.6 Sol.
 
 | 목적 | 1순위 | 2순위 | 3순위 |
 |------|-------|-------|-------|
@@ -258,8 +259,8 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 | **수학/논리** | **Claude Opus 5.5** | Gemini 3.1 Pro | GPT-6 Sol / Claude Opus 4.8 |
 | **글쓰기/창작** | Gemini 3.1 Pro | Gemini 3 Pro | Claude Opus 5.5 / 4.8 |
 | **종합/분석** | **Claude Opus 5.5** | Gemini 3.1 Pro | GPT-6 Sol / Claude Opus 4.8 |
-| **최고난도·미해결 문제** | **Claude Fable 5.1** | GPT-6 Astra | Claude Opus 5.5 |
-| **에이전틱 (1M context)** | **Claude Opus 5.5** (1M) | **Claude Fable 5.1** (장기 에이전트) | GPT-6 Sol / GPT-5.5 Codex (Browser Use) |
+| **최고난도·미해결 문제** | **Claude Fable 5.2** | GPT-6 Astra | Claude Opus 5.5 |
+| **에이전틱 (1M context)** | **Claude Opus 5.5** (1M) | **Claude Fable 5.2** (장기 에이전트) | GPT-6 Sol / GPT-5.5 Codex (Browser Use) |
 | **비전/멀티모달** | Gemini 3 Pro | Gemini 3 Flash | GPT-5.1 |
 | **이미지 생성** | **gpt-image-2** (OpenAI, 2026-04) [⭐ NEW] | Gemini 3.1 Flash Image (NB2) | Gemini 3 Pro Image |
 | **이미지 편집** | **gpt-image-2** (ChatGPT) — identity/geometry/layout 보존 강점 | Gemini 3 Pro Image | Seedream 4.5 |
@@ -366,7 +367,8 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 | 사용자 표현 | 적용 모델 | 코드 패턴 |
 |------------|----------|----------|
 | Claude 모델 미지정 + 일반 작업 · "Opus 5.5", "claude-opus-5-5", "최신 Claude" | **Opus 5.5** (디폴트) | Fable 5.1 과 같이 **thinking 항상 켜짐(끄기 불가)** — `thinking: {"type": "disabled"}`·`budget_tokens` = 400 · **effort 기본 `medium`**(Opus 5 = `high`) → 명시 + 여러 단계 재측정, 생각을 줄이려면 effort 먼저 · 「응답에 추론을 써라」·"think carefully"·"don't think" 류 지시 제거 · Fable 5.1 과 같이 강제 `tool_choice`(`any`/`tool`) 불가 → 프롬프트에 도구를 쓰는 조건 명시 · 1M context. `skills/claude-fable-5-prompt-strategies.md` Part 2.7 |
-| "Fable 5.1", "claude-fable-5-1", "가장 어려운 추론·장기 에이전트" | **Fable 5.1** | 최고난도 추론·장기 에이전트 작업. thinking 끄기 불가·강제 `tool_choice` 불가·thinking 블록이 모델·대화에 묶임 · effort 기본 `high`. `skills/claude-fable-5-prompt-strategies.md` Part 2.6 |
+| "Fable 5.2", "claude-fable-5-2", "최신 Fable", "가장 어려운 추론·장기 에이전트" | **Fable 5.2** | 어려운 추론·장기 에이전트 작업(2026-11-09 출시). thinking 끄기 불가·강제 `tool_choice` 불가 · effort 기본 `high`(명시 후 `medium`·`xhigh` 재측정) · 앞부분 검사가 모든 계정에 적용 → 대화 기록은 덧붙이기만, 프롬프트·도구 설명 변경은 새 대화부터 · 아래 「Fable 5.2 대상 프롬프트 생성 규칙」 적용. `skills/claude-fable-5-prompt-strategies.md` Part 2.8 |
+| "Fable 5.1", "claude-fable-5-1" | **Fable 5.1** (이전 세대) | 사용자가 지정하면 그대로 쓴다(옮기기를 강요하지 않음). thinking 끄기 불가·강제 `tool_choice` 불가·thinking 블록이 모델·대화에 묶임 · effort 기본 `high`. `skills/claude-fable-5-prompt-strategies.md` Part 2.6 |
 | "Opus 5", "claude-opus-5" | **Opus 5** (직전 디폴트) | **thinking 기본 ON**(필드 생략) + effort(low/medium 적극·xhigh 시 `max_tokens` 64k+) + 1M context. **검증·재확인 지시 제거**(과검증) · 간결성 명시 · 서브에이전트 억제. `skills/claude-fable-5-prompt-strategies.md` Part 2.5 |
 | **web fetch 도구 · Priority Tier 필요** | **Opus 4.8 명시** | Opus 5 **미지원** — 해당 기능 쓰는 프롬프트는 4.8 로 분기 (Opus 5.5 지원 여부 = 이번 대조 문서에서 확인 범위 내 미발견) |
 | "Opus 4.8", "claude-opus-4-8" | **Opus 4.8** (구세대 first-class) | adaptive thinking 명시 필요 + effort(xhigh 코딩 기본) + 1M context. literal 해석·effort 엄수·코드리뷰 coverage 프롬프트 |
@@ -376,6 +378,34 @@ Batch 호출 시 워커 템플릿이 자동 적용되며, `/tofu-at` 및 `/tofu-
 | 기존 4.6/4.7 프롬프트 마이그레이션 의뢰 | **현 모델 유지** + 회귀 매트릭스 안내 | 사용자 결정 후 전환 |
 
 **Opus 4.8 핵심 차이 (4.7 대비)**: 1M context 기본(MS Foundry 200k) · verbosity 자동 조정 · 더 literal한 해석 · 도구 사용 보수적(effort↑로 보정) · 서브에이전트 스폰 보수적(명시 가이드) · 진행 보고 자체 개선("N tool call마다 요약" 스캐폴딩 제거) · 코드리뷰 recall 함정(coverage/filter 분리 프롬프트). **Fable 5 추가 차이**: 지시 따르기 강화 → **장문 열거 프롬프트 다이어트**, reasoning 재출력 지시 = refusal 위험.
+
+### 🆕 Fable 5.2 대상 프롬프트 생성 규칙 (v3.5.0 — 공식 가이드 2026-11-10 대조)
+
+> **출처**: [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2) (접근 2026-11-10) — 상세·원문 블록: `skills/claude-fable-5-prompt-strategies.md` Part 2.8
+> **적용**: 타겟이 Fable 5.2 일 때만. 수치는 Anthropic 자체 시험의 결과(범위가 좁음)이므로 사용자에게는 «출발점»으로 안내한다. Opus 5.5 · Fable 5.1 대상이면 각 모델 절(Part 2.7 · 2.6)을 따른다.
+
+| # | 규칙 | 근거 원문 |
+|---|------|----------|
+| 1 | **생각을 줄이라는 문장을 넣지 않는다** («Answer directly without deliberating» 류). 빠른 답이 필요하면 `effort` 를 낮추라고 안내한다 | *"In Anthropic’s testing, such a line didn’t stop Claude Fable 5.2 from thinking at `medium` and above."* |
+| 2 | **«treat that answer as done» 블록**(Opus 5.5 채팅용 예시)은 모델이 이전 답을 다시 살피기를 원하는 프롬프트에 넣지 않는다 | *"the model also became far less likely to point out mistakes in its earlier answers."* |
+| 3 | **코드 주인 문장** — 코딩 에이전트 프롬프트에서, 사용자가 그 코드를 계속 키워 갈 주인이면 넣는다: `This codebase is yours: what it's for and how it's built are your call, and you'll keep building on it.` 남의 코드·최소 변경이면 넣지 않는다. 넣을 때는 대가도 같이 알린다(출력 토큰 *"about 1.5 times the output tokens"* · 요청하지 않은 변경이 생길 수 있음 → *"review the diff and not only the summary."*) | *"Leave the ownership sentence out where the user owns the code and wants it changed as little as possible."* |
+| 4 | **딱딱한 문체 규칙을 넣지 않는다** — «한 문장에 지시 하나, 20단어 이하» 같은 고정 상한이 대상이다. 아래 `# Communicating clearly` 블록의 문체 안내(짧은 문장·한 문장에 생각 하나)는 상한이 아니라 방향이므로 별개 | *"a hard limit such as “one instruction per sentence, in 20 words or fewer” can make its prose choppy."* |
+| 5 | **절대 금지(«never») 규칙에는 예외와 이유를 그 규칙 안에 쓴다** — 누가 승인하면 되는지까지 같은 문장에. «더 자유롭게 행동하라» 같은 일반 문장으로 풀지 않는다 | *"When the rule itself said to get a go-ahead first, the model took the step in about nine tries in ten."* · *"a general instruction to act more freely changed nothing."* |
+| 6 | **승인 규칙은 대상 행동을 정확히 이름 붙인다** — «외부로 보내는 모든 것» 같은 넓은 말 대신 구체 행동 목록 | *"name the exact actions they cover, because the model applies them as written."* |
+| 7 | **프롬프트 안에 토큰 예산을 기본으로 넣지 않는다** («이 작업에 N 토큰» 류). 기존 프롬프트에 이미 있으면 빼고 자기 작업으로 시험해 보라고 안내한다. API 의 task budgets(beta)는 별개 — 그 시험 범위 밖 | *"removing a large budget lowered cost, with equivalent performance."* (`high`·`xhigh` 코딩 과제 시험) |
+| 8 | **서브에이전트 위임** — «위임하라»는 상시 줄은 넣기 전에 먼저 검토한다. 서브에이전트 시작 도구의 설명을 쓸 때는 비용을 먼저 적는다(무엇이 더 드는지 → 언제 가치가 있는지 → 어떻게 지시를 줄지) | *"the model delegated about a third less often with the tested description than with one that mostly listed reasons to delegate. Task success was the same."* |
+| 9 | **적용 시점 안내** — 시스템 프롬프트·도구 설명을 바꾸는 결과물에는 «새 대화부터 적용»을 한 줄로 덧붙인다(진행 중인 대화에 넣으면 400 이 날 수 있음) | *"Make these changes in new conversations only."* |
+
+**선택 블록 2개** (원문 블록 = Part 2.8.4 · 2.8.10 — 그대로 옮기고 출처·접근일을 표기):
+
+| 블록 | 넣는 때 | 알릴 것 |
+|------|--------|--------|
+| `# Finishing work` | 장기·무인 에이전트 프롬프트 — 일이 남은 채 턴이 끝나는 문제가 있을 때(`low`·`medium` 에서 더 잦음) | *"about half as many sessions ended with doable work left"* · *"Output tokens rose by about 30 percent."* 모델이 덜 묻게 되므로 위험·불가역 행동의 확인 단계는 따로 둔다 |
+| `# Communicating clearly` | 최종 보고·인수인계를 쓰게 하는 프롬프트 | *"this text made final reports less dense, with fewer semicolons."* 딱딱한 문체 규칙(#4)을 먼저 뺀 뒤에 넣는다 |
+
+**침묵 알림 문구** — 하네스가 붙이는 알림은 Fable 5.2 판 문구를 쓴다(Opus 5.5 판과 구두점이 다름): `The user hasn't heard from you in a while: say in a few words what you're doing, then continue.`
+
+**거절 대비** — Fable 5.2 의 거절 범주에는 `frontier_llm` 이 있고(*"the request could help with the development of competing AI models."*), 대체 모델은 Opus 4.8 · Opus 5 다. 응답에 추론을 쓰라는 지시는 넣지 않는다.
 
 **4.6 → 4.7 전환 전 필수 회귀 체크**: `skills/prompt-engineering-guide/references/full.md` Part 0.5 회귀 매트릭스 10개 항목 통과 후에만 전환.
 
@@ -787,9 +817,9 @@ AskUserQuestion 호출 (questions 배열에 4개 질문):
     "header": "AI 모델",
     "multiSelect": false,
     "options": [
-      {"label": "Claude Opus 5.5 (Recommended)", "description": "디폴트 (2026-09-22 출시~), effort 기본 medium → 명시, Fable 5.1 과 같이 thinking 항상 켜짐, 1M context (Opus 5·Fable 5 는 기타로 명시)"},
+      {"label": "Claude Opus 5.5 (Recommended)", "description": "디폴트 (2026-09-22 출시~), effort 기본 medium → 명시, Fable 5.1 과 같이 thinking 항상 켜짐, 1M context (Opus 5·Fable 5.1·Fable 5 는 기타로 명시)"},
       {"label": "Claude Opus 4.8", "description": "구세대 first-class — web fetch·Priority Tier 필요 시 필수"},
-      {"label": "Claude Fable 5.1", "description": "최고난도 추론·장기 에이전트 작업, effort 기본 high"},
+      {"label": "Claude Fable 5.2", "description": "어려운 추론·장기 에이전트 작업 (2026-11-09 출시~), effort 기본 high"},
       {"label": "GPT-6 Sol", "description": "2026-09 GPT 기본 모델 (GPT-6 Luna·GPT-6 Astra·GPT-5.6 Sol·5.5/5.4는 기타로 명시)"},
       {"label": "Gemini 3 Pro", "description": "멀티모달 + Grounding Search 강점"}
     ]
@@ -1428,7 +1458,8 @@ Style Rules:
 | GPT-5.5 (legacy outcome-first) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 추가. **상세**: `skills/prompt-engineering-guide/references/full.md` |
 | GPT-5.2/5.4 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. **상세**: `skills/prompt-engineering-guide/references/full.md` 하단 Legacy 섹션 |
 | **Claude Opus 5.5 (디폴트)** | Opus 5 블록 기반(공식: *"Existing Claude Opus 5 prompts should perform well without changes"*) + `effort` 명시(`medium` 시작·여러 단계 재측정) · 「응답에 추론을 써라」·"think carefully"·"don't think" 류 지시 제거 · 도구를 쓰는 조건을 프롬프트에 명시(Fable 5.1 과 같이 강제 `tool_choice` 불가) · 무인 작업 = 체크리스트 + 이어가기 메시지 · 붙여 넣은 텍스트 = `<pasted_content>` · 진행 표시 = `display: "updates"` · 프론트엔드 = 피할 패턴을 구체적으로. 상세 `skills/claude-fable-5-prompt-strategies.md` Part 2.7 |
-| **Claude Fable 5.1** | 최고난도 추론·장기 에이전트 작업 — `skills/claude-fable-5-prompt-strategies.md` Part 2.6 |
+| **Claude Fable 5.2** | 어려운 추론·장기 에이전트 작업 — `effort` 명시(`high` 시작·`medium`·`xhigh` 재측정) · 생각을 줄이라는 문장·프롬프트 속 토큰 예산·딱딱한 문체 규칙은 넣지 않음 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 승인 규칙은 대상 행동을 정확히 · 코딩 에이전트 = 코드 주인 문장(주인일 때만) · 장기 에이전트 = `# Finishing work` · 최종 보고 = `# Communicating clearly` · 프롬프트 변경은 새 대화부터. 위 「Fable 5.2 대상 프롬프트 생성 규칙」 · 상세 `skills/claude-fable-5-prompt-strategies.md` Part 2.8 |
+| Claude Fable 5.1 (이전 세대) | 사용자가 지정한 경우 — `skills/claude-fable-5-prompt-strategies.md` Part 2.6 |
 | Claude Opus 5 (직전 디폴트) | 4.8 블록에서 **검증·재확인 지시를 뺀** 형태 + 간결성 명시 + 서브에이전트 위임 기준/상한 + 범위 고정. `thinking` 필드 생략(기본 ON), `effort` low/medium 우선 |
 | **Claude Opus 4.8 (구세대)** | 4.7 블록 동일 + literal 해석 범위 명시("every section") + 코드리뷰는 coverage/filter 분리 프롬프트 + 디자인은 구체 스펙 또는 "4방향 제안" 패턴. `thinking: {type: "adaptive"}` + `effort: "xhigh"`(코딩) |
 | **Claude Fable 5** | **장문 열거 ❌ — 짧은 지시 1개씩** (brevity·체크포인트·grounding·경계 스니펫은 `skills/claude-fable-5-prompt-strategies.md`). reasoning 재출력 지시 금지(refusal). adaptive thinking 전용 |
@@ -1881,8 +1912,9 @@ AI: 최종 프롬프트 출력 + 5가지 선택지 (Step 3으로 복귀)
 
 ## Metadata
 
-- **Version**: 3.4.0
-- **Updated**: 2026-09-27
+- **Version**: 3.5.0
+- **Updated**: 2026-11-10
+- **Changes v3.5.0** (2026-11-10): 어려운 추론·장기 에이전트 = Claude Fable 5.2(`claude-fable-5-2`, 2026-11-09 출시 · Fable 5.1 = 이전 세대, 지정하면 그대로). 머리 소스 줄(Fable 5.2 신설), 추천 모델 표(최고난도·에이전틱 행), Claude 라우팅 표(Fable 5.2 행 신설·Fable 5.1 행 = 이전 세대), 「Fable 5.2 대상 프롬프트 생성 규칙」 절 신설(생각 줄이기 문장·«treat that answer as done»·코드 주인 문장·문체 규칙·금지 규칙의 예외·승인 규칙·토큰 예산·서브에이전트 위임·적용 시점 + 선택 블록 `# Finishing work`·`# Communicating clearly` + 침묵 알림 문구 + 거절 범주), 모델별 필수 블록, 코딩 AskUserQuestion 모델 옵션 갱신. Claude 디폴트는 그대로 Opus 5.5. 근거 = Anthropic 공식 문서(접근 2026-11-10). 상세 = `skills/claude-fable-5-prompt-strategies.md` Part 2.8(신설) · Part 2.7(Opus 5.5 가이드 2026-11-10 판 문구 재대조).
 - **Changes v3.4.0** (2026-09-27): Claude 디폴트 = Opus 5.5(`claude-opus-5-5`, 2026-09-22 출시) · GPT 디폴트 = GPT-6 Sol(`gpt-6-sol`, 2026-09-22 출시). 머리 소스 줄(Opus 5.5·Fable 5.1·GPT-6 신설, Opus 5·GPT-5.6 Sol = 직전 디폴트 표기), Claude 라우팅 표(Opus 5.5 디폴트·Fable 5.1·Opus 5 행 신설, 중복 Opus 4.8 행 병합, "최신 Claude" → Opus 5.5), GPT 라우팅 표(GPT-6 Sol·GPT-6 Luna·GPT-6 Astra·GPT-5.6 Sol 행), `--batch` 1번째 토큰(`GPT-6-Sol`/`GPT-6-Luna`/`GPT-6-Astra`/`GPT-6`), 모델별 필수 블록, 코딩 AskUserQuestion 모델 옵션, 사용 예시 디폴트 표기 갱신. 근거 = Anthropic·OpenAI 공식 문서(접근 2026-09-27). 상세 = `skills/claude-fable-5-prompt-strategies.md` Part 2.7 · `skills/gpt-5.6-prompt-enhancement/references/full.md` «GPT-6 Sol · Luna» 절.
 - **Changes v3.3.1** (2026-09-05): /deep-research→/searchflow 명칭 정합 3줄 + prompt-sync MCP 도구명 정정
 - **Changes v3.3.0** (2026-07-29): P5 대형 가이드 분할(500줄 초과 참조 가이드 7건[prompt-engineering-guide·image-prompt-guide·gemini-3.1·claude-4.7·gpt-5.6·expert-domain-priming·research-prompt-guide]을 flat md → 디렉터리형[SKILL.md 얇은 라우팅 인덱스 + references/full.md 본문, git rename 내용 diff 0]으로 재배치. 2026-03 stale 분할본 제거 = 이중 표현 해소. 참조 치환 = 레포 11+vault 13+codex 1파일, p5-ref-verify.sh 4축 PASS[옛 경로 잔존 0·신규 실재·참조 계수 보존·레포 밖 0]. 소비 계약 불변 — 게이트는 경로만 갱신).

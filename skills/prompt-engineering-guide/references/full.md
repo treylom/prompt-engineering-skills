@@ -20,7 +20,7 @@ updated: 2026-07-21
 | 영역 | 이 파일에서 볼 위치 |
 |------|-------------------|
 | GPT 5.x~6 (**GPT-6 Sol = 기본**, 2026-09-22~) | 모델별 프롬프트 전략 → GPT-6 Astra·GPT-6 Sol·GPT-6 Luna / GPT-5.6 / 5.5 / 5.2 / legacy XML — GPT-6 규칙 = `skills/gpt-5.6-prompt-enhancement/references/full.md` GPT-6 절 |
-| Claude (**Opus 5.5 = 기본**, 2026-09-22~ · Fable 5.1 · Opus 5 · Opus 4.8 · Fable 5 · Sonnet 5 / 구세대 4.x) | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
+| Claude (**Opus 5.5 = 기본**, 2026-09-22~ · Fable 5.2 · Fable 5.1 · Opus 5 · Opus 4.8 · Fable 5 · Sonnet 5 / 구세대 4.x) | 모델별 프롬프트 전략 → Claude 및 통합 부록의 Claude 전략 |
 | Gemini / Veo / 이미지 | Gemini, Nano Banana, 이미지/동영상 통합 부록 |
 | 리서치 / 팩트체크 | 목적별 추가 블록, 글쓰기/리서치 개요, 리서치 통합 부록 |
 | 슬라이드 / PPT | 중간 구조화 워크플로우, 슬라이드 통합 부록 |
@@ -1764,7 +1764,7 @@ operation = client.models.generate_videos(
 | `ce-context-fundamentals` | 기본 원칙 (시스템 프롬프트 구조화) |
 | `ce-context-optimization` | 최적화 기법 (토큰 효율성) |
 | `prompt-engineering-guide` | GPT 5.x~6 통합 — **GPT-6 Sol = 기본**(2026-09-22~) + lean outcome-first(GPT-5.6 Sol, 직전 기본) + outcome-first(5.5) + legacy XML stack(5.4/5.2) |
-| `prompt-engineering-guide` | Claude 프롬프트 전략 — 현행(**Opus 5.5 = 기본** · Fable 5.1 · Opus 5 · Opus 4.8 · Fable 5 · Sonnet 5) + 구세대(Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5) |
+| `prompt-engineering-guide` | Claude 프롬프트 전략 — 현행(**Opus 5.5 = 기본** · Fable 5.2 · Fable 5.1 · Opus 5 · Opus 4.8 · Fable 5 · Sonnet 5) + 구세대(Opus 4.5/4.6/4.7, Sonnet 4.5/4.6, Haiku 4.5) |
 | `prompt-engineering-guide` | Gemini 3 프롬프트 전략 (NB2 포함) |
 | `prompt-engineering-guide` | 이미지 생성 프롬프트 가이드 (공냥이 @specal1849 자료 기반) |
 | `prompt-engineering-guide` | 팩트체크/리서치 프롬프트 가이드 (IFCN 원칙 기반) |
@@ -2409,12 +2409,14 @@ Ask only for the smallest missing input if blocked.
 
 ---
 
-### Claude 현행 모델 전략 (Opus 5.5 · Fable 5.1 · Fable 5 · Opus 4.8 · Sonnet 5) 🆕
+### Claude 현행 모델 전략 (Opus 5.5 · Fable 5.2 · Fable 5.1 · Fable 5 · Opus 4.8 · Sonnet 5) 🆕
 
+> 🆕 **2026-11-10 갱신 — 어려운 추론·장기 에이전트 = Claude Fable 5.2** (`claude-fable-5-2`, 2026-11-09~ · 기본 effort `high` · 가격 입력/출력 100만 토큰당 $8 / $40). 공식 모델 안내가 Fable 5.2 를 쓰는 때로 적는 것: "for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short." ([Models overview](https://platform.claude.com/docs/en/models/overview), 접근일 2026-11-10). Fable 5.2 규칙(effort 보정·끝까지 끝내기·코드 주인 문장·이전 모델용 지시 재검토·보고서 문체·거절 범주) = `skills/claude-fable-5-prompt-strategies.md` **Part 2.8**. Fable 5.1 = 이전 세대(지정하면 그대로 · Part 2.6). Claude 기본 모델은 그대로 Opus 5.5 — 아래 2026-09-27 갱신 줄의 Fable 5.1 서술은 그 시점 기준.
+>
 > 🆕 **2026-09-27 갱신 — Claude 기본 모델 = Claude Opus 5.5** (`claude-opus-5-5`, 2026-09-22~). 공식 모델 안내: "If you're unsure which model to use, start with Claude Opus 5.5 for most workloads." · Fable 5.1 은 Opus 5.5 모델 개요 비교표에서 Latency «Slower»(Opus 5.5 = «Moderate») · 가격 입력/출력 100만 토큰당 $10 / $50(Opus 5.5 = $4 / $20) · 기본 effort `high` — «최고난도 추론·장기 에이전트용» 은 이 문서의 분류([Opus 5.5 overview](https://platform.claude.com/docs/en/models/opus-5-5/overview)) ([Models overview](https://platform.claude.com/docs/en/models/overview), 접근일 2026-09-27). Opus 5.5 규칙(effort 기본 `medium`·브레이킹 4건·무인 작업 완주 등) = `skills/claude-fable-5-prompt-strategies.md` **Part 2.7** · Fable 5.1 = **Part 2.6**. 아래 본문은 Opus 5 시기(2026-07)에 쓴 내용으로 계보 보존.
 
 > **Updated**: 2026-07-21 | **Source**: [Prompting Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-4-8) + [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5) — 상세: `skills/claude-fable-5-prompt-strategies.md`
-> **Covers**: **Claude Opus 5.5** (Claude 디폴트, 2026-09-22부터 — 규칙은 분할본 Part 2.7), **Fable 5.1** (최고난도 추론·장기 에이전트 — 분할본 Part 2.6), **Claude Opus 5** (직전 디폴트, 2026-07-28~09-22), **Fable 5**, **Opus 4.8** (구세대 first-class), **Sonnet 5**
+> **Covers**: **Claude Opus 5.5** (Claude 디폴트, 2026-09-22부터 — 규칙은 분할본 Part 2.7), **Fable 5.2** (어려운 추론·장기 에이전트, 2026-11-09부터 — 분할본 Part 2.8), **Fable 5.1** (이전 세대 — 분할본 Part 2.6), **Claude Opus 5** (직전 디폴트, 2026-07-28~09-22), **Fable 5**, **Opus 4.8** (구세대 first-class), **Sonnet 5**
 
 핵심 철학: 세 모델 모두 **지시 따르기가 강해져 "열거형 장문 프롬프트"가 역효과** — 짧고 정확한 지시 1개 > 행동 나열 10개. 이전 모델용 과잉 처방의 다이어트가 마이그레이션의 본체.
 
@@ -2440,7 +2442,7 @@ Ask only for the smallest missing input if blocked.
 
 ### Claude 프롬프트 전략
 
-> **Version**: 3.2.0 | **Updated**: 2026-04-30 | ⚠️ **구세대 참고 문서** — 현행(Opus 5.5 디폴트·Fable 5.1 · Opus 5·Opus 4.8·Fable 5·Sonnet 5)은 위 "Claude 현행 모델 전략" 섹션 참조
+> **Version**: 3.2.0 | **Updated**: 2026-04-30 | ⚠️ **구세대 참고 문서** — 현행(Opus 5.5 디폴트·Fable 5.2 · 이전 세대 Fable 5.1 · Opus 5·Opus 4.8·Fable 5·Sonnet 5)은 위 "Claude 현행 모델 전략" 섹션 참조
 > **Source**: Anthropic 공식 문서 ([platform.claude.com — Claude 4 best practices](https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices) + [Migration](https://platform.claude.com/docs/en/docs/about-claude/models/migrating-to-claude-4) + [Adaptive Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/adaptive-thinking) + [Extended Thinking](https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking))
 > **Covers**: **Opus 4.7**, **Opus 4.6** (first-class 유지), **Sonnet 4.6** (4.5 대비 effort 기본값 변경), Opus 4.5, Sonnet 4.5, Haiku 4.5
 

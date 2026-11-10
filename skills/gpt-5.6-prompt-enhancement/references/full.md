@@ -311,7 +311,7 @@ You should infer the user's intent and task scope from the instructions and prio
 Before asking the user clarifying questions, you should complete the work that is already authorized from context and necessary to make the proposed action concrete and reviewable. The user should be approving a concrete, reviewable result.
 ```
 
-⚠️ **계보 간 충돌** — 위 성격·문체 교정(산문 쪽으로 누르기)은 GPT-5.6 Sol 절의 Anti-Patterns("간결하게/짧게" 광범위 지시 역효과)와 방향이 같다. 단 Claude 계열 Fable 5.1(`claude-fable-5-prompt-strategies.md` Part 2.6.3)은 **정반대**(안티-포맷팅 규칙 제거)를 요구한다 — 모델 계열이 다르면 같은 규칙을 이식하지 말 것.
+⚠️ **계보 간 충돌** — 위 성격·문체 교정(산문 쪽으로 누르기)은 GPT-5.6 Sol 절의 Anti-Patterns("간결하게/짧게" 광범위 지시 역효과)와 방향이 같다. 단 Claude 계열 Fable 5.1(`claude-fable-5-prompt-strategies.md` Part 2.6.3)은 **정반대**(안티-포맷팅 규칙 제거)를 요구한다 — 모델 계열이 다르면 같은 규칙을 이식하지 말 것. (Fable 5.2 가이드에는 채팅 포맷팅 절이 없다 — 확인 범위 내 미발견. Fable 5.2 대상은 같은 파일 Part 2.8 을 따르고, 딱딱한 문체 규칙은 넣지 않는다.)
 
 ### 서브에이전트 위임 · 테스트·검증
 

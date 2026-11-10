@@ -23,7 +23,8 @@
 | GPT-5.5 (outcome-first legacy) | Markdown 6섹션: `Role` / `# Personality` / `# Goal` / `# Success Criteria` / `# Constraints` / `# Output` / `# Stop Rules`. 도구 워크플로면 Preamble 1줄 | |
 | GPT-5.4 / 5.2 (legacy XML) | `<output_verbosity_spec>`, `<output_contract>`, `<completeness_contract>`, `<tool_persistence>`. 상세: `prompt-engineering-guide.md` 하단 "Legacy GPT-5.2/5.4 XML Stack" 섹션 | |
 | **Claude Opus 5.5** (디폴트) | effort 명시(기본 `medium` — Opus 5 는 `high`) 후 여러 단계 재측정 · 생각을 줄이려면 effort 먼저 · 응답에 추론을 쓰라는 지시·"think carefully"·"don't think" 류 제거 · Fable 5.1 과 같이 thinking 항상 켜짐(`disabled`·`budget_tokens` = 400)·강제 `tool_choice`(`any`/`tool`) 불가 → 도구를 쓰는 조건을 프롬프트에 명시 · 붙여 넣은 텍스트 = `<pasted_content>` | |
-| **Claude Fable 5.1** (최고난도 추론·장기 에이전트) | 기본 effort `high` · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) | |
+| **Claude Fable 5.2** (어려운 추론·장기 에이전트) | effort 명시(기본 `high` — `medium`·`xhigh` 재측정) · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) · 생각을 줄이라는 문장·프롬프트 속 토큰 예산·딱딱한 문체 규칙은 넣지 않음 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코딩 에이전트 = 코드 주인 문장(주인일 때만) · 프롬프트 변경은 새 대화부터 | |
+| Claude Fable 5.1 (이전 세대 — 지정 시) | 기본 effort `high` · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) | |
 | Claude Opus 5 (직전 디폴트 · legacy) | 검증·재확인 지시 **제거**(스스로 검증 — 남기면 과검증) · **간결성 명시**(기본 응답이 길어짐) · 서브에이전트 위임 억제 · 범위 고정. `effort` low/medium 적극, `xhigh|max` 시 `max_tokens` 64k+ | |
 | **Claude Opus 4.8** (구세대) | `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>` (리터럴 해석), `thinking: adaptive` + `effort=xhigh`. verbosity 자동 조정·도구 사용 보수적(effort↑로 보정). **Breaking**: budget_tokens/temperature/prefill 금지 | |
 | Claude Fable 5 (구세대) | **장문 열거 ❌ — 짧은 지시 1개씩** (프롬프트 다이어트). adaptive thinking 전용(`thinking` 생략), reasoning 재출력 지시 금지(refusal 위험) | |
@@ -31,7 +32,7 @@
 
 **GPT 모델 라우팅**: 미지정/일반 GPT 작업 → **GPT-6 Sol 디폴트**. "최고 성능"·"GPT-6 Astra" → GPT-6 Astra. "대량·반복"·"GPT-6 Luna" → GPT-6 Luna. "GPT-5.6 Sol" 명시 → lean outcome-first(직전 디폴트). `GPT-5.5` 명시 → 5.5 outcome-first. `GPT-5.4` / `5.2` / `legacy XML` 명시 시에만 XML stack 적용.
 
-**Claude 모델 라우팅**: 미지정/최신 → **Opus 5.5 디폴트**(effort 기본 `medium` — 명시 후 재측정 · Fable 5.1 과 같이 thinking 항상 켜짐). "Fable 5.1"·"최고난도"·"장기 에이전트" → Fable 5.1. "Opus 5" 명시 → Opus 5(직전 디폴트, thinking 기본 ON · `disabled`+`xhigh|max`=400). web fetch·Priority Tier 필요 → 4.8 명시. "Fable 5" 명시 → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 시 해당 구세대 패턴 (마이그레이션 강요 금지). 구세대→4.8 전환 전 회귀 매트릭스(`prompt-engineering-guide.md` Part 0.5) 통과 필수.
+**Claude 모델 라우팅**: 미지정/최신 → **Opus 5.5 디폴트**(effort 기본 `medium` — 명시 후 재측정 · Fable 5.1 과 같이 thinking 항상 켜짐). "Fable 5.2"·"최고난도"·"장기 에이전트" → Fable 5.2(effort 기본 `high`). "Fable 5.1" 명시 → Fable 5.1(이전 세대, 그대로). "Opus 5" 명시 → Opus 5(직전 디폴트, thinking 기본 ON · `disabled`+`xhigh|max`=400). web fetch·Priority Tier 필요 → 4.8 명시. "Fable 5" 명시 → Fable 5. "Opus 4.7"·"Opus 4.6"·"이전 Opus" 명시 시 해당 구세대 패턴 (마이그레이션 강요 금지). 구세대→4.8 전환 전 회귀 매트릭스(`prompt-engineering-guide.md` Part 0.5) 통과 필수.
 
 **역할(Role) 직접 전문가 지명 (CRITICAL)**
 

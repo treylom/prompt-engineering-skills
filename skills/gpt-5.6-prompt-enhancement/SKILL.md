@@ -2,8 +2,8 @@
 name: gpt-5-6-prompt-enhancement
 description: Use when composing prompts targeting GPT-6 Sol (GPT 디폴트), GPT-6 Astra, GPT-6 Luna, GPT-5.6 Sol (직전 디폴트), legacy GPT-5.5/5.4/5.2 — lean outcome-first 7블록 규칙 + LEGACY 섹션(구 XML 스택)을 담은 GPT 프롬프트 전략 레퍼런스의 라우팅 인덱스. 본문 = references/full.md.
 disable-model-invocation: true
-version: 3.4.0
-updated: 2026-09-27
+version: 3.5.0
+updated: 2026-11-10
 ---
 
 # gpt-5.6-prompt-enhancement — 라우팅 인덱스
