@@ -1,8 +1,8 @@
 ## Version History
 
 **Version**: 3.5.0 | **Updated**: 2026-11-10
-**Changes v3.5.0** (2026-11-10): 모델 라인업 현행화 — 어려운 추론·장기 에이전트 = Fable 5.1 → **Fable 5.2**(`claude-fable-5-2`, 2026-11-09 출시 · effort 기본 `high`). Claude 디폴트는 그대로 Opus 5.5. 추천 모델 표·모델별 필수 블록 표·라우팅 규칙 갱신 + Fable 5.2 대상 규칙(생각을 줄이라는 문장을 넣지 않음 · 프롬프트 속 토큰 예산은 기본으로 넣지 않음(하네스가 큰 예산을 적어 넣고 있었다면 빼고 시험) · 필요 없어진 딱딱한 문체 규칙은 뺌 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코드 주인 문장은 주인일 때만 · 프롬프트 변경은 새 대화부터). Fable 5.1 = 이전 세대(지정하면 그대로). 출처 = 공식 문서(접근 2026-11-10). `02-role-model-rankings.md` · `05-workflow-generation-output.md` · `07-references-final-reminder.md` · `SKILL.md` 갱신.
-**v3.5.0 문구 손질** (2026-11-10, 버전 그대로): Fable 5.2 규칙의 토큰 예산·문체 규칙 문구를 공식 가이드의 세기에 맞춤.
+**Changes v3.5.0** (2026-11-10): 모델 라인업 현행화 — 어려운 추론·장기 에이전트 = Fable 5.1 → **Fable 5.2**(`claude-fable-5-2`, 2026-11-09 출시 · effort 기본 `high`). Claude 디폴트는 그대로 Opus 5.5. 추천 모델 표·모델별 필수 블록 표·라우팅 규칙 갱신 + Fable 5.2 대상 규칙(생각을 줄이라는 문장을 넣지 않음 · 프롬프트 속 토큰 예산은 기본으로 넣지 않음(하네스가 큰 예산을 적어 넣고 있었다면 빼고 시험) · 필요 없어진 딱딱한 문체 규칙은 뺌 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코드 주인 문장은 구조 다듬기를 원할 때만 · 프롬프트 변경은 새 대화부터). Fable 5.1 = 이전 세대(지정하면 그대로). 출처 = 공식 문서(접근 2026-11-10). `02-role-model-rankings.md` · `05-workflow-generation-output.md` · `07-references-final-reminder.md` · `SKILL.md` 갱신.
+**v3.5.0 문구 손질** (2026-11-10, 버전 그대로): Fable 5.2 규칙의 토큰 예산·문체 규칙 문구를 공식 가이드의 세기에 맞춤 · 코드 주인 문장을 넣는 조건(구조 다듬기를 원할 때)을 바로잡음.
 **Changes v3.4.0** (2026-09-27): 모델 라인업 현행화 — Claude 디폴트 Opus 5 → **Opus 5.5**(최고난도 추론·장기 에이전트 = **Fable 5.1**) / GPT 디폴트 GPT-5.6 Sol → **GPT-6 Sol**(최고 성능 = GPT-6 Astra, 대량·반복 = GPT-6 Luna). `02-role-model-rankings.md`(Role·목적별 추천 모델 표) · `05-workflow-generation-output.md`(모델별 필수 블록 표·라우팅 규칙 — v2.2.0 시점 GPT-5.4/Opus 4.6 2행에 멈춰 있던 것을 단일 파일판과 같은 문구로 교체) · `SKILL.md`(Model Rankings 줄) 갱신. Opus 5·GPT-5.6 Sol = 직전 디폴트, Opus 4.8 이하·Fable 5 = 구세대 유지. 신모델 순위 자리 = 공식 권장 기준(LMArena 재측정 아님).
 
 **Version**: 3.3.2 | **Updated**: 2026-09-05

@@ -22,7 +22,7 @@ disable-model-invocation: true
 | 어려운 추론·장기 에이전트 작업 | **Fable 5.2** (`claude-fable-5-2`) — 공식 모델 개요는 Opus 5.5 를 출발점으로 두고(*"start with [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview) for most workloads."*), Fable 5.2 를 쓰는 때를 이렇게 적는다: *"for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short."* · 가격 입력/출력 100만 토큰당 $8 / $40(Opus 5.5 = $4 / $20) · Latency «Moderate» · 기본 effort `high` ([Models overview](https://platform.claude.com/docs/en/models/overview) · [Fable 5.2 overview](https://platform.claude.com/docs/en/models/fable-5-2/overview), 접근일 2026-11-10) (Part 2.8) |
 | 사용자가 Fable 5.1 을 지정 · 기존 Fable 5.1 파이프라인 유지 | **Fable 5.1** (이전 세대) — 지정하면 그대로 쓴다. 가격 입력/출력 100만 토큰당 $10 / $50 · 기본 effort `high`. Fable 5.2 는 그보다 싸다: *"Input and output cost less than on Claude Fable 5.1 and Claude Mythos 5.1"* (What’s new in Claude Fable 5.2, 접근일 2026-11-10). 옮길 때는 Part 2.8.2·2.8.12 (Part 2.6) |
 | 기존 Opus 5 파이프라인 유지 | **Opus 5** (legacy · 직전 디폴트) — 옮길 때는 Part 2.7.8. 공식: *"Existing Claude Opus 5 prompts should perform well without changes"* |
-| 사용자가 Fable 5 를 지정 · 기존 Fable 5 파이프라인(며칠 단위 자율 run·병렬 서브에이전트 오케스트레이션) 유지 | **Fable 5** (구세대) — 지정하면 그대로 쓴다. 가장 어려운 문제는 위의 Fable 5.2 |
+| 사용자가 Fable 5 를 지정 · 기존 Fable 5 파이프라인(며칠 단위 자율 run·병렬 서브에이전트 오케스트레이션) 유지 | **Fable 5** (구세대) — 지정하면 그대로 쓴다. 어려운 추론·장기 에이전트 작업은 위의 Fable 5.2 |
 | 검증된 파이프라인·예측 가능한 동작·코드리뷰 하네스 | **Opus 4.8** (또는 Fable 5 fallback 대상) |
 | **web fetch 도구 · Priority Tier 필요** | **Opus 4.8 명시** — Opus 5 **미지원**(Part 2.5.5). Opus 5.5 지원 여부는 이 파일의 근거 문서(2026-09-27)에서 확인 범위 내 미발견 |
 | Fable 5 refusal(공격적 보안·생물과학·reasoning 추출) 대비 | Opus 4.8 server/client-side fallback 구성 |
@@ -283,7 +283,9 @@ You are operating autonomously. The user is not watching in real time and cannot
 Once you have answered something, treat that answer as done. On later turns, focus your thinking on what the user is asking now, and don't go back over an earlier answer unless the user asks about it or points out a problem with it.
 ```
 
-⚠️ **Fable 5.2 대상이면 이 블록을 그대로 옮기지 않는다.** Fable 5.2 가이드의 시험(`high` effort)에서 이 두 문장은 후속 질문의 thinking 을 줄였지만, 대가가 있었다: *"the model also became far less likely to point out mistakes in its earlier answers. Leave these lines out where you want the model to keep re-examining its earlier answers."* 그 밖의 자리에서도 모델이 자기 실수를 여전히 짚는지 시험한 뒤에 넣는다(Part 2.8.9).
+Opus 5.5 가이드도 이 블록에 단서를 단다 — 긴 분석이나, 뒤 단계에서 앞 단계의 실수가 드러날 수 있는 에이전트 작업에는 넣지 않는다: *"Leave it out where you want the model to keep re-examining its earlier work, for example in long analyses, or in agentic tasks where a later step can reveal a mistake in an earlier one."* 모델이 앞선 답의 실수를 스스로 짚는 일이 줄어들 수도 있으니, 그것이 중요한 쓰임이면 넣기 전에 시험한다: *"The instruction might also make the model less likely to point out a mistake in an earlier answer on its own, so if that matters for your application, test for it before adopting the instruction."*
+
+⚠️ **Fable 5.2 대상이면 이 블록을 그대로 옮기지 않는다.** Fable 5.2 가이드의 시험(`high` effort)에서도 이 두 문장은 후속 질문의 thinking 을 줄였지만, 위 단서의 대가가 실제로 나타났다: *"the model also became far less likely to point out mistakes in its earlier answers. Leave these lines out where you want the model to keep re-examining its earlier answers."* 그 밖의 자리에서도 모델이 자기 실수를 여전히 짚는지 시험한 뒤에 넣는다(Part 2.8.9).
 
 ### 2.7.4 빼야 할 지시 — thinking 을 대신하던 문장들
 
@@ -384,7 +386,7 @@ Output a vanilla HTML/CSS personal website with placeholder data. Do not use a c
 
 > **공식 출처**: [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2) · [What's new in Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2) · [Fable 5.2 overview](https://platform.claude.com/docs/en/models/fable-5-2/overview) · [Models overview](https://platform.claude.com/docs/en/models/overview) — 접근일 2026-11-10
 > 모델 ID = **`claude-fable-5-2`**(Mythos = `claude-mythos-5-2`, 인증 프로그램을 거친 조직 한정) · 출시 2026-11-09 · 1M context(기본=최대) · 128k max output · 가격 입력/출력 100만 토큰당 $8 / $40 · thinking 항상 켜짐(adaptive) · 기본 effort `high`
-> 이 절의 수치는 전부 Anthropic 자체 시험의 결과이고 시험 범위가 좁다(작은 코딩 과제 · 모의 과제 · 한 제품의 기록 재생 등). 원문 표현 그대로 옮겼으니 자기 작업에서 다시 잰다.
+> 이 절의 시험 수치(비율·배수·퍼센트)는 Anthropic 자체 시험 결과다. 시험마다 과제가 정해져 있다(작은 코딩 과제 · 모의 과제 · 한 제품의 기록 재생 등). 원문 표현 그대로 옮겼으니 자기 작업에서 다시 잰다.
 
 ### 2.8.1 언제 쓰나
 
@@ -407,7 +409,7 @@ Fable 5.1 보다 싸다(*"Input and output cost less than on Claude Fable 5.1 an
 | 3 | **`computer_20251124` 도구 = 400** (Amazon Bedrock 제외) | `computer_toolset_20260801` 로 옮긴다 |
 | 4 | **advisor 도구 짝** — Fable 5.2 실행 모델은 Fable 5.2 또는 Mythos 5.2 advisor 만 받는다 | advisor 도구 정의의 `model` 을 같은 변경에서 `claude-fable-5-2` 로. `tools` 수정이므로 새 대화에서 |
 
-**모든 요청에 걸리는 규칙 2개**(Fable 5.1 · Opus 5.5 에서 오면 변화 없음): thinking 은 끌 수 없다(`enabled`+`budget_tokens` · `disabled` 모두 400) · 강제 도구 사용 불가(`tool_choice` 의 `any`·`tool` = 400 → `auto` + `strict: true`, 도구를 쓰는 조건은 프롬프트에).
+**모든 요청에 걸리는 규칙 2개**(Fable 5.1 · Opus 5.5 에서 오면 변화 없음): thinking 은 끌 수 없다(`enabled`+`budget_tokens` · `disabled` 모두 400) · 강제 도구 사용 불가(`tool_choice` 의 `any`·`tool` = 400 → `auto` 로 두고 도구를 쓰는 조건은 프롬프트에 · 스키마에 맞는 JSON 이 필요하면 `strict: true`(고객 관리 암호화 키를 쓰는 조직은 쓸 수 없음 → `strict` 를 빼고 도구 입력을 코드에서 검증)).
 
 ### 2.8.3 effort 보정 — `high` 에서 시작해 다시 잰다
 
@@ -417,7 +419,7 @@ Fable 5.1 보다 싸다(*"Input and output cost less than on Claude Fable 5.1 an
 - **단계별 쓰임**(공식 요약): `low` = 빠른 주고받기·명세가 분명한 작업·대량 처리 / `medium` = 대화형 코딩·채팅·일상 지식 작업 / `high` = 어려운 코딩·조사·에이전트·긴 무인 실행 / `xhigh` = 이득을 잰 경우의 가장 어려운 장기 작업 / `max` = 한계 측정용.
 - **대부분의 이득은 `high` 에 이미 있다** — *"Most of the gain in capability is already present at `high`."* 품질이 유지되면 `medium` 으로 내린다.
 - **낮은 effort 에서는 일찍 멈추기 쉽다** — `low`·`medium` 의 에이전트 작업에는 2.8.4 블록을 넣는다.
-- **`high` 이상에서는 인사에도 생각한다** — 쉬운 요청이 느리거나 비싸면 그 턴의 effort 를 낮춘다. 문장으로는 막히지 않는다(2.8.9).
+- **`high` 이상에서는 인사에도 생각한다** — 쉬운 요청이 느리거나 비싸면 그 턴의 effort 를 낮춘다. 시험에서는 생각을 줄이라는 문장으로 막히지 않았다(2.8.9).
 - **effort 는 답 길이를 거의 바꾸지 않는다** — *"To change the length and tone of a reply, use your prompt."*
 
 ### 2.8.4 끝까지 끝내게 하기 — `# Finishing work` (선택 블록 · 장기 에이전트용)
@@ -435,9 +437,9 @@ If you notice yourself inviting the user to redirect you or offering to wait, in
 If someone clearly decided something is a hard blocker, such as a file marked not to be touched, access that was intentionally withheld, or a safety guardrail, leave it alone, say plainly what you found, and look for another safe way to finish the task. Stopping before the task is complete is very rarely merited, as in when the task can't move forward without user input, or where the blocker is deliberate and should not be worked past. This does not override the need for confirmation on risky or destructive actions.
 ```
 
-- 이 블록은 장애물을 둘로 가른다 — 평범한 장애물(오류·타임아웃·실패한 도구)은 진단하고 넘어가고, 누군가 일부러 둔 막음(손대지 말라고 표시한 파일 등)은 그대로 두고 알린다. 고쳐 쓸 때 이 구분은 남긴다.
+- 이 블록은 장애물을 둘로 가른다 — 평범한 장애물(오류·타임아웃·실패한 도구)은 진단하고 넘어가고 누군가 일부러 막아 둔 것(손대지 말라고 표시한 파일 등)은 그대로 두고 알린다. 고쳐 쓸 때 이 구분은 남긴다.
 - **효과와 대가**(한 에이전트 코딩 제품의 기록을 `medium` effort 로 재생한 시험): *"With a version of this text, about half as many sessions ended with doable work left."* · *"Output tokens rose by about 30 percent."* 남은 일을 나열하고 멈추는 끝맺음은 줄지 않았다.
-- 이 블록을 넣으면 모델이 덜 묻는다 — 위험하거나 되돌릴 수 없는 행동에는 자체 확인 단계를 따로 둔다.
+- 이 블록을 넣으면 모델이 덜 묻는다 — 위험하거나 되돌릴 수 없는 행동에는 확인 단계를 직접 따로 둔다.
 - Opus 5.5 대상이면 2.7.5 의 예시가 그쪽 출발점이다.
 
 **승인 규칙은 대상 행동을 정확히 이름 붙인다.**
@@ -448,7 +450,7 @@ If someone clearly decided something is a hard blocker, such as a file marked no
 
 ### 2.8.5 코드 주인 문장 (코딩 에이전트 프롬프트)
 
-Fable 5.2 는 «이 코드가 누구 것인가»에 민감하다. 프롬프트가 주인을 말하지 않거나 남의 코드로 소개하면 기존 구조에 덧붙이기만 하고(중복이 생겨도), 옆의 문제는 고치지 않고 보고만 하는 경향이 있었다. 모델이 일하면서 구조도 다듬기를 원하면 넣는 문장:
+Fable 5.2 는 «이 코드가 누구 것인가»에 민감하다. 프롬프트가 주인을 말하지 않거나 남의 코드로 소개하면 기존 구조에 덧붙이기만 하고(중복이 생겨도) 옆의 문제는 고치지 않고 보고만 하는 경향이 있었다. 모델이 일하면서 구조도 다듬기를 원하면 넣는 문장:
 
 ```text
 This codebase is yours: what it's for and how it's built are your call, and you'll keep building on it.
@@ -456,17 +458,17 @@ This codebase is yours: what it's for and how it's built are your call, and you'
 
 | 넣는다 | 넣지 않는다 |
 |---|---|
-| 사용자가 그 코드를 계속 키워 갈 주인이고, 모델이 중복을 합치고 관련 수정을 알아서 하기를 원할 때 | 남의 코드 · 최소 변경을 원할 때 — *"Leave the ownership sentence out where the user owns the code and wants it changed as little as possible."* |
+| 모델이 일하면서 구조까지 다듬기(중복 합치기·관련 수정)를 원할 때 | 사용자가 자기 코드를 되도록 적게 바꾸기를 원할 때 — *"Leave the ownership sentence out where the user owns the code and wants it changed as little as possible."* |
 
 - **효과**(작은 코딩 과제 시험): 이 문장이 있으면 중복 코드를 합친 비율이 *"in about half of the tries"*, 없으면 *"in under a tenth of the tries"*. 요청한 기능은 어느 쪽이든 거의 매번 동작했다.
 - **대가를 같이 적는다**: 출력 토큰이 *"about 1.5 times the output tokens"* · 아무도 요청하지 않은 변경(새 테스트·문서 등)이 여럿 · 버그 수정 외에 기존 기능의 동작을 바꾼 경우가 *"in one try in six to ten"*. 끝 요약이 작은 변경을 빼먹곤 하므로 *"review the diff and not only the summary."*
-- **범위 제한 규칙이 이 문장을 지우지 못한다** — 같은 프롬프트 앞쪽에 *“No drive-by refactors, renames or cleanups”* 가 있어도 약 3분의 1에서 중복을 합쳤다. 최소 변경이 목표면 문장 자체를 뺀다.
+- **범위를 묶는 규칙이 있어도 이 문장의 효과는 남는다** — 같은 프롬프트 앞쪽에 *“No drive-by refactors, renames or cleanups”* 가 있어도 약 3분의 1에서 중복을 합쳤다. 최소 변경이 목표면 문장 자체를 뺀다.
 
 ### 2.8.6 긴 턴의 진행 알림
 
 먼저 클라이언트가 진행 문장을 실제로 받는지 본다 — 도구 호출 사이의 진행 문장은 `thinking` 블록으로 오고, 기본 `thinking.display` 인 `"omitted"` 에서는 텍스트가 비어 있다. `display: "updates"`(beta) 또는 `"summarized"` 로 받는다.
 
-**하네스를 고칠 수 있고, 플랫폼이 대화 중간 시스템 메시지(mid-conversation system messages)를 지원할 때** — 사용자에게 읽을 것이 없는 도구 호출이 여러 번 이어지면 하네스가 턴 한정 시스템 메시지로 붙이는 알림(Fable 5.2 가이드 문구 — Opus 5.5 가이드 문구(2.7.6)와 구두점이 다르다):
+**하네스를 고칠 수 있고 플랫폼이 대화 중간 시스템 메시지(mid-conversation system messages)를 지원할 때** — 사용자에게 읽을 것이 없는 도구 호출이 여러 번 이어지면 하네스가 턴 한정 시스템 메시지로 붙이는 알림(Fable 5.2 가이드 문구 — Opus 5.5 가이드 문구(2.7.6)와 구두점이 다르다):
 
 ```text
 The user hasn't heard from you in a while: say in a few words what you're doing, then continue.
@@ -495,7 +497,7 @@ Fable 5.2 가 얼마나 위임하는지는 하네스와 과제에 달려 있다 
 1. **위임하라는 상시 줄부터 본다** — 시스템 프롬프트·스킬·에이전트 파일에 «위임하라»는 줄이 있으면 그것부터 검토한다. 그래도 필요 이상으로 띄울 때에만 시작 도구의 설명을 고친다.
 2. **시작 도구의 설명에는 비용을 먼저 적는다** — 서브에이전트를 띄우면 세션 비용에 무엇이 더해지는지 · 언제 위임할 가치가 있고 언제 없는지 · 띄운 서브에이전트에게 지시를 어떻게 줄지, 이 셋을 적고 비용을 맨 앞에 둔다.
 3. **효과**(짧은 과제 시험): *"the model delegated about a third less often with the tested description than with one that mostly listed reasons to delegate. Task success was the same."*
-4. 위임이 너무 적으면 비용 이야기를 줄이고, 여전히 많으면 늘려서 다시 잰다. 하네스가 서브에이전트를 어느 모델로 돌리는지도 확인한다 — 서브에이전트가 세션 비용의 큰 몫일 수 있다.
+4. 위임이 너무 적으면 비용 이야기를 줄이고 여전히 많으면 늘려서 다시 잰다. 하네스가 서브에이전트를 어느 모델로 돌리는지도 확인한다 — 서브에이전트가 세션 비용의 큰 몫일 수 있다.
 
 ### 2.8.8 조심 규칙이 쌓이지 않게 — «never» 규칙에는 예외와 이유를 규칙 안에
 
@@ -514,13 +516,13 @@ Fable 5.2 가 얼마나 위임하는지는 하네스와 과제에 달려 있다 
 
 | 지시 | Fable 5.2 에서 | 공식 근거 |
 |---|---|---|
-| **위임하라는 상시 줄** | 먼저 읽고, 필요 이상으로 띄우면 뺀다 | 2.8.7 |
-| **하네스가 프롬프트 안에 적어 넣는 토큰 예산** («이 작업에 N 토큰, 남은 양 M») | 빼고 시험한다. 예산 크기가 모델이 쓰는 양을 바꾼다 | `high`·`xhigh` 코딩 과제 시험: *"removing a large budget lowered cost, with equivalent performance."* — 프롬프트 속 글에 대한 결과이고, API 의 task budgets(beta)는 이 시험 범위 밖 |
+| **위임하라는 상시 줄** | 먼저 읽고 필요 이상으로 띄우면 뺀다 | 2.8.7 |
+| **하네스가 프롬프트 안에 적어 넣는 토큰 예산** («이 작업에 N 토큰, 남은 양 M») | 빼고 시험한다. 예산 크기가 모델이 쓰는 양을 바꾼다 | `high`·`xhigh` 코딩 과제 시험: *"removing a large budget lowered cost, with equivalent performance."* — 프롬프트 속 글에 대한 결과이고 API 의 task budgets(beta)는 이 시험 범위 밖 |
 | **앞선 턴을 고치는 하네스 코드** | 기록은 덧붙이기만 | 2.8.2 ① |
 | **«treat that answer as done» 두 문장**(Opus 5.5 가이드의 채팅용 예시 — 2.7.3) | 모델이 이전 답을 계속 다시 살피기를 원하는 자리에는 넣지 않는다 | `high` effort 시험: *"the model also became far less likely to point out mistakes in its earlier answers."* |
 | **생각을 줄이라는 문장**(«answer directly without deliberating» 류) | 빼고 effort 를 낮춘다 | *"In Anthropic’s testing, such a line didn’t stop Claude Fable 5.2 from thinking at `medium` and above."* |
 | **딱딱한 문체 규칙**(문장 길이 상한 등) | 필요 없는 것은 뺀 다음에 2.8.10 블록을 넣는다 | *"a hard limit such as “one instruction per sentence, in 20 words or fewer” can make its prose choppy."* |
-| **쌓인 규칙·노트·메모리** | 이유가 사라진 조심 문구는 지우고, 절대 규칙은 범위와 이유를 적어 다시 쓴다 | 2.8.8 |
+| **쌓인 규칙·노트·메모리** | 이유가 사라진 조심 문구는 지우고 절대 규칙은 범위와 이유를 적어 다시 쓴다 | 2.8.8 |
 
 ### 2.8.10 보고서를 읽기 쉽게 — `# Communicating clearly` (선택 블록 · 최종 보고·인수인계용)
 
@@ -564,7 +566,7 @@ Fable 5.2 는 모든 계정에 앞부분 검사를 적용하므로, 저장해 �
 1. `effort` 를 `high` 로 명시하고 `medium`·`xhigh` 에서도 평가를 돌린다
 2. 가져가는 시스템 프롬프트·스킬·에이전트 파일·메모리·노트·하네스 글을 읽고 2.8.9 의 지시를 빼거나 시험한다
 3. 가장 긴 에이전트 작업을 돌려, 일찍 멈추는 곳 · 필요 없는 승인을 구하는 곳 · 조용해지는 곳 · 필요 이상 위임하는 곳 · 구조를 다듬기를 원했는데 덧붙이기만 한 곳을 적는다
-4. 본 행동마다 해당 처방을 하나씩 적용하고, 효과와 토큰 비용을 자기 작업에서 잰다
+4. 본 행동마다 해당 처방을 하나씩 적용하고 효과와 토큰 비용을 자기 작업에서 잰다
 
 ## Part 3: Fable 5 핵심 패턴
 

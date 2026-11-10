@@ -87,7 +87,7 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 
 ---
 
-## 추천 모델 (2026-09-27)
+## 추천 모델 (2026-11-10)
 - **코딩**: **Opus 5.5** (effort 명시 — 기본 `medium`) / **Fable 5.2** (어려운 추론·장기 에이전트) > **GPT-6 Sol** / GPT-6 Astra (최고 성능) > Gemini 3.1 Pro
 - **대량·반복 작업**: **GPT-6 Luna** (공식: «efficient, repeatable work at scale»)
 - **이미지**: **gpt-image-2** / NanoBanana2 / Gemini 3 Pro Image
@@ -248,7 +248,7 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 | GPT-5.5 (legacy) | Markdown 6섹션 (Role/Personality/Goal/Success Criteria/Constraints/Output/Stop Rules) | `gpt-5.6-prompt-enhancement.md` 하단 Legacy 섹션 |
 | GPT-5.4 / 5.2 (legacy XML) | XML 12블록 stack (output_verbosity_spec 등) | `gpt-5.6-prompt-enhancement.md` 하단 Legacy 섹션 |
 | **Claude Opus 5.5** (디폴트) | effort 명시(기본 `medium` — Opus 5 는 `high`) 후 여러 단계 재측정 · 생각을 줄이려면 effort 먼저 · 응답에 추론을 쓰라는 지시·"think carefully"·"don't think" 류 제거 · Fable 5.1 과 같이 thinking 항상 켜짐(`disabled`·`budget_tokens` = 400)·강제 `tool_choice`(`any`/`tool`) 불가 → 도구를 쓰는 조건을 프롬프트에 명시 · 붙여 넣은 텍스트 = `<pasted_content>` | [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5) (접근 2026-09-27) |
-| **Claude Fable 5.2** (어려운 추론·장기 에이전트) | effort 명시(기본 `high` — `medium`·`xhigh` 재측정) · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) · 생각을 줄이라는 문장은 넣지 않음 · 프롬프트 속 토큰 예산은 기본으로 넣지 않음(하네스가 큰 예산을 적어 넣고 있었다면 빼고 시험) · 딱딱한 문체 규칙은 글이 뚝뚝 끊길 수 있으니 필요 없어진 것을 뺌 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코딩 에이전트 = 코드 주인 문장(주인일 때만) · 프롬프트 변경은 새 대화부터 | [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2) (접근 2026-11-10) · `claude-fable-5-prompt-strategies.md` Part 2.8 |
+| **Claude Fable 5.2** (어려운 추론·장기 에이전트) | effort 명시(기본 `high` — `medium`·`xhigh` 재측정) · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) · 생각을 줄이라는 문장은 넣지 않음 · 프롬프트 속 토큰 예산은 기본으로 넣지 않음(하네스가 큰 예산을 적어 넣고 있었다면 빼고 시험) · 딱딱한 문체 규칙은 글이 뚝뚝 끊길 수 있으니 필요 없어진 것을 뺌 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코딩 에이전트 = 코드 주인 문장(구조까지 다듬기를 원할 때만 · 최소 변경이면 뺌) · 프롬프트 변경은 새 대화부터 | [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2) (접근 2026-11-10) · `claude-fable-5-prompt-strategies.md` Part 2.8 |
 | Claude Fable 5.1 (이전 세대 — 지정 시) | 기본 effort `high` · thinking 항상 켜짐·강제 `tool_choice` 불가(Opus 5.5 와 공통) | `claude-fable-5-prompt-strategies.md` Part 2.6 |
 | Claude Opus 5 (직전 디폴트 · legacy) | 검증·재확인 지시 **제거**(과검증) · 간결성 명시 · 서브에이전트 억제 · 범위 고정. thinking 기본 ON, `disabled`+`xhigh|max`=400 | `claude-fable-5-prompt-strategies.md` Part 2.5 |
 | **Claude Opus 4.8** (구세대 first-class) | XML + `<use_parallel_tool_calls>`, `<investigate_before_answering>`, `<explicit_scope>`. API: `thinking={"type":"adaptive"}` + `effort="xhigh"` | `claude-fable-5-prompt-strategies.md` Part 2 |
@@ -276,9 +276,9 @@ AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스�
 
 **Version**: 3.5.0 | **Updated**: 2026-11-10
 
-**Changes v3.5.0** (2026-11-10): 모델 라인업 현행화 — 어려운 추론·장기 에이전트 = Fable 5.1 → **Fable 5.2**(`claude-fable-5-2`, 2026-11-09 출시 · effort 기본 `high`). Claude 디폴트는 그대로 Opus 5.5. 추천 모델 표·모델별 필수 블록 표·라우팅 규칙 갱신 + Fable 5.2 대상 규칙(생각을 줄이라는 문장을 넣지 않음 · 프롬프트 속 토큰 예산은 기본으로 넣지 않음(하네스가 큰 예산을 적어 넣고 있었다면 빼고 시험) · 필요 없어진 딱딱한 문체 규칙은 뺌 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코드 주인 문장은 주인일 때만 · 프롬프트 변경은 새 대화부터). Fable 5.1 = 이전 세대(지정하면 그대로). 출처 = 공식 문서(접근 2026-11-10).
+**Changes v3.5.0** (2026-11-10): 모델 라인업 현행화 — 어려운 추론·장기 에이전트 = Fable 5.1 → **Fable 5.2**(`claude-fable-5-2`, 2026-11-09 출시 · effort 기본 `high`). Claude 디폴트는 그대로 Opus 5.5. 추천 모델 표·모델별 필수 블록 표·라우팅 규칙 갱신 + Fable 5.2 대상 규칙(생각을 줄이라는 문장을 넣지 않음 · 프롬프트 속 토큰 예산은 기본으로 넣지 않음(하네스가 큰 예산을 적어 넣고 있었다면 빼고 시험) · 필요 없어진 딱딱한 문체 규칙은 뺌 · 금지 규칙에는 예외와 이유를 그 규칙 안에 · 코드 주인 문장은 구조 다듬기를 원할 때만 · 프롬프트 변경은 새 대화부터). Fable 5.1 = 이전 세대(지정하면 그대로). 출처 = 공식 문서(접근 2026-11-10).
 
-**v3.5.0 문구 손질** (2026-11-10, 버전 그대로): Fable 5.2 규칙의 토큰 예산·문체 규칙 문구를 공식 가이드의 세기에 맞춤.
+**v3.5.0 문구 손질** (2026-11-10, 버전 그대로): Fable 5.2 규칙의 토큰 예산·문체 규칙 문구를 공식 가이드의 세기에 맞춤 · 코드 주인 문장을 넣는 조건(구조 다듬기를 원할 때)과 추천 모델 날짜 머리를 바로잡음.
 
 **Changes v3.4.0** (2026-09-27): 모델 라인업 현행화 — Claude 디폴트 Opus 5 → **Opus 5.5**(최고난도 추론·장기 에이전트 = **Fable 5.1**) / GPT 디폴트 GPT-5.6 Sol → **GPT-6 Sol**(최고 성능 = GPT-6 Astra, 대량·반복 = GPT-6 Luna). 추천 모델·라우팅 표·라우팅 규칙 갱신. Opus 5·GPT-5.6 Sol = 직전 디폴트, Opus 4.8 이하·Fable 5 = 구세대 유지. 출처 = 공식 문서(접근 2026-09-27).
 **Changes v3.1.0** (2026-07-29): **원본 지침(`commands/prompt.md` v3.1.0) 미전파 수리 — 지침 파일이 v2.12.0 시점에 멈춰 있던 sibling 갭 해소.** ① **🏛️ 대원칙 불변 조항 신설**(CRITICAL RULES 직하 — 전문가 프롬프팅 + 모델별 라우팅·자동 탐지, 전 목적·전 모델·향후 이식 불변) ② **이미지 절 = 타겟 경로 분기**(웹 UI JSON ↔ gpt-image-2 API·Codex `$imagegen` = 공냥 킷 v4 포맷 A/B + 끝 `AR`) + JSON에 `target_model`·`expert_anchor` 필드 신설 ③ 동영상 JSON에 `cinematographer`(실존 1인 지명) 신설 ④ FINAL REMINDER에 대원칙 2줄 추가 ⑤ 버전 표기 정정(파일 내부 v2.6.0 → 3.1.0, git 이력과 6개 버전 어긋나 있던 stale 해소). **5가지 옵션 워크플로는 무수정 유지**(기존 절 삭제·축소 ❌).
