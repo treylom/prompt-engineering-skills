@@ -22,7 +22,7 @@ disable-model-invocation: true
 | 어려운 추론·장기 에이전트 작업 | **Fable 5.2** (`claude-fable-5-2`) — 공식 모델 개요는 Opus 5.5 를 출발점으로 두고(*"start with [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview) for most workloads."*), Fable 5.2 를 쓰는 때를 이렇게 적는다: *"for demanding reasoning and long-horizon agentic work, or when your evals on Claude Opus 5.5 at higher effort still fall short."* · 가격 입력/출력 100만 토큰당 $8 / $40(Opus 5.5 = $4 / $20) · Latency «Moderate» · 기본 effort `high` ([Models overview](https://platform.claude.com/docs/en/models/overview) · [Fable 5.2 overview](https://platform.claude.com/docs/en/models/fable-5-2/overview), 접근일 2026-11-10) (Part 2.8) |
 | 사용자가 Fable 5.1 을 지정 · 기존 Fable 5.1 파이프라인 유지 | **Fable 5.1** (이전 세대) — 지정하면 그대로 쓴다. 가격 입력/출력 100만 토큰당 $10 / $50 · 기본 effort `high`. Fable 5.2 는 그보다 싸다: *"Input and output cost less than on Claude Fable 5.1 and Claude Mythos 5.1"* (What’s new in Claude Fable 5.2, 접근일 2026-11-10). 옮길 때는 Part 2.8.2·2.8.12 (Part 2.6) |
 | 기존 Opus 5 파이프라인 유지 | **Opus 5** (legacy · 직전 디폴트) — 옮길 때는 Part 2.7.8. 공식: *"Existing Claude Opus 5 prompts should perform well without changes"* |
-| 가장 어려운 미해결 문제, 며칠 단위 자율 run, 병렬 서브에이전트 오케스트레이션 | **Fable 5** |
+| 사용자가 Fable 5 를 지정 · 기존 Fable 5 파이프라인(며칠 단위 자율 run·병렬 서브에이전트 오케스트레이션) 유지 | **Fable 5** (구세대) — 지정하면 그대로 쓴다. 가장 어려운 문제는 위의 Fable 5.2 |
 | 검증된 파이프라인·예측 가능한 동작·코드리뷰 하네스 | **Opus 4.8** (또는 Fable 5 fallback 대상) |
 | **web fetch 도구 · Priority Tier 필요** | **Opus 4.8 명시** — Opus 5 **미지원**(Part 2.5.5). Opus 5.5 지원 여부는 이 파일의 근거 문서(2026-09-27)에서 확인 범위 내 미발견 |
 | Fable 5 refusal(공격적 보안·생물과학·reasoning 추출) 대비 | Opus 4.8 server/client-side fallback 구성 |
@@ -402,8 +402,8 @@ Fable 5.1 보다 싸다(*"Input and output cost less than on Claude Fable 5.1 an
 
 | # | 변경 | 조치 |
 |---|------|------|
-| 1 | **앞부분 검사(prefix check)가 모든 계정에 적용** — `system`·`tools`·앞선 메시지를 바꾼 뒤 thinking 블록을 되돌려 보내면 400(*"whatever the account’s age"*). Fable 5.1 에서는 2026-08-31 이후 만든 계정에만 적용됐다 | 대화 기록을 덧붙이기만 한다(append-only). 줄여야 하면 context editing 이나, 요약 뒤에 앞선 턴을 남기지 않는 compaction. `"drop_block"` 은 임시방편(출력 토큰이 늘 수 있음) |
-| 2 | **Fable 5.2 의 thinking 블록은 Fable 5.2 · Mythos 5.2 만 읽는다** — *"No other model reads their blocks."* | 라우터·대체 모델로 대화를 다른 모델에 넘기면 그 턴의 추론이 빠진다(Opus 5.5 · Fable 5.1 포함). 요청은 성공한다 |
+| 1 | **앞부분 검사(prefix check)가 모든 계정에 적용** — `system`·`tools`·앞선 메시지를 바꾼 뒤 thinking 블록을 되돌려 보내면 400(*"whatever the account’s age"*). Fable 5.1 에서는 2026-08-31 이후 만든 계정에만 적용됐다 | 대화 기록을 덧붙이기만 한다(append-only). 줄여야 하면 context editing 이나, 요약 뒤에 앞선 턴을 남기지 않는 compaction. `"drop_block"` 은 그 편집을 고치는 동안 잠시 쓰는 방법이다(블록을 버리면 출력 토큰이 늘 수 있음) |
+| 2 | **Fable 5.2 의 thinking 블록은 Fable 5.2 · Mythos 5.2 만 읽는다** — *"No other model reads their blocks."* | 라우터나 대체 모델이 대화를 다른 모델로 넘기면, 넘겨받은 모델이 돌리는 턴에서는 Fable 5.2 의 추론이 빠진다. 넘겨받는 쪽이 Opus 5.5 나 Fable 5.1 이어도 같다. 읽지 못하는 블록은 API 가 버리므로 요청 자체는 성공한다 |
 | 3 | **`computer_20251124` 도구 = 400** (Amazon Bedrock 제외) | `computer_toolset_20260801` 로 옮긴다 |
 | 4 | **advisor 도구 짝** — Fable 5.2 실행 모델은 Fable 5.2 또는 Mythos 5.2 advisor 만 받는다 | advisor 도구 정의의 `model` 을 같은 변경에서 `claude-fable-5-2` 로. `tools` 수정이므로 새 대화에서 |
 
@@ -474,7 +474,7 @@ The user hasn't heard from you in a while: say in a few words what you're doing,
 
 여러 턴 코딩 과제 시험 결과: *"the reminder roughly halved the longest silent stretch, with no noticeable increase in tokens or time."* 붙인 알림은 이후 요청에서도 `messages` 에 그대로 둔다(지우거나 고치면 앞선 턴 편집이 된다 — 2.8.2 ①).
 
-**첫 도구 호출 전 한 줄 + 중간 알림 + 끝 요약** — 사람이 지켜보는 자리에 쓴다(시험에서 과제당 출력 토큰이 약 20% 늘었다):
+**첫 도구 호출 전 한 줄 + 중간 알림 + 끝 요약** — 사람이 지켜보는 자리에 쓴다(코딩 과제 시험에서 과제당 출력 토큰이 약 20% 늘었다):
 
 ```text
 Before you start, say in a line what you're about to do; brief updates while you work help the user follow along. Close with a short recap that stands on its own (what you found, what you did, and what's next), so a reader who only sees the last message has the full picture.
@@ -486,14 +486,14 @@ Before you start, say in a line what you're about to do; brief updates while you
 Every few tool calls, give the user a one-line update on where things stand.
 ```
 
-사용자가 결과만 받으러 돌아오는 비동기 장기 작업에서는 알림 사이의 틈이 덜 문제다.
+사용자가 단계마다 지켜보지 않고 결과만 받으러 돌아오는 비동기 장기 작업에서는 알림이 뜸해도 지장이 덜하다.
 
 ### 2.8.7 서브에이전트 위임
 
-Fable 5.2 가 얼마나 위임하는지는 하네스와 과제에 달려 있다 — 위임을 권하는 프롬프트가 있는 제품에서는 쉽게 위임하고, 최소한의 시작 도구만 준 짧은 과제에서는 거의 하지 않았다.
+Fable 5.2 가 얼마나 위임하는지는 하네스와 과제에 달려 있다 — 위임을 권하는 프롬프트가 있는 에이전트 코딩 제품에서는 쉽게 위임하고, 서브에이전트를 띄우는 도구(이 절에서는 «시작 도구»)를 최소한으로만 만들어 준 짧은 과제 시험에서는 거의 띄우지 않았다.
 
 1. **위임하라는 상시 줄부터 본다** — 시스템 프롬프트·스킬·에이전트 파일에 «위임하라»는 줄이 있으면 그것부터 검토한다. 그래도 필요 이상으로 띄울 때에만 시작 도구의 설명을 고친다.
-2. **시작 도구 설명은 비용을 먼저** — 서브에이전트가 세션 비용에 무엇을 더하는지 · 언제 위임할 가치가 있고 없는지 · 띄운 서브에이전트에게 어떻게 지시를 줄지, 이 셋을 적고 비용을 앞에 둔다.
+2. **시작 도구의 설명에는 비용을 먼저 적는다** — 서브에이전트를 띄우면 세션 비용에 무엇이 더해지는지 · 언제 위임할 가치가 있고 언제 없는지 · 띄운 서브에이전트에게 지시를 어떻게 줄지, 이 셋을 적고 비용을 맨 앞에 둔다.
 3. **효과**(짧은 과제 시험): *"the model delegated about a third less often with the tested description than with one that mostly listed reasons to delegate. Task success was the same."*
 4. 위임이 너무 적으면 비용 이야기를 줄이고, 여전히 많으면 늘려서 다시 잰다. 하네스가 서브에이전트를 어느 모델로 돌리는지도 확인한다 — 서브에이전트가 세션 비용의 큰 몫일 수 있다.
 
@@ -517,7 +517,7 @@ Fable 5.2 가 얼마나 위임하는지는 하네스와 과제에 달려 있다 
 | **위임하라는 상시 줄** | 먼저 읽고, 필요 이상으로 띄우면 뺀다 | 2.8.7 |
 | **하네스가 프롬프트 안에 적어 넣는 토큰 예산** («이 작업에 N 토큰, 남은 양 M») | 빼고 시험한다. 예산 크기가 모델이 쓰는 양을 바꾼다 | `high`·`xhigh` 코딩 과제 시험: *"removing a large budget lowered cost, with equivalent performance."* — 프롬프트 속 글에 대한 결과이고, API 의 task budgets(beta)는 이 시험 범위 밖 |
 | **앞선 턴을 고치는 하네스 코드** | 기록은 덧붙이기만 | 2.8.2 ① |
-| **«treat that answer as done» 두 문장**(Opus 5.5 가이드의 채팅용 예시 — 2.7.3) | 모델이 이전 답을 계속 다시 살피기를 원하는 자리에는 넣지 않는다 | *"the model also became far less likely to point out mistakes in its earlier answers."* |
+| **«treat that answer as done» 두 문장**(Opus 5.5 가이드의 채팅용 예시 — 2.7.3) | 모델이 이전 답을 계속 다시 살피기를 원하는 자리에는 넣지 않는다 | `high` effort 시험: *"the model also became far less likely to point out mistakes in its earlier answers."* |
 | **생각을 줄이라는 문장**(«answer directly without deliberating» 류) | 빼고 effort 를 낮춘다 | *"In Anthropic’s testing, such a line didn’t stop Claude Fable 5.2 from thinking at `medium` and above."* |
 | **딱딱한 문체 규칙**(문장 길이 상한 등) | 필요 없는 것은 뺀 다음에 2.8.10 블록을 넣는다 | *"a hard limit such as “one instruction per sentence, in 20 words or fewer” can make its prose choppy."* |
 | **쌓인 규칙·노트·메모리** | 이유가 사라진 조심 문구는 지우고, 절대 규칙은 범위와 이유를 적어 다시 쓴다 | 2.8.8 |
@@ -533,7 +533,7 @@ Write for an intelligent but low-context reader. The person reading has not seen
 Use plain words, and write in clear, understandable full sentences. Do not use a term or abbreviation that you made up during the work. Say what the thing is in a way any reader would understand. Write mostly in the style of ASD-STE100 Simplified Technical English: short sentences, one idea per sentence, active voice, and consistently using the same word for the same thing. Use a paragraph of flowing prose where ideas connect, and keep bullets for lists of separate items. Leave out unnecessary details unless the reader asks and practice concision, but do ensure that your messages have the key context. Aim to make your user-facing text as human-readable and clear as possible.
 ```
 
-효과(에이전트 과제 시험): *"this text made final reports less dense, with fewer semicolons."* 업무 자동화 과제에서는 문장도 짧아졌다. 길이 지시나 꼭 넣을 세부 항목은 따로 덧붙인다. 넣기 전에 2.8.9 의 딱딱한 문체 규칙부터 뺀다.
+효과(에이전트 과제 시험): *"this text made final reports less dense, with fewer semicolons."* 업무 자동화 과제에서는 문장도 짧아졌다. 길이 지시나 꼭 넣을 세부 항목은 따로 덧붙인다. 넣기 전에 2.8.9 의 딱딱한 문체 규칙 가운데 필요 없어진 것부터 뺀다.
 
 ### 2.8.11 거절 범주와 대체 모델
 
@@ -557,7 +557,7 @@ Use plain words, and write in clear, understandable full sentences. Do not use a
 
 > *"Make these changes in new conversations only."*
 
-Fable 5.2 는 모든 계정에 앞부분 검사를 적용하므로, 저장해 둔 대화를 새 글로 이어 가면 400 이 날 수 있다. 대화 중간에 지시를 바꿔야 하면 가장 새 턴에 넣는다.
+Fable 5.2 는 모든 계정에 앞부분 검사를 적용하므로, 저장해 둔 대화에 바뀐 지시문을 넣어 이어 가면 400 이 날 수 있다. 대화 중간에 지시를 바꿔야 하면 가장 최근 턴에 넣는다.
 
 **옮기는 순서**(공식 「Where to start」):
 
