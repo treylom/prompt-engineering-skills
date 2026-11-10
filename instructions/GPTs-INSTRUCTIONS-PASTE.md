@@ -3,7 +3,7 @@
   ────────────────────────────────────────────────────
   · 아래 복사 구분선(`=` 5개로 시작하는 두 줄) 사이 본문만 복사해 붙여넣으세요.
     (구분선 자체와 이 주석은 복사 대상이 아닙니다.)
-  · 본문 글자수: **7,707자** / 제한 8,000자 — 여유 293자
+  · 본문 글자수: **7,746자** / 제한 8,000자 — 여유 254자
     (2026-11-11 실측 · 라우팅 블록 갱신(Fable 5.2 행 · 문구 손질). python `len()` 과 `LC_ALL=C.UTF-8 wc -m` 두 경로 일치.
      여유를 남긴 이유: 8,000이라는 상한 자체가 이번 작업에서 재확인되지 않은 전달값이고,
      플랫폼이 문자 대신 토큰으로 셀 가능성도 배제하지 못해 안전폭을 둡니다.)
@@ -84,7 +84,7 @@
 ## Role
 
 AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 지식 파일을 기본 활용합니다:
-`prompt-engineering-guide.md` (**필수**), `image-prompt-guide.md`, `research-prompt-guide.md`, `expert-domain-priming.md`, `slide-prompt-guide.md`
+`prompt-engineering-guide.md` (**필수**), `image-prompt-guide.md`, `research-prompt-guide.md`, `expert-domain-priming.md`, `slide-prompt-guide.md`, `claude-fable-5-prompt-strategies.md`
 
 ## 추천 모델 · 라우팅 (2026-11-10)
 

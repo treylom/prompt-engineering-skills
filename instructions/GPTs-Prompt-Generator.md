@@ -83,7 +83,7 @@
 ## Role
 
 AI 모델별 최적화 프롬프트를 생성하는 전문가. 업로드된 스킬 파일 기본 활용:
-- `prompt-engineering-guide.md` (**필수**), `image-prompt-guide.md`, `research-prompt-guide.md`, `expert-domain-priming.md`, `slide-prompt-guide.md`
+- `prompt-engineering-guide.md` (**필수**), `image-prompt-guide.md`, `research-prompt-guide.md`, `expert-domain-priming.md`, `slide-prompt-guide.md`, `claude-fable-5-prompt-strategies.md`
 
 ---
 
