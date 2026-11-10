@@ -27,13 +27,14 @@
  *   A3 target_line    "타겟: <모델>" 1줄 (대원칙 §2)
  *   A4 kit_ar         image + gpt-image 타겟일 때 킷 포맷 끝 `AR x:y`
  *   A5 version_sync   instructions/ 버전 표기 ↔ plugin.json  (--check-versions 전용)
+ *   A6 dollar_digit   호출 본문 파일(commands 의 md · 각 스킬의 SKILL.md · prompt-command.md 거울)에 달러 기호+숫자 0곳  (--test 전용)
  *
  * ⚠️ 이 게이트가 재는 것은 **구조**다. "그 이름이 실존 인물인가", "그 어휘가 충분히
  *    구체적인가" 같은 의미 판정은 정규식의 사정거리 밖이라 note 로만 고지한다.
  *    음성 결과는 "없다" 가 아니라 "이 도구로는 안 보인다" 로 적는다.
  */
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -219,6 +220,53 @@ function checkVersionSync(root) {
   return axis("A5", "version_sync", FAIL, `버전 표기 불일치 (${uniq.join(" ≠ ")}) — ${detail}`);
 }
 
+/* ── A6: 호출 본문 파일의 달러 기호+숫자 (--test 전용) ─────── */
+// 명령·스킬 본문은 호출될 때 「달러 기호 바로 뒤 숫자」 자리가 인자의 그 번째 낱말로 치환된다.
+// 가격 표기가 그 꼴이면 호출 본문에서 깨지므로 「8달러」 꼴로 적는다 — 이 축은 그 재발을 막는다.
+const DOLLAR_DIGIT_RE = /\$\d/g;
+const MIRROR_FILE = "skills/prompt/references/prompt-command.md";
+
+function listInvocationBodyFiles(root) {
+  const files = [];
+  const cmdDir = join(root, "commands");
+  if (existsSync(cmdDir)) {
+    // 하위 폴더의 명령(commands/sync 등)도 호출 본문이다 — 재귀로 모은다
+    for (const f of readdirSync(cmdDir, { recursive: true }).map(String).sort()) {
+      if (f.endsWith(".md")) files.push(`commands/${f.split("\\").join("/")}`);
+    }
+  }
+  const skillsDir = join(root, "skills");
+  if (existsSync(skillsDir)) {
+    for (const d of readdirSync(skillsDir).sort()) {
+      if (existsSync(join(skillsDir, d, "SKILL.md"))) files.push(`skills/${d}/SKILL.md`);
+    }
+  }
+  if (existsSync(join(root, MIRROR_FILE))) files.push(MIRROR_FILE);
+  return files;
+}
+
+function checkDollarDigits(root) {
+  const files = listInvocationBodyFiles(root);
+  if (files.length === 0) {
+    return axis("A6", "dollar_digit", UNMEASURED,
+      `호출 본문 파일을 한 개도 찾지 못함 — 리포 루트가 맞는지 확인 필요(${root})`);
+  }
+  const hits = [];
+  let total = 0;
+  for (const rel of files) {
+    readFileSync(join(root, rel), "utf8").split("\n").forEach((line, i) => {
+      const n = (line.match(DOLLAR_DIGIT_RE) ?? []).length;
+      if (n) { hits.push(`${rel}:${i + 1}(${n})`); total += n; }
+    });
+  }
+  if (total === 0) {
+    return axis("A6", "dollar_digit", PASS, `호출 본문 파일 ${files.length}개에 달러 기호+숫자 0곳`);
+  }
+  return axis("A6", "dollar_digit", FAIL,
+    `달러 기호+숫자 ${total}곳(${hits.length}줄) — 호출 때 인자 낱말로 치환됨: ${hits.join(" · ")}`,
+    "가격은 「8달러」 꼴로 적는다");
+}
+
 /* ── 목적 추정 ────────────────────────────────────────────── */
 function detectPurpose(text) {
   if (/"scenes"\s*:|스토리보드|cinematographer|시네마토그래퍼|Veo|Sora|Kling/i.test(text)) return "video";
@@ -315,7 +363,14 @@ function runTest() {
   console.log(`         ${a5.msg}`);
   if (a5.status === FAIL) fails++;
 
-  console.log(`\n  ${ran + 1}건 실행 · 실패 ${fails}건`);
+  // A6 도 리포 상태에 의존 — 안 잰 것(UNMEASURED)도 통과로 세지 않는다
+  const a6 = checkDollarDigits(REPO_ROOT);
+  console.log(`\n  [${a6.status === PASS ? "OK  " : a6.status === FAIL ? "FAIL" : "UNM "}] A6 dollar_digit (리포 실제 상태)`);
+  console.log(`         ${a6.msg}`);
+  if (a6.note) console.log(`         ↳ note: ${a6.note}`);
+  if (a6.status !== PASS) fails++;
+
+  console.log(`\n  ${ran + 2}건 실행 · 실패 ${fails}건`);
   return fails ? 1 : 0;
 }
 
