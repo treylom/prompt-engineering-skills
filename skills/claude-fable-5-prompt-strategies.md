@@ -283,9 +283,9 @@ You are operating autonomously. The user is not watching in real time and cannot
 Once you have answered something, treat that answer as done. On later turns, focus your thinking on what the user is asking now, and don't go back over an earlier answer unless the user asks about it or points out a problem with it.
 ```
 
-Opus 5.5 가이드도 이 블록에 단서를 단다 — 긴 분석이나, 뒤 단계에서 앞 단계의 실수가 드러날 수 있는 에이전트 작업에는 넣지 않는다: *"Leave it out where you want the model to keep re-examining its earlier work, for example in long analyses, or in agentic tasks where a later step can reveal a mistake in an earlier one."* 모델이 앞선 답의 실수를 스스로 짚는 일이 줄어들 수도 있으니, 그것이 중요한 쓰임이면 넣기 전에 시험한다: *"The instruction might also make the model less likely to point out a mistake in an earlier answer on its own, so if that matters for your application, test for it before adopting the instruction."*
+Opus 5.5 가이드도 이 블록에 단서를 단다 — 모델이 앞선 작업을 계속 다시 살피기를 원하는 자리(예: 긴 분석, 뒤 단계에서 앞 단계의 실수가 드러날 수 있는 에이전트 작업)에는 넣지 않는다: *"Leave it out where you want the model to keep re-examining its earlier work, for example in long analyses, or in agentic tasks where a later step can reveal a mistake in an earlier one."* 모델이 앞선 답의 실수를 스스로 짚는 일이 줄어들 수도 있으니, 그것이 중요한 쓰임이면 넣기 전에 시험한다: *"The instruction might also make the model less likely to point out a mistake in an earlier answer on its own, so if that matters for your application, test for it before adopting the instruction."*
 
-⚠️ **Fable 5.2 대상이면 이 블록을 그대로 옮기지 않는다.** Fable 5.2 가이드의 시험(`high` effort)에서도 이 두 문장은 후속 질문의 thinking 을 줄였지만, 위 단서의 대가가 실제로 나타났다: *"the model also became far less likely to point out mistakes in its earlier answers. Leave these lines out where you want the model to keep re-examining its earlier answers."* 그 밖의 자리에서도 모델이 자기 실수를 여전히 짚는지 시험한 뒤에 넣는다(Part 2.8.9).
+⚠️ **Fable 5.2 대상이면 이 블록을 그대로 옮기지 않는다.** Fable 5.2 가이드의 시험(`high` effort)에서도 이 두 문장은 후속 질문의 thinking 을 줄였지만 모델이 앞선 답의 실수를 짚는 일이 크게 줄었다: *"the model also became far less likely to point out mistakes in its earlier answers. Leave these lines out where you want the model to keep re-examining its earlier answers."* 그 밖의 자리에서도 모델이 자기 실수를 여전히 짚는지 시험한 뒤에 넣는다(Part 2.8.9).
 
 ### 2.7.4 빼야 할 지시 — thinking 을 대신하던 문장들
 
